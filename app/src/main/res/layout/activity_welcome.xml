@@ -45,13 +45,14 @@
     <ImageView
         android:id="@+id/start"
         android:layout_width="300dp"
-        android:layout_height="280dp"
+        android:layout_height="260dp"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="30dp"
         android:scaleType="centerInside"
         android:src="@mipmap/welcome_start" />
 
     <ImageView
+        android:id="@+id/go"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_alignParentEnd="true"
