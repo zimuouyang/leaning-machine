@@ -12,10 +12,10 @@ import com.leaning_machine.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LearnPhonicsFragment#newInstance} factory method to
+ * Use the {@link LanguageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LearnPhonicsFragment extends Fragment {
+public class LanguageFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class LearnPhonicsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public LearnPhonicsFragment() {
+    public LanguageFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class LearnPhonicsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LearnPhonicsFragment.
+     * @return A new instance of fragment LanguageFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LearnPhonicsFragment newInstance(String param1, String param2) {
-        LearnPhonicsFragment fragment = new LearnPhonicsFragment();
+    public static LanguageFragment newInstance(String param1, String param2) {
+        LanguageFragment fragment = new LanguageFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class LearnPhonicsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_learn_phonics, container, false);
+        return inflater.inflate(R.layout.fragment_language, container, false);
     }
 }
