@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp"
     tools:context=".fragment.EnglishCategoryFragment">
 
     <ScrollView
@@ -18,7 +17,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/mo_er_duo"
+                android:id="@+id/khan_kids"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -33,7 +32,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/xue_pin_du"
+                    android:id="@+id/chu_zhong_wuli"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -43,7 +42,7 @@
                     android:src="@mipmap/chu_zhong_wuli" />
 
                 <ImageView
-                    android:id="@+id/liu_li_shuo"
+                    android:id="@+id/chu_zhong_huaxue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -60,7 +59,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/middle_english"
+                    android:id="@+id/middle_sheng_wu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -70,14 +69,14 @@
                     android:src="@mipmap/middle_sheng_wu" />
 
                 <ImageView
-                    android:id="@+id/high_english"
+                    android:id="@+id/middle_di_li"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/chu_zhong_wuli" />
+                    android:src="@mipmap/middle_di_li" />
             </LinearLayout>
 
             <LinearLayout
@@ -97,7 +96,7 @@
                     android:src="@mipmap/middle_history" />
 
                 <ImageView
-                    android:id="@+id/high_politics"
+                    android:id="@+id/middle_zheng_zhi"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"

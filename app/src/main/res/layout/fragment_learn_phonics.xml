@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp"
     tools:context=".fragment.EnglishCategoryFragment">
 
     <ScrollView
@@ -18,7 +17,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/mo_er_duo"
+                android:id="@+id/speed_phonics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -33,7 +32,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/xue_pin_du"
+                    android:id="@+id/abc_kides"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -43,7 +42,7 @@
                     android:src="@mipmap/abc_kides" />
 
                 <ImageView
-                    android:id="@+id/liu_li_shuo"
+                    android:id="@+id/starfall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -60,7 +59,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/ai_yue_du"
+                    android:id="@+id/starfall_learn_to_read"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -70,7 +69,7 @@
                     android:src="@mipmap/starfall_learn_to_read" />
 
                 <ImageView
-                    android:id="@+id/qin_lian_xi"
+                    android:id="@+id/sight_words"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"

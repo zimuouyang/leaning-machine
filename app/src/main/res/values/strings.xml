@@ -157,4 +157,22 @@
         <item>@string/zuo_wen_zi_dian</item>
         <item>@string/zuo_wen_study</item>
     </string-array>
+
+
+    <string name="pin_du">学拼读</string>
+    <string name="mo_er_duo">磨耳朵</string>
+    <string name="liu_li_shuo">流利说</string>
+    <string name="ai_yue_du">爱阅读</string>
+    <string name="qin_lian_xi">勤练习</string>
+    <string name="bei_dan_ci">背单词</string>
+    <string name="see_movie">看电影</string>
+    <string name="qi_yi_zhi">趣益智</string>
+
+
+    <string name="main">首页</string>
+    <string name="english">英语</string>
+    <string name="math">数学</string>
+    <string name="language">语文</string>
+    <string name="others">其他</string>
+    <string name="person_center">个人中心</string>
 </resources>
