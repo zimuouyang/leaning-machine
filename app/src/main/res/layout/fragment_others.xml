@@ -50,7 +50,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/bi_shen_zuo_wen" />
+                    android:src="@mipmap/chu_zhong_huaxue" />
             </LinearLayout>
 
             <LinearLayout
@@ -67,7 +67,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/starfall" />
+                    android:src="@mipmap/middle_sheng_wu" />
 
                 <ImageView
                     android:id="@+id/high_english"
@@ -77,7 +77,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/starfall" />
+                    android:src="@mipmap/chu_zhong_wuli" />
             </LinearLayout>
 
             <LinearLayout
@@ -94,7 +94,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/starfall" />
+                    android:src="@mipmap/middle_history" />
 
                 <ImageView
                     android:id="@+id/high_politics"
@@ -104,7 +104,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/starfall" />
+                    android:src="@mipmap/middle_zheng_zhi" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -30,4 +30,9 @@ public class MainFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
+
+    @Override
+    public void initView(View view) {
+
+    }
 }
