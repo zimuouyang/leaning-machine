@@ -7,7 +7,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-
+/**
+ *
+ * @author John
+ * @date 2021/9/15
+ */
 public abstract class BaseFragment extends Fragment {
     public abstract void initView(View view);
 

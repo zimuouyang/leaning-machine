@@ -50,7 +50,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/chu_zhong_wuli" />
+                    android:src="@mipmap/ou_la_middle_math" />
             </LinearLayout>
 
             <LinearLayout
@@ -67,7 +67,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/starfall" />
+                    android:src="@mipmap/moose_math" />
 
                 <ImageView
                     android:id="@+id/high_english"
@@ -77,7 +77,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/starfall" />
+                    android:src="@mipmap/dou_dou_math" />
             </LinearLayout>
 
             <LinearLayout
@@ -94,7 +94,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/starfall" />
+                    android:src="@mipmap/middle_math" />
 
                 <ImageView
                     android:id="@+id/high_math"
@@ -104,7 +104,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/starfall" />
+                    android:src="@mipmap/high_math" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -67,7 +67,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/xue_pin_du" />
+                    android:src="@mipmap/ai_yue_du" />
 
                 <ImageView
                     android:id="@+id/qin_lian_xi"
@@ -77,7 +77,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/category_liu_li_shuo" />
+                    android:src="@mipmap/qin_lian_xi" />
             </LinearLayout>
 
             <LinearLayout
@@ -94,7 +94,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/xue_pin_du" />
+                    android:src="@mipmap/bei_dan_ci" />
 
                 <ImageView
                     android:id="@+id/kan_dian_ying"

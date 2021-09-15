@@ -67,7 +67,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/starfall" />
+                    android:src="@mipmap/play_and_learn" />
 
                 <ImageView
                     android:id="@+id/high_english"
@@ -77,7 +77,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/starfall" />
+                    android:src="@mipmap/play_learn" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
