@@ -175,4 +175,7 @@
     <string name="language">语文</string>
     <string name="others">其他</string>
     <string name="person_center">个人中心</string>
+
+    <string name="date">日期</string>
+    <string name="total_length">总时长</string>
 </resources>
