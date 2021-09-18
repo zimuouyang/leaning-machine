@@ -128,7 +128,7 @@ public class Utils {
 
             }
 
-            total = moErDuo + pinDu + liuLiShuo + aiYueDu + qinLianxi + beiDanCi + kanDianYing + quYiZhi + math + language + others + go;
+            total = moErDuo + pinDu + liuLiShuo + aiYueDu + qinLianxi + beiDanCi + kanDianYing + quYiZhi + math + language + others;
 
             usedTimeEntity.setPinDuLength(pinDu);
             usedTimeEntity.setErDuoLength(moErDuo);

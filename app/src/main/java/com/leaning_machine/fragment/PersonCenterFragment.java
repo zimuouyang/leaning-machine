@@ -142,7 +142,7 @@ public class PersonCenterFragment extends BaseFragment {
             super.onPostExecute(usedTimeEntities);
             adapter.setData(usedTimeEntities);
             SpannableString textSpanned = new SpannableString(String.format(getString(R.string.listen_read), usedTimeEntities.size()));
-            textSpanned.setSpan(new ForegroundColorSpan(Color.RED),
+            textSpanned.setSpan(new ForegroundColorSpan(Color.parseColor("#FF2961")),
                     8, 9, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             textView.setText(textSpanned);
 
