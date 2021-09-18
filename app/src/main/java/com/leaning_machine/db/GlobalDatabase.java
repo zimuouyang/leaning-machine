@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.leaning_machine.db.converter.Converters;
+import com.leaning_machine.db.dao.UsedTimeDao;
 import com.leaning_machine.db.entity.UsedTimeEntity;
 
 /**
@@ -18,6 +19,7 @@ import com.leaning_machine.db.entity.UsedTimeEntity;
 public abstract class GlobalDatabase extends RoomDatabase {
     public static String DATABASE_NAME = "learn-db";
 
+    public abstract UsedTimeDao usedTimeDao();
     private static GlobalDatabase INSTANCE;
     private static final Object sLock = new Object();
 

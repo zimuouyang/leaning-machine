@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".fragment.EnglishCategoryFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -17,7 +17,6 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/mo_er_duo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -26,12 +25,117 @@
 
 
             <ImageView
-                android:layout_marginTop="30dp"
-                android:src="@mipmap/congratulations"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:layout_height="wrap_content"/>
+                android:src="@mipmap/congratulations" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/date"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/total_length"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:text="@string/total_length"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/xue_pin_du"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/pin_du"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/mo_er_duo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/mo_er_duo"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/liu_li_shuo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/liu_li_shuo"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/ai_yue_du"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/ai_yue_du"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/qin_lian_xi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/qin_lian_xi"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/bei_dan_ci"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/bei_dan_ci"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/language"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/language"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/math"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/math"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/others"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/others"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/usedTimeRecyclerView"
+                android:nestedScrollingEnabled="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

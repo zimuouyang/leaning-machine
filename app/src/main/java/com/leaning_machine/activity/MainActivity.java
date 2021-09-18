@@ -1,16 +1,15 @@
 package com.leaning_machine.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -30,13 +29,14 @@ import com.leaning_machine.fragment.OthersFragment;
 import com.leaning_machine.fragment.PersonCenterFragment;
 import com.leaning_machine.fragment.PracticeFrequentlyFragment;
 import com.leaning_machine.fragment.ReciteWordsFragment;
+import com.leaning_machine.utils.Utils;
 
 /**
  * @author John
  */
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
     private Fragment fragment;
-    private int topIndex;
+    private int topIndex = -1;
     private int bottomIndex = 0;
     private TextView[ ] topTextViews;
     private TextView[ ] bottomTextViews;
@@ -73,6 +73,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         }
 
         initView();
+        Utils.transparencyBar(this);
     }
 
     private void initView() {
@@ -112,6 +113,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         otherText.setOnClickListener(this);
         personCenterText.setOnClickListener(this);
 
+        main.setTextColor(Color.RED);
+
     }
 
     /**
@@ -132,57 +135,69 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 ft.hide(from).show(to).commitAllowingStateLoss();
             }
         }
+
+        changeTopFixView(to);
+
     }
 
+    private void changeTopFixView(Fragment to) {
+        clearTopFixView();
+        int currentIndex = -1;
+        if (to instanceof LearnPhonicsFragment) {
+            currentIndex = 0;
+            fixEnglish();
+        } else if (to instanceof GrindEarsFragment) {
+            currentIndex = 1;
+        } else if (to instanceof FluentFragment) {
+            currentIndex = 2;
+        } else if (to instanceof LoveReadFragment) {
+            currentIndex = 3;
+        } else if (to instanceof PracticeFrequentlyFragment) {
+            currentIndex = 4;
+        } else if (to instanceof ReciteWordsFragment) {
+            currentIndex = 5;
+        }  else if (to instanceof FunPuzzleFragment) {
+            currentIndex = 7;
+        }
+        if (currentIndex != -1) {
+            topIndex = currentIndex;
+            fixEnglish();
+            topTextViews[topIndex].setTextColor(Color.RED);
+        }
+    }
+
+    private void clearTopFixView() {
+        if (topIndex != -1) {
+            topTextViews[topIndex].setTextColor(Color.BLACK);
+        }
+    }
+
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pin_du:
-                topTextViews[topIndex].setTextColor(Color.BLACK);
-                topIndex = 0;
-                xuePinDu.setTextColor(Color.RED);
                 switchContent(fragment, LearnPhonicsFragment.newInstance());
                 break;
             case R.id.mo_er_duo:
-                topTextViews[topIndex].setTextColor(Color.BLACK);
-                topIndex = 1;
-                moErDuo.setTextColor(Color.RED);
                 switchContent(fragment, GrindEarsFragment.newInstance());
                 break;
             case R.id.liu_li_shuo:
-                topTextViews[topIndex].setTextColor(Color.BLACK);
-                topIndex = 2;
-                liuLiShuo.setTextColor(Color.RED);
                 switchContent(fragment, FluentFragment.newInstance());
                 break;
             case R.id.ai_yue_du:
-                topTextViews[topIndex].setTextColor(Color.BLACK);
-                topIndex = 3;
-                aiYueDu.setTextColor(Color.RED);
                 switchContent(fragment, LoveReadFragment.newInstance());
                 break;
             case R.id.qin_lian_xi:
-                topTextViews[topIndex].setTextColor(Color.BLACK);
-                topIndex = 4;
-                qinLianXi.setTextColor(Color.RED);
                 switchContent(fragment, PracticeFrequentlyFragment.newInstance());
                 break;
             case R.id.bei_dan_ci:
-                topTextViews[topIndex].setTextColor(Color.BLACK);
-                topIndex = 5;
-                beiDanCi.setTextColor(Color.RED);
                 switchContent(fragment, ReciteWordsFragment.newInstance());
                 break;
             case R.id.see_movie:
-                topTextViews[topIndex].setTextColor(Color.BLACK);
-                topIndex = 6;
-                seeMovie.setTextColor(Color.RED);
                 openApp(getString(R.string.see_movie), this);
                 break;
             case R.id.qu_yi_zhi:
-                topTextViews[topIndex].setTextColor(Color.BLACK);
-                topIndex = 7;
-                quYiZhi.setTextColor(Color.RED);
                 switchContent(fragment, FunPuzzleFragment.newInstance());
                 break;
 
@@ -193,9 +208,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 switchContent(fragment, MainFragment.newInstance());
                 break;
             case R.id.english:
-                bottomTextViews[bottomIndex].setTextColor(Color.BLACK);
-                bottomIndex = 1;
-                englishText.setTextColor(Color.RED);
+                fixEnglish();
                 switchContent(fragment, EnglishCategoryFragment.newInstance());
                 break;
             case R.id.math:
@@ -223,6 +236,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 switchContent(fragment, PersonCenterFragment.newInstance());
                 break;
         }
+    }
+
+    private void fixEnglish() {
+        bottomTextViews[bottomIndex].setTextColor(Color.BLACK);
+        bottomIndex = 1;
+        englishText.setTextColor(Color.RED);
     }
 
     public void openApp(String packageName, Context context) {

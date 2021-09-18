@@ -51,6 +51,14 @@ public class UsedTimeEntity {
     private long danCiLength;
 
     @NonNull
+    @ColumnInfo(name = "SEE_MOVIE_LENGTH")
+    private long kanDianYingLength;
+
+    @NonNull
+    @ColumnInfo(name = "QU_YI_ZHI_LENGTH")
+    private long quLeZhiLength;
+
+    @NonNull
     @ColumnInfo(name = "LANGUAGE_LENGTH")
     private long languageLength;
 
@@ -159,6 +167,22 @@ public class UsedTimeEntity {
         this.otherLength = otherLength;
     }
 
+    public long getKanDianYingLength() {
+        return kanDianYingLength;
+    }
+
+    public void setKanDianYingLength(long kanDianYingLength) {
+        this.kanDianYingLength = kanDianYingLength;
+    }
+
+    public long getQuLeZhiLength() {
+        return quLeZhiLength;
+    }
+
+    public void setQuLeZhiLength(long quLeZhiLength) {
+        this.quLeZhiLength = quLeZhiLength;
+    }
+
     @Override
     public String toString() {
         return "UsedTimeEntity{" +
@@ -171,6 +195,8 @@ public class UsedTimeEntity {
                 ", yueDuLength=" + yueDuLength +
                 ", lianXiLength=" + lianXiLength +
                 ", danCiLength=" + danCiLength +
+                ", kanDianYingLength=" + kanDianYingLength +
+                ", quLeZhiLength=" + quLeZhiLength +
                 ", languageLength=" + languageLength +
                 ", mathLength=" + mathLength +
                 ", otherLength=" + otherLength +

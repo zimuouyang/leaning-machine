@@ -72,7 +72,7 @@
     <string name="zuo_wen_study">cn.xuexi.android</string>
     
     
-    <string-array name="others">
+    <string-array name="others_group">
         <item>@string/others_middle_geography</item>
         <item>@string/others_middle_hua_xue</item>
         <item>@string/others_middle_history</item>
@@ -81,13 +81,13 @@
         <item>@string/others_middle_zheng_zi</item>
     </string-array>
 
-    <string-array name="go_class">
+    <string-array name="go_class_group">
         <item>@string/go_class_qq</item>
         <item>@string/go_class_ding_ding</item>
         <item>@string/go_class_we_chat</item>
     </string-array>
 
-    <string-array name="math">
+    <string-array name="math_group">
         <item>@string/math_moose_math</item>
         <item>@string/math_pythagorea</item>
         <item>@string/math_moose_math</item>
@@ -97,13 +97,13 @@
         <item>@string/math_ou_la_math</item>
     </string-array>
 
-    <string-array name="mo_er_duo">
+    <string-array name="mo_er_duo_group">
         <item>@string/english_mo_er_duo_khankids</item>
         <item>@string/english_mo_er_duo_raz</item>
         <item>@string/english_mo_er_duo_dong_ting_hui_ben</item>
     </string-array>
 
-    <string-array name="xue_pin_du">
+    <string-array name="xue_pin_du_group">
         <item>@string/english_pin_du_abc_kids</item>
         <item>@string/english_pin_du_sightwords</item>
         <item>@string/english_pin_du_speedphonics</item>
@@ -111,19 +111,19 @@
         <item>@string/english_pin_du_starfall_ltr</item>
     </string-array>
 
-    <string-array name="liu_li_shuo">
+    <string-array name="liu_li_shuo_group">
         <item>@string/english_liu_li_shuo_ko_yu</item>
         <item>@string/english_liu_li_shuo_liu_li_shuo</item>
         <item>@string/english_liu_li_shuo_pei_yin</item>
     </string-array>
 
-    <string-array name="ai_yue_du">
+    <string-array name="ai_yue_du_group">
         <item>@string/english_ai_yue_du_abc_reading</item>
         <item>@string/english_ai_yue_du_read_long</item>
         <item>@string/english_ai_yue_du_reading_pro</item>
     </string-array>
 
-    <string-array name="qin_lian_xi">
+    <string-array name="qin_lian_xi_group">
         <item>@string/english_qin_lian_xi_civia</item>
         <item>@string/english_qin_lian_xi_duo_lin_guo</item>
         <item>@string/english_qin_lian_xi_ef_hello</item>
@@ -132,13 +132,13 @@
         <item>@string/english_qin_lian_xi_new_gai_nian</item>
     </string-array>
 
-    <string-array name="bei_dan_ci">
+    <string-array name="bei_dan_ci_group">
         <item>@string/english_bei_dan_ci_three_d</item>
         <item>@string/english_bei_dan_ci_ai_bei_dan_ci</item>
         <item>@string/english_bei_dan_ci_bai_ci_zhan</item>
     </string-array>
 
-    <string-array name="qu_yi_zhi">
+    <string-array name="qu_yi_zhi_group">
         <item>@string/english_qu_yi_zhi_molly</item>
         <item>@string/english_qu_yi_zhi_pbsk</item>
         <item>@string/english_qu_yi_zhi_engineering</item>
@@ -146,11 +146,11 @@
         <item>@string/english_qu_yi_zhi_kids</item>
     </string-array>
 
-    <string-array name="see_movie">
+    <string-array name="see_movie_group">
         <item>@string/english_movie</item>
     </string-array>
 
-    <string-array name="yu_wen">
+    <string-array name="yu_wen_group">
         <item>@string/zuo_wen_bi_shen</item>
         <item>@string/zuo_wen_middle</item>
         <item>@string/zuo_wen_high</item>

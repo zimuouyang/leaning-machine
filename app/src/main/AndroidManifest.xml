@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.leaning_machine" >
+    
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +26,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".service.UsedTimeService"/>
+
+        <receiver android:name=".receiver.UsedTimeReceiver">
+            <intent-filter>
+                <action android:name="com.learning.USED_TIME_ACTION" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
