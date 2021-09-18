@@ -24,13 +24,25 @@
                 android:src="@mipmap/person_read_along" />
 
 
-            <ImageView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@mipmap/congratulations" />
+                android:background="@drawable/congratulations">
+
+                <TextView
+                    android:id="@+id/total_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:paddingBottom="20dp"
+                    android:textSize="23sp" />
+            </RelativeLayout>
 
 
             <LinearLayout

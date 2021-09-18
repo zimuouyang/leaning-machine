@@ -4,12 +4,18 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +39,7 @@ import java.util.Locale;
 public class PersonCenterFragment extends BaseFragment {
     RecyclerView recyclerView;
     private UsedTimeAdapter adapter;
+    private TextView textView;
 
     public PersonCenterFragment() {
         // Required empty public constructor
@@ -68,6 +75,7 @@ public class PersonCenterFragment extends BaseFragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
 
+        textView = view.findViewById(R.id.total_time);
         new UsedTimeTask(getActivity()).execute();
     }
 
@@ -133,6 +141,11 @@ public class PersonCenterFragment extends BaseFragment {
         protected void onPostExecute(List<UsedTimeEntity> usedTimeEntities) {
             super.onPostExecute(usedTimeEntities);
             adapter.setData(usedTimeEntities);
+            SpannableString textSpanned = new SpannableString(String.format(getString(R.string.listen_read), usedTimeEntities.size()));
+            textSpanned.setSpan(new ForegroundColorSpan(Color.RED),
+                    8, 9, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            textView.setText(textSpanned);
+
         }
 
     }
