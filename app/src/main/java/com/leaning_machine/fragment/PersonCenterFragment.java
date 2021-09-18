@@ -123,7 +123,9 @@ public class PersonCenterFragment extends BaseFragment {
                 }
             }
 
-            list.add(current);
+            if (current != null) {
+                list.add(current);
+            }
             return list;
         }
 
