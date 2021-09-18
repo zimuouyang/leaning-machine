@@ -68,11 +68,11 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void initView(View view) {
-        view.findViewById(R.id.chu_zhong_wuli).setOnClickListener(this::initView);
-        view.findViewById(R.id.chu_zhong_huaxue).setOnClickListener(this::initView);
-        view.findViewById(R.id.middle_sheng_wu).setOnClickListener(this::initView);
-        view.findViewById(R.id.middle_di_li).setOnClickListener(this::initView);
-        view.findViewById(R.id.middle_history).setOnClickListener(this::initView);
-        view.findViewById(R.id.middle_zheng_zhi).setOnClickListener(this::initView);
+        view.findViewById(R.id.chu_zhong_wuli).setOnClickListener(this);
+        view.findViewById(R.id.chu_zhong_huaxue).setOnClickListener(this);
+        view.findViewById(R.id.middle_sheng_wu).setOnClickListener(this);
+        view.findViewById(R.id.middle_di_li).setOnClickListener(this);
+        view.findViewById(R.id.middle_history).setOnClickListener(this);
+        view.findViewById(R.id.middle_zheng_zhi).setOnClickListener(this);
     }
 }

@@ -73,12 +73,12 @@ public class PracticeFrequentlyFragment extends BaseFragment implements View.OnC
 
     @Override
     public void initView(View view) {
-        view.findViewById(R.id.duo_lin_guo).setOnClickListener(this::initView);
-        view.findViewById(R.id.duo_lingo).setOnClickListener(this::initView);
-        view.findViewById(R.id.ef_hello).setOnClickListener(this::initView);
-        view.findViewById(R.id.middle_english).setOnClickListener(this::initView);
-        view.findViewById(R.id.high_english).setOnClickListener(this::initView);
-        view.findViewById(R.id.new_english).setOnClickListener(this::initView);
-        view.findViewById(R.id.civia_machine).setOnClickListener(this::initView);
+        view.findViewById(R.id.duo_lin_guo).setOnClickListener(this);
+        view.findViewById(R.id.duo_lingo).setOnClickListener(this);
+        view.findViewById(R.id.ef_hello).setOnClickListener(this);
+        view.findViewById(R.id.middle_english).setOnClickListener(this);
+        view.findViewById(R.id.high_english).setOnClickListener(this);
+        view.findViewById(R.id.new_english).setOnClickListener(this);
+        view.findViewById(R.id.civia_machine).setOnClickListener(this);
     }
 }

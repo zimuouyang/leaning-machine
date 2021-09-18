@@ -63,28 +63,11 @@ public class PersonCenterFragment extends BaseFragment {
     public void initView(View view) {
         recyclerView = view.findViewById(R.id.usedTimeRecyclerView);
         adapter = new UsedTimeAdapter(getActivity());
-        UsedTimeEntity usedTimeEntity = new UsedTimeEntity();
-        usedTimeEntity.setDate(new Date());
-        usedTimeEntity.setTotalLength(1000);
-
-
-        UsedTimeEntity usedTimeEntity2 = new UsedTimeEntity();
-        usedTimeEntity2.setDate(new Date());
-        usedTimeEntity2.setTotalLength(1000);
-
-        List<UsedTimeEntity> list = new ArrayList<>();
-        list.add(usedTimeEntity);
-        list.add(usedTimeEntity);
-        list.add(usedTimeEntity);
-        list.add(usedTimeEntity2);
 
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
-
-
-        adapter.setData(list);
 
         new UsedTimeTask(getActivity()).execute();
     }
@@ -126,10 +109,8 @@ public class PersonCenterFragment extends BaseFragment {
         protected List<UsedTimeEntity> doInBackground(Void... voids) {
             List<UsedTimeEntity> list = GlobalDatabase.getInstance(context).usedTimeDao().getAll();
 
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-                UsedTimeEntity current = Utils.getUsedTime(context);
-                list.add(current);
-            }
+            UsedTimeEntity current = Utils.getUsedTime(context);
+            list.add(current);
             return list;
         }
 

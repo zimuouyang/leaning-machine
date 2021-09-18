@@ -96,6 +96,10 @@ public class Utils {
                     continue;
                 }
 
+                if (isExistPackageName(packageName, R.array.liu_li_shuo_group, context)) {
+                    liuLiShuo += timeInForeground;
+                }
+
                 if (isExistPackageName(packageName, R.array.see_movie_group, context)) {
                     kanDianYing += timeInForeground;
                     continue;

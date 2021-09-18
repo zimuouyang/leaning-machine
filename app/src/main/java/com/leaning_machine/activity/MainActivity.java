@@ -129,11 +129,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
 
-            if (!to.isAdded()) {
-                ft.hide(from).add(R.id.content_layout, to).commitAllowingStateLoss();
-            } else {
-                ft.hide(from).show(to).commitAllowingStateLoss();
-            }
+            ft.replace(R.id.content_layout, to).commitAllowingStateLoss();
         }
 
         changeTopFixView(to);
@@ -145,7 +141,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int currentIndex = -1;
         if (to instanceof LearnPhonicsFragment) {
             currentIndex = 0;
-            fixEnglish();
         } else if (to instanceof GrindEarsFragment) {
             currentIndex = 1;
         } else if (to instanceof FluentFragment) {
@@ -195,7 +190,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 switchContent(fragment, ReciteWordsFragment.newInstance());
                 break;
             case R.id.see_movie:
-                openApp(getString(R.string.see_movie), this);
+                openApp(getString(R.string.english_movie), this);
                 break;
             case R.id.qu_yi_zhi:
                 switchContent(fragment, FunPuzzleFragment.newInstance());
