@@ -20,7 +20,7 @@ public class UsedTimeEntity {
 
     @NonNull
     @ColumnInfo(name = "USED_DATE")
-    private Date date;
+    private String date;
 
     @NonNull
     @ColumnInfo(name = "TOTAL_LENGTH")
@@ -79,11 +79,11 @@ public class UsedTimeEntity {
     }
 
     @NonNull
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(@NonNull Date date) {
+    public void setDate(@NonNull String date) {
         this.date = date;
     }
 

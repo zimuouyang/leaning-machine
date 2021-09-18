@@ -1,6 +1,5 @@
 package com.leaning_machine.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import com.leaning_machine.R;
 import com.leaning_machine.db.entity.UsedTimeEntity;
 import com.leaning_machine.utils.Utils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,9 +45,7 @@ public class UsedTimeAdapter extends RecyclerView.Adapter<UsedTimeAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         UsedTimeEntity usedTimeEntity = list.get(position);
-
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        holder.dateView.setText(simpleDateFormat.format(usedTimeEntity.getDate()));
+        holder.dateView.setText(usedTimeEntity.getDate());
 
         holder.totalView.setText(Utils.parseDate(usedTimeEntity.getTotalLength()));
         holder.xue_pin_du.setText(Utils.parseDate(usedTimeEntity.getPinDuLength()));

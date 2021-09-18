@@ -21,9 +21,8 @@ import com.leaning_machine.db.entity.UsedTimeEntity;
 import com.leaning_machine.receiver.UsedTimeReceiver;
 import com.leaning_machine.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -110,6 +109,20 @@ public class PersonCenterFragment extends BaseFragment {
             List<UsedTimeEntity> list = GlobalDatabase.getInstance(context).usedTimeDao().getAll();
 
             UsedTimeEntity current = Utils.getUsedTime(context);
+
+            Iterator<UsedTimeEntity> iterator;
+            iterator = list.iterator();
+            while (iterator.hasNext()) {
+                if (current != null) {
+                    UsedTimeEntity entity = iterator.next();
+                    if (entity.getDate().equals(current.getDate())) {
+                        current.setId(entity.getId());
+                        iterator.remove();
+                    }
+                    GlobalDatabase.getInstance(context).usedTimeDao().insertUsedTime(current);
+                }
+            }
+
             list.add(current);
             return list;
         }

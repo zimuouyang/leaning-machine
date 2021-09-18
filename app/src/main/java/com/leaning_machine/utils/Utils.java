@@ -17,6 +17,7 @@ import androidx.annotation.RequiresApi;
 import com.leaning_machine.R;
 import com.leaning_machine.db.entity.UsedTimeEntity;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -28,7 +29,8 @@ public class Utils {
     public static UsedTimeEntity getUsedTime(Context context) {
         UsedTimeEntity usedTimeEntity = new UsedTimeEntity();
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        usedTimeEntity.setDate(calendar.getTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        usedTimeEntity.setDate(simpleDateFormat.format(calendar.getTime()));
 
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 1);

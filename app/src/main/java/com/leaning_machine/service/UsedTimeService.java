@@ -25,14 +25,13 @@ public class UsedTimeService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-            UsedTimeEntity usedTimeEntity = Utils.getUsedTime(this);
-            if(usedTimeEntity != null) {
-                GlobalDatabase.getInstance(this).usedTimeDao().insertUsedTime(usedTimeEntity);
+        UsedTimeEntity usedTimeEntity = Utils.getUsedTime(this);
+        if(usedTimeEntity != null) {
+            UsedTimeEntity saved = GlobalDatabase.getInstance(this).usedTimeDao().getUsedTimeEntity(usedTimeEntity.getDate());
+            if (saved != null) {
+                usedTimeEntity.setId(saved.getId());
             }
+            GlobalDatabase.getInstance(this).usedTimeDao().insertUsedTime(usedTimeEntity);
         }
-
     }
-
-
 }

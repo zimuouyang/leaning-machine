@@ -24,5 +24,6 @@ public interface UsedTimeDao {
     void insertUsedTime(UsedTimeEntity usedTimeEntity);
 
     @Query("SELECT * FROM USED_TIME WHERE USED_DATE =:date")
-    UsedTimeEntity getUsedTimeEntity(long date);
+    UsedTimeEntity getUsedTimeEntity(String date);
+
 }

@@ -5,9 +5,7 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 
-import com.leaning_machine.db.converter.Converters;
 import com.leaning_machine.db.dao.UsedTimeDao;
 import com.leaning_machine.db.entity.UsedTimeEntity;
 
@@ -15,7 +13,6 @@ import com.leaning_machine.db.entity.UsedTimeEntity;
  * Created by John on 2021/9/16.
  */
 @Database(entities = {UsedTimeEntity.class}, version = 1, exportSchema = false)
-@TypeConverters({Converters.class})
 public abstract class GlobalDatabase extends RoomDatabase {
     public static String DATABASE_NAME = "learn-db";
 
