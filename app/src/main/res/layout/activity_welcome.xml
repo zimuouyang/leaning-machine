@@ -2,78 +2,117 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@mipmap/welcom_bg"
     tools:context=".activity.WelcomeActivity">
 
-    <ImageView
-        android:id="@+id/go_others"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        android:maxWidth="100dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="180dp"
-        android:src="@mipmap/welcome_others" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/go_language"
-        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/go_layout"
         android:layout_marginBottom="20dp"
-        android:layout_marginEnd="60dp"
-        android:adjustViewBounds="true"
-        android:maxWidth="95dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/welcome_math" />
+        android:gravity="bottom">
 
-    <ImageView
-        android:id="@+id/go_language"
-        android:layout_width="wrap_content"
+        <View
+            android:id="@+id/guide"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/go_others"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/guide"
+            android:adjustViewBounds="true"
+            android:maxWidth="140dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/welcome_others" />
+
+        <ImageView
+            android:id="@+id/go_math"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/go_others"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="40dp"
+            android:layout_toEndOf="@+id/guide"
+            android:adjustViewBounds="true"
+            android:maxWidth="140dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/welcome_math" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/go_layout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_above="@+id/start_layout"
+        android:layout_marginBottom="20dp"
+        android:gravity="bottom">
+
+        <View
+            android:id="@+id/guideline"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible" />
+
+
+        <ImageView
+            android:id="@+id/go_english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/guideline"
+            android:adjustViewBounds="true"
+            android:maxHeight="140dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/welcome_english" />
+
+        <ImageView
+            android:id="@+id/go_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/go_english"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="40dp"
+            android:layout_toEndOf="@+id/guideline"
+            android:adjustViewBounds="true"
+            android:maxWidth="140dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/welcome_language" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/start_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/go_english"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="30dp"
-        android:adjustViewBounds="true"
-        android:maxWidth="100dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/welcome_language" />
+        android:layout_alignParentBottom="true">
 
-    <ImageView
-        android:id="@+id/go_english"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/start"
-        android:layout_marginStart="50dp"
-        android:adjustViewBounds="true"
-        android:maxWidth="120dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/welcome_english" />
+        <ImageView
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/welcome_start" />
 
-    <ImageView
-        android:id="@+id/start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        android:src="@mipmap/welcome_start" />
-
-    <ImageView
-        android:id="@+id/go"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxWidth="150dp"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="55dp"
-        android:src="@mipmap/welcome_go" />
-
+        <ImageView
+            android:id="@+id/go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="200dp"
+            android:paddingTop="100dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/welcome_go" />
+    </RelativeLayout>
 </RelativeLayout>

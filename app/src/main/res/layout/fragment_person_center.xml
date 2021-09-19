@@ -17,6 +17,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/read_along"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -41,7 +42,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     android:paddingBottom="20dp"
-                    android:textSize="23sp" />
+                    android:textSize="31sp" />
             </RelativeLayout>
 
 

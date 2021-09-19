@@ -61,6 +61,9 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
             case R.id.middle_zheng_zhi:
                 openApp(getString(R.string.others_middle_zheng_zi), getActivity());
                 break;
+            case R.id.khan_kids:
+                openApp(getString(R.string.english_mo_er_duo_khankids), getActivity());
+                break;
             default:
                 break;
         }
@@ -74,5 +77,6 @@ public class OthersFragment extends BaseFragment implements View.OnClickListener
         view.findViewById(R.id.middle_di_li).setOnClickListener(this);
         view.findViewById(R.id.middle_history).setOnClickListener(this);
         view.findViewById(R.id.middle_zheng_zhi).setOnClickListener(this);
+        view.findViewById(R.id.khan_kids).setOnClickListener(this);
     }
 }

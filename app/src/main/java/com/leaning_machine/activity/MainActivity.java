@@ -8,7 +8,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -63,8 +65,23 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        int id = getIntent().getIntExtra("id", 0);
+
+
         if(savedInstanceState == null){
-            fragment = MainFragment.newInstance();
+            if (id == 0) {
+                fragment = MainFragment.newInstance();
+            } else if (id == 1) {
+                fragment = EnglishCategoryFragment.newInstance();
+            } else if (id == 2) {
+                fragment = MathFragment.newInstance();
+            } else if (id == 3) {
+                fragment = LanguageFragment.newInstance();
+            } else {
+                fragment = OthersFragment.newInstance();
+            }
+            bottomIndex = id;
+
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.content_layout, fragment, "tag");
             transaction.commit();
@@ -113,7 +130,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         otherText.setOnClickListener(this);
         personCenterText.setOnClickListener(this);
 
-        main.setTextColor(Color.RED);
+        bottomTextViews[bottomIndex].setTextColor(Color.RED);
 
     }
 
@@ -190,7 +207,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 switchContent(fragment, ReciteWordsFragment.newInstance());
                 break;
             case R.id.see_movie:
-                openApp(getString(R.string.english_movie), this);
+                openApp(getString(R.string.english_movie));
                 break;
             case R.id.qu_yi_zhi:
                 switchContent(fragment, FunPuzzleFragment.newInstance());
@@ -239,13 +256,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         englishText.setTextColor(Color.RED);
     }
 
-    public void openApp(String packageName, Context context) {
-        PackageManager packageManager = context.getPackageManager();
+    public void openApp(String packageName) {
+        PackageManager packageManager = getPackageManager();
         Intent intent = packageManager.getLaunchIntentForPackage(packageName);
         if (intent == null) {
-            Toast.makeText(context, "未安装", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "未安装", Toast.LENGTH_LONG).show();
         } else {
-            context.startActivity(intent);
+            startActivity(intent);
         }
     }
 }

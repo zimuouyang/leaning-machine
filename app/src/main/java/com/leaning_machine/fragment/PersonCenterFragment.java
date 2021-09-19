@@ -20,11 +20,13 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.leaning_machine.Constant;
 import com.leaning_machine.R;
 import com.leaning_machine.adapter.UsedTimeAdapter;
 import com.leaning_machine.db.GlobalDatabase;
 import com.leaning_machine.db.entity.UsedTimeEntity;
 import com.leaning_machine.receiver.UsedTimeReceiver;
+import com.leaning_machine.utils.SharedPreferencesUtils;
 import com.leaning_machine.utils.Utils;
 
 import java.util.Calendar;
@@ -36,7 +38,7 @@ import java.util.Locale;
  * @author John
  * @date 2021/9/15
  */
-public class PersonCenterFragment extends BaseFragment {
+public class PersonCenterFragment extends BaseFragment implements View.OnClickListener {
     RecyclerView recyclerView;
     private UsedTimeAdapter adapter;
     private TextView textView;
@@ -76,6 +78,20 @@ public class PersonCenterFragment extends BaseFragment {
         recyclerView.setAdapter(adapter);
 
         textView = view.findViewById(R.id.total_time);
+
+
+        if (getActivity() == null) {
+            return;
+        }
+        long dayMillis = System.currentTimeMillis() - SharedPreferencesUtils.getLong(getActivity(), Constant.TIME, -1);
+        long day = dayMillis / 1000 / 60 / 60 / 24;
+
+        SpannableString textSpanned = new SpannableString(String.format(getString(R.string.listen_read), day));
+        textSpanned.setSpan(new ForegroundColorSpan(Color.parseColor("#FF2961")),
+                8, 9, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(textSpanned);
+
+        view.findViewById(R.id.read_along).setOnClickListener(this);
         new UsedTimeTask(getActivity()).execute();
     }
 
@@ -101,6 +117,18 @@ public class PersonCenterFragment extends BaseFragment {
         intent.setAction(UsedTimeReceiver.EVENT_ACTION);
         intent.setClass(context, UsedTimeReceiver.class);
         return intent;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (getActivity() == null) {
+            return;
+        }
+        switch (view.getId()) {
+            case R.id.read_along:
+                openApp(getString(R.string.english_ai_yue_du_read_long), getActivity());
+                break;
+        }
     }
 
     private class UsedTimeTask extends AsyncTask<Void, Integer, List<UsedTimeEntity>> {
@@ -141,12 +169,6 @@ public class PersonCenterFragment extends BaseFragment {
         protected void onPostExecute(List<UsedTimeEntity> usedTimeEntities) {
             super.onPostExecute(usedTimeEntities);
             adapter.setData(usedTimeEntities);
-            SpannableString textSpanned = new SpannableString(String.format(getString(R.string.listen_read), usedTimeEntities.size()));
-            textSpanned.setSpan(new ForegroundColorSpan(Color.parseColor("#FF2961")),
-                    8, 9, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            textView.setText(textSpanned);
-
         }
-
     }
 }
