@@ -130,8 +130,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         otherText.setOnClickListener(this);
         personCenterText.setOnClickListener(this);
 
-        bottomTextViews[bottomIndex].setTextColor(Color.RED);
-
     }
 
     /**
@@ -214,10 +212,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 break;
 
             case R.id.main:
-                bottomTextViews[bottomIndex].setTextColor(Color.BLACK);
-                bottomIndex = 0;
-                main.setTextColor(Color.RED);
-                switchContent(fragment, MainFragment.newInstance());
+                finish();
                 break;
             case R.id.english:
                 fixEnglish();
