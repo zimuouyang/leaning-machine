@@ -39,7 +39,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/abc_kides" />
+                    android:src="@drawable/abc_kides" />
 
                 <ImageView
                     android:id="@+id/starfall"
