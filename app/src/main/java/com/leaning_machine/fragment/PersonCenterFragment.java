@@ -83,7 +83,7 @@ public class PersonCenterFragment extends BaseFragment implements View.OnClickLi
 
         SpannableString textSpanned = new SpannableString(String.format(getString(R.string.listen_read), day));
         textSpanned.setSpan(new ForegroundColorSpan(Color.parseColor("#FF2961")),
-                8, 9, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                8, 8 + String.valueOf(day).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(textSpanned);
 
         view.findViewById(R.id.read_along).setOnClickListener(this);
