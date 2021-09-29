@@ -17,7 +17,7 @@ import java.util.List;
 @Dao
 public interface UsedTimeDao {
 
-    @Query("SELECT * FROM USED_TIME")
+    @Query("SELECT * FROM USED_TIME ORDER BY ID ASC")
     List<UsedTimeEntity> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

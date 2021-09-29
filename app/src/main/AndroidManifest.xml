@@ -32,14 +32,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.UsedTimeService"/>
-
-        <receiver android:name=".receiver.UsedTimeReceiver">
-            <intent-filter>
-                <action android:name="com.learning.USED_TIME_ACTION" />
-            </intent-filter>
-        </receiver>
-
         <receiver
             android:name=".receiver.BootReceiver"
             android:enabled="true"
