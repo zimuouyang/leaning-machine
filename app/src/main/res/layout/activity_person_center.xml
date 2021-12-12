@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_main"
+    android:orientation="vertical"
+    tools:context=".activity.PersonCenterActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#F9C51A">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/cloud"
+            android:gravity="center"
+            android:text="个人中心"
+            android:textColor="#91C53E"
+            android:textSize="21sp" />
+
+        <ImageView
+            android:id="@+id/main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="30dp"
+            android:src="@mipmap/main_logo" />
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:background="@mipmap/cloud_person"
+                android:gravity="center"
+                android:text="安娜贝儿"
+                android:textColor="#FF0045E7"
+                android:textSize="20sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginBottom="20dp"
+                android:background="@mipmap/person_bg"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/module"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="30dp">
+
+                    <TextView
+                        android:id="@+id/top_list"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="学习排行榜"
+                        android:textColor="#FF161616"
+                        android:textSize="14sp"
+                        app:drawableTopCompat="@mipmap/top_list" />
+
+
+                    <TextView
+                        android:id="@+id/listen_statistics"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="连续听读统计"
+                        android:textColor="#FF161616"
+                        android:textSize="14sp"
+                        app:drawableTopCompat="@mipmap/listen_read_statistics" />
+
+                    <TextView
+                        android:id="@+id/statistics"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="当日学习统计"
+                        android:textColor="#FF161616"
+                        android:textSize="14sp"
+                        app:drawableTopCompat="@mipmap/statistics" />
+
+                    <TextView
+                        android:id="@+id/about_us"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="关于我们"
+                        android:textColor="#FF161616"
+                        android:textSize="14sp"
+                        app:drawableTopCompat="@mipmap/about_us" />
+                </LinearLayout>
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="30dp"
+                    android:background="@mipmap/logout_bg"
+                    android:text="退出登录"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

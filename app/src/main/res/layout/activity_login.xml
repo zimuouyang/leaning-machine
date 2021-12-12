@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_login"
+    tools:context=".activity.LoginActivity">
+
+
+    <ImageView
+        android:id="@+id/login_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="200dp"
+        android:layout_marginBottom="60dp"
+        android:src="@mipmap/login_avator" />
+
+    <LinearLayout
+        android:layout_width="286dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@+id/login_avatar"
+        android:background="@drawable/input_login_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:layout_margin="30dp"
+            android:background="@drawable/switch_login_bg"
+            android:minHeight="40dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/account_login"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_corner_15_white"
+                android:gravity="center"
+                android:text="账号登录"
+                android:textColor="#FF91C53E" />
+
+
+            <Button
+                android:id="@+id/message_login"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="短信登录"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:drawablePadding="20dp"
+            android:gravity="center_vertical"
+            android:hint="请输入账号"
+            android:minHeight="30dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="#ff7b7b7b"
+            android:textSize="12sp"
+            app:drawableStartCompat="@mipmap/account" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_margin="20dp"
+            android:background="#33000000" />
+
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:drawablePadding="20dp"
+            android:gravity="center_vertical"
+            android:hint="请输入密码"
+            android:minHeight="30dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="#ff7b7b7b"
+            android:textSize="12sp"
+            app:drawableStartCompat="@mipmap/password" />
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/login_button"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+    </LinearLayout>
+</RelativeLayout>

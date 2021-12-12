@@ -3,6 +3,7 @@ package com.leaning_machine.service;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -27,9 +28,11 @@ public class UsedTimeService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         UsedTimeEntity usedTimeEntity = Utils.getUsedTime(this);
         if(usedTimeEntity != null) {
+            Log.d("zzz", usedTimeEntity.toString());
             UsedTimeEntity saved = GlobalDatabase.getInstance(this).usedTimeDao().getUsedTimeEntity(usedTimeEntity.getDate());
             if (saved != null) {
                 usedTimeEntity.setId(saved.getId());
+                Log.d("zzz", usedTimeEntity.toString());
             }
             GlobalDatabase.getInstance(this).usedTimeDao().insertUsedTime(usedTimeEntity);
         }

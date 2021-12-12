@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.os.SystemClock;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.BackgroundColorSpan;
@@ -106,9 +107,12 @@ public class PersonCenterFragment extends BaseFragment implements View.OnClickLi
 
         calendar.set(Calendar.MINUTE, 58);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, getAlarmIntent(context), PendingIntent.FLAG_CANCEL_CURRENT);
+        long triggerAtTime= SystemClock.elapsedRealtime()+10*1000;
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, getAlarmIntent(context), PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,triggerAtTime, 3 * 1000, pendingIntent);
+
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
     }
 
@@ -143,6 +147,11 @@ public class PersonCenterFragment extends BaseFragment implements View.OnClickLi
         @Override
         protected List<UsedTimeEntity> doInBackground(Void... voids) {
             List<UsedTimeEntity> list = GlobalDatabase.getInstance(context).usedTimeDao().getAll();
+
+
+            //查询过去的记录，最多到那一天， 如果是当天，则将今天的记录设置为， 反之取过去的每一天
+            //最新的一天是那一天
+            //拿到过去n天的毫秒数
 
             UsedTimeEntity current = Utils.getUsedTime(context);
 
