@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.MathActivity">
+
+    <com.leaning_machine.layout.TopWithContentLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:title="数学逻辑"
+        app:top_image="@mipmap/math_holder"
+        app:top_text="在英文语境中启蒙数学思维，游戏互动中
+打开数理化学习之门" />
+
+</LinearLayout>

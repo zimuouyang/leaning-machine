@@ -1,12 +1,17 @@
 package com.leaning_machine.fragment;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import android.os.SystemClock;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,16 +26,14 @@ import com.leaning_machine.R;
 import com.leaning_machine.adapter.UsedTimeAdapter;
 import com.leaning_machine.db.GlobalDatabase;
 import com.leaning_machine.db.entity.UsedTimeEntity;
+import com.leaning_machine.receiver.UsedTimeReceiver;
 import com.leaning_machine.utils.SharedPreferencesUtils;
 import com.leaning_machine.utils.Utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * @author John
@@ -52,6 +55,9 @@ public class PersonCenterFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getActivity() != null) {
+            sendAlarmEveryday(getActivity());
+        }
     }
 
     @Override
@@ -83,11 +89,38 @@ public class PersonCenterFragment extends BaseFragment implements View.OnClickLi
 
         SpannableString textSpanned = new SpannableString(String.format(getString(R.string.listen_read), day));
         textSpanned.setSpan(new ForegroundColorSpan(Color.parseColor("#FF2961")),
-                8, 8 + String.valueOf(day).length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                8, 9, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(textSpanned);
 
         view.findViewById(R.id.read_along).setOnClickListener(this);
         new UsedTimeTask(getActivity()).execute();
+    }
+
+    private void sendAlarmEveryday(Context context) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+
+        calendar.set(Calendar.MINUTE, 58);
+
+        long triggerAtTime= SystemClock.elapsedRealtime()+10*1000;
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, getAlarmIntent(context), PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,triggerAtTime, 3 * 1000, pendingIntent);
+
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+    }
+
+    private Intent getAlarmIntent(Context context) {
+        Intent intent = new Intent();
+        intent.setAction(UsedTimeReceiver.EVENT_ACTION);
+        intent.setClass(context, UsedTimeReceiver.class);
+        return intent;
     }
 
     @Override
@@ -113,58 +146,32 @@ public class PersonCenterFragment extends BaseFragment implements View.OnClickLi
 
         @Override
         protected List<UsedTimeEntity> doInBackground(Void... voids) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            List<UsedTimeEntity> savedList = GlobalDatabase.getInstance(context).usedTimeDao().getAll();
+            List<UsedTimeEntity> list = GlobalDatabase.getInstance(context).usedTimeDao().getAll();
 
-            List<UsedTimeEntity> currentList = new ArrayList<>();
-            UsedTimeEntity current;
 
-            UsedTimeEntity lastTimeEntity;
-            if (!savedList.isEmpty()) {
-                //获取最后一个
-                lastTimeEntity = savedList.get(savedList.size() - 1);
-                try {
-                    Date lastDate = simpleDateFormat.parse(lastTimeEntity.getDate());
-                    Date nowDate = new Date();
+            //查询过去的记录，最多到那一天， 如果是当天，则将今天的记录设置为， 反之取过去的每一天
+            //最新的一天是那一天
+            //拿到过去n天的毫秒数
 
-                    //在这之前
-                    if (lastDate.before(nowDate)) {
-                        Calendar c = Calendar.getInstance();
-                        c.setTime(lastDate);
-                        //在之前的
-                        for (int i = 0; i < Utils.getTimeDistance(lastDate, nowDate); i++) {
-                            c.add(Calendar.DATE, 1);
-                            long startTime = Utils.getStartOfDay(c.getTime()).getTime();
-                            long endTime = Utils.getEndOfDay(c.getTime()).getTime();
-                            UsedTimeEntity usedTimeEntity =  Utils.getUsedTime(context, startTime, endTime);
-                            GlobalDatabase.getInstance(context).usedTimeDao().insertUsedTime(usedTimeEntity);
-                            currentList.add(usedTimeEntity);
-                        }
-                        //同一天
-                    } else if (simpleDateFormat.format(lastDate).equals(simpleDateFormat.format(nowDate))) {
-                        current = Utils.getUsedTime(context, Utils.getStartOfDay(new Date()).getTime(), System.currentTimeMillis());
-                        if (current != null) {
-                            current.setId(lastTimeEntity.getId());
-                        }
-                        GlobalDatabase.getInstance(context).usedTimeDao().insertUsedTime(current);
+            UsedTimeEntity current = Utils.getUsedTime(context);
 
-                        //更新之后添加进去
-                        currentList.add(current);
-                        savedList.remove(savedList.size() - 1);
+            Iterator<UsedTimeEntity> iterator;
+            iterator = list.iterator();
+            while (iterator.hasNext()) {
+                if (current != null) {
+                    UsedTimeEntity entity = iterator.next();
+                    if (entity.getDate().equals(current.getDate())) {
+                        current.setId(entity.getId());
+                        iterator.remove();
                     }
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    GlobalDatabase.getInstance(context).usedTimeDao().insertUsedTime(current);
                 }
-            } else {
-                //之前未保存
-                UsedTimeEntity usedTimeEntity =  Utils.getUsedTime(context, Utils.getStartOfDay(new Date()).getTime(), System.currentTimeMillis());
-                GlobalDatabase.getInstance(context).usedTimeDao().insertUsedTime(usedTimeEntity);
-                currentList.add(usedTimeEntity);
             }
 
-            savedList.addAll(currentList);
-            Collections.reverse(savedList);
-            return savedList;
+            if (current != null) {
+                list.add(current);
+            }
+            return list;
         }
 
         @Override

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_main"
+    android:orientation="vertical"
+    tools:context=".activity.LanguageActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#F9C51A">
+
+        <ImageView
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/top_play" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/play"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="@drawable/cloud"
+            android:text="去上课"
+            android:textColor="#91C53E"
+            android:textSize="21sp" />
+
+        <ImageView
+            android:id="@+id/person_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="30dp"
+            android:src="@mipmap/person_avatar" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="140dp"
+        android:layout_marginStart="20dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@mipmap/dingding">
+    </ImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="130dp">
+
+        <ImageView
+            android:id="@+id/hanYuZiDian"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/we_chat" />
+
+        <ImageView
+            android:id="@+id/xueXiQiangGuo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/qq" />
+    </LinearLayout>
+
+</LinearLayout>

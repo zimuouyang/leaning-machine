@@ -1,80 +1,84 @@
 package com.leaning_machine.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.AppOpsManager;
-import android.content.Context;
 import android.content.Intent;
 
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
+import android.widget.ImageView;
 
-
-import com.leaning_machine.Constant;
 import com.leaning_machine.R;
-import com.leaning_machine.utils.SharedPreferencesUtils;
-import com.leaning_machine.utils.Utils;
 
 /**
  * @author John
  */
-public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class WelcomeActivity extends BaseActivity implements View.OnClickListener {
+    ImageView goClass;
+    ImageView goExtension;
+    ImageView goRecord;
+    ImageView goEnglish;
+    ImageView goMath;
+    ImageView goLanguage;
+    ImageView goTextBook;
+    ImageView task;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-        initData();
-
-        AppOpsManager appOps = (AppOpsManager)getSystemService(Context.APP_OPS_SERVICE);
-        int mode = appOps.checkOpNoThrow("android:get_usage_stats", android.os.Process.myUid(), getPackageName());
-        boolean granted = mode == AppOpsManager.MODE_ALLOWED;
-        if (!granted) {
-            Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-            startActivityForResult(intent, 0);
-        }
-        Utils.transparencyBar(this);
-
-        findViewById(R.id.go).setOnClickListener(this);
-        findViewById(R.id.go_english).setOnClickListener(this);
-        findViewById(R.id.go_language).setOnClickListener(this);
-        findViewById(R.id.go_others).setOnClickListener(this);
-        findViewById(R.id.go_math).setOnClickListener(this);
     }
 
-    private void initData() {
-        if (!SharedPreferencesUtils.getBoolean(this, Constant.INIT, false)) {
-            SharedPreferencesUtils.putBoolean(this, Constant.INIT, true);
-            SharedPreferencesUtils.putLong(this, Constant.TIME, System.currentTimeMillis());
-        }
+    @Override
+    public void initView() {
+        goClass = findViewById(R.id.welcome_go_class);
+        goExtension = findViewById(R.id.welcome_extension);
+        goRecord = findViewById(R.id.welcome_check_record);
+        goEnglish = findViewById(R.id.welcome_english);
+        goMath = findViewById(R.id.welcome_math);
+        goLanguage = findViewById(R.id.welcome_language);
+        goTextBook = findViewById(R.id.welcome_textbook);
+        task = findViewById(R.id.task);
+
+        goClass.setOnClickListener(this);
+        goExtension.setOnClickListener(this);
+        goRecord.setOnClickListener(this);
+        goEnglish.setOnClickListener(this);
+        goMath.setOnClickListener(this);
+        goLanguage.setOnClickListener(this);
+        goTextBook.setOnClickListener(this);
+        task.setOnClickListener(this);
     }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_welcome;
+    }
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.go:
-                startIntent(0);
+            case R.id.welcome_go_class:
+                startActivity(new Intent(this, GoClassActivity.class));
                 break;
-            case R.id.go_english:
-                startIntent(1);
+            case R.id.welcome_extension:
+                startActivity(new Intent(this, ExpandActivity.class));
                 break;
-            case R.id.go_language:
-                startIntent(3);
+            case R.id.welcome_check_record:
                 break;
-            case R.id.go_others:
-                startIntent(4);
+            case R.id.welcome_english:
+                startActivity(new Intent(this, EnglishActivity.class));
                 break;
-            case R.id.go_math:
-                startIntent(2);
+            case R.id.welcome_math:
+                startActivity(new Intent(this, MathActivity.class));
+                break;
+            case R.id.welcome_language:
+                startActivity(new Intent(this, LanguageActivity.class));
+                break;
+            case R.id.welcome_textbook:
+                startActivity(new Intent(this, TextBookActivity.class));
+                break;
+            case R.id.task:
                 break;
         }
-    }
-
-    private void startIntent(int index) {
-        Intent i=new Intent();
-        i.setClass(WelcomeActivity.this, MainActivity.class);
-        i.putExtra("id",index);
-        startActivity(i);
     }
 }

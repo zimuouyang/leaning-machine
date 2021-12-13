@@ -70,8 +70,8 @@
     <string name="zuo_wen_high">com.xiangqi.gzchinese</string>
     <string name="zuo_wen_zi_dian">com.apprush.game.chinesechar</string>
     <string name="zuo_wen_study">cn.xuexi.android</string>
-    
-    
+
+
     <string-array name="others_group">
         <item>@string/others_middle_geography</item>
         <item>@string/others_middle_hua_xue</item>
@@ -179,4 +179,94 @@
     <string name="date">日期</string>
     <string name="total_length">总时长</string>
     <string name="listen_read">你已经连续听读了%1$d天</string>
+
+    <string name="han_yu_zi_dian">汉语字典</string>
+    <string name="xue_xi_qiang_guo">学习强国</string>
+    <string name="quan_li_shi">全历史</string>
+    <string name="bi_shen_zuo_wen">笔神作文</string>
+
+    <string name="moose_math">Moose Math</string>
+    <string name="dou_dou_shu_xue">都都数学</string>
+    <string name="pythagorea">Pythagorea</string>
+    <string name="ke_han_xue_yuan">可汗学院</string>
+
+    <string name="xue_pin_du_holder_content">Phonics英语字母拼读法，建立字母（letter）和语音（sound）之间的对应关系，不用音标，即可达到“见词能读，听音能写”</string>
+
+    <string name="speed_phonics">SpeedPhonics</string>
+    <string name="abc_kids">ABC Kids</string>
+    <string name="starfall_abcs">Starfall ABCs</string>
+    <string name="starfall_learn_to_read">Starfall Learn To Read</string>
+    <string name="kids_sight_words">Kids Sight Words</string>
+    <string name="play_sight_words">Play Sight Words</string>
+    <string name="sight_words">Sight Words</string>
+    <string name="abc_spelling">ABC Spelling</string>
+
+    <string name="mo_er_duo_holder_content">英语互动+游戏，浸入式类母语学习，让学英语像学母语一样简单！</string>
+
+    <string name="khan_kids">Khan Kids</string>
+    <string name="math_kids">Math Kids</string>
+    <string name="dong_ting_hui_ben">动听英语绘本</string>
+    <string name="hai_ni_han_english">海尼曼英语启蒙</string>
+    <string name="raz_ke_tang">RAZ课堂</string>
+
+
+    <string name="ai_yue_du_holder_content">阅读让孩子眼里有光，心中有梦，脚下有路！ 用英语阅读开启世界的大门！</string>
+
+    <string name="read_along">Read Along</string>
+    <string name="reading_pro">ReadingPro</string>
+    <string name="abc_reading">ABC Reading</string>
+    <string name="bai_ci_zhan_yue_du">百词斩爱阅读</string>
+    <string name="kou_yu_machine">口语机器人</string>
+
+    <string name="qin_lian_xi_holder_content">成功的路上并不拥挤，因为坚持的人太少！</string>
+
+    <string name="duo_lin_guo">多邻国</string>
+    <string name="ef_hello">EF Hello</string>
+    <string name="xin_gai_nian_quan_ce">新概念英语全册</string>
+    <string name="civa_machine">Civa机器人</string>
+
+    <string name="bei_dan_ci_holder_content">专业单词陪练:三天记会三年单词，七天提升英语成绩</string>
+
+    <string name="bai_ci_zhan">百词斩</string>
+    <string name="three_dan_ci">3D单词</string>
+
+    <string name="qu_yi_zhi_holder_content">在英文语境中，动手又动脑，感受 Steam素质教育</string>
+
+    <string name="puzzle_kids">Puzzle Kids</string>
+    <string name="play_games">Play Games</string>
+    <string name="molly">Molly</string>
+    <string name="play_learn_science">Play and Learn Science</string>
+    <string name="play_learn_engineering">Play and Learn Engineering</string>
+
+    <string name="ke_wen_jiang_lian">课文讲练</string>
+    <string name="ai_wei_ke">AI微课</string>
+    <string name="tong_bu_hui_ben">同步绘本</string>
+    <string name="tong_bu_ti_ku">同步题库</string>
+    <string name="kao_ba_xi_lie">考霸系列</string>
+    <string name="kao_shen_jun_xi_lie">考神君系列</string>
+
+    <string name="ke_wen_jiang_lian_holder">解读课文字、词、句，配套练习无疑惑</string>
+
+    <string name="xiao_xue_yu_shu_ying_tong_bu">小学语数英同步</string>
+    <string name="chu_gao_zhong_ying_yu_tong_bu">初高中英语同步</string>
+
+    <string name="ai_wei_ke_holder">3分钟讲清一个知识点，AI互动交互式学习 练习随讲随清</string>
+
+    <string name="zhong_xue_shu_li_hua">中学数理化</string>
+    <string name="qu_wei_quan_ke_lian">趣味全科练</string>
+
+    <string name="tong_bu_hui_ben_holder">开启与英语教材同步的英语绘本阅读之旅！</string>
+
+    <string name="yi_qi_xue">一起学</string>
+
+    <string name="tong_bu_ti_ku_holder">选择对应版本，与教材配套同步练习</string>
+
+    <string name="jing_you_wang">菁优网</string>
+    <string name="yuan_ti_ku">猿题库</string>
+    <string name="wei_lai_mo_fa_xiao">未来魔法校</string>
+
+    <string name="kao_ba_xi_lie_holder">包含初中所有学科，性价比超高的资源合集</string>
+
+    <string name="kao_shen_jun_holder">包含高中所有学科，性价比超高的资源合集</string>
+
 </resources>

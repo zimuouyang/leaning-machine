@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_main"
+    android:orientation="vertical"
+    tools:context=".activity.AboutAppActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#F9C51A">
+
+        <ImageView
+            android:id="@+id/play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/top_play" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/play"
+            android:background="@mipmap/about_cloud"
+            android:gravity="center"
+            android:text="应用管理"
+            android:textColor="#91C53E"
+            android:textSize="21sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="20dp"
+        android:background="@mipmap/app_manage_bg"
+        android:paddingStart="70dp"
+        android:paddingEnd="70dp"
+        android:paddingBottom="30dp">
+
+        <RelativeLayout
+            android:id="@+id/manage_title"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp">
+
+            <LinearLayout
+
+                android:id="@+id/install_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/install"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="安装"
+                    android:textColor="#FF91C53E"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="2dp"
+                    android:background="#FF91C53E" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/uninstall_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginStart="80dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/uninstall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="卸载"
+                    android:textColor="#FF777777"
+                    android:textSize="12sp" />
+
+                <View
+                    android:visibility="gone"
+                    android:layout_width="40dp"
+                    android:layout_height="2dp"
+                    android:background="#FF91C53E" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/app_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/manage_title"
+            android:nestedScrollingEnabled="false"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableTop="@mipmap/uninstall_bg"
+            android:text="您好，卸载需要在设置中心，选择相应APP进行卸载哦！"
+            android:textColor="#FF595959"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/setting_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@mipmap/setting_center"
+            android:text="去设置中心"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+</LinearLayout>
