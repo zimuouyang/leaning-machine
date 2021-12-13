@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">一川学霸陪练</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="others_middle_geography">com.kaoba.midgeography</string>
     <string name="others_middle_hua_xue">com.kaoba.midchemistry</string>
@@ -18,7 +17,6 @@
 
     <string name="math_moose_math">com.duckduckmoosedesign.km</string>
     <string name="math_pythagorea">com.hil_hk.pythagorea</string>
-    <string name="math_chu_zhong_math">com.gaoha.mathsplus</string>
     <string name="math_du_du_math">com.enuma.todomathcn</string>
     <string name="math_high_math">com.xiangqi.math</string>
     <string name="math_ke_han_xue_yuan">org.khanacademy.android</string>
@@ -165,16 +163,12 @@
     <string name="ai_yue_du">爱阅读</string>
     <string name="qin_lian_xi">勤练习</string>
     <string name="bei_dan_ci">背单词</string>
-    <string name="see_movie">看电影</string>
     <string name="qi_yi_zhi">趣益智</string>
 
 
-    <string name="main">首页</string>
-    <string name="english">英语</string>
     <string name="math">数学</string>
     <string name="language">语文</string>
     <string name="others">其他</string>
-    <string name="person_center">个人中心</string>
 
     <string name="date">日期</string>
     <string name="total_length">总时长</string>
