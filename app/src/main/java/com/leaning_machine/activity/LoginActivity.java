@@ -10,7 +10,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.base.dto.TerminalAuthDto;
+import com.leaning_machine.base.dto.TerminalLoginDto;
+import com.leaning_machine.common.HttpClient;
+import com.leaning_machine.common.service.CommonApiService;
+import com.leaning_machine.utils.SharedPreferencesUtils;
+
+import rx.Observer;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -79,6 +90,34 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void login() {
+        TerminalLoginDto terminalLoginDto = new TerminalLoginDto();
+        terminalLoginDto.setName("zhans");
+        terminalLoginDto.setPwd("123456");
+        CommonApiService.instance.terminalLogin(terminalLoginDto).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<TerminalAuthDto>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(TerminalAuthDto terminalAuthDto) {
+                if (terminalAuthDto.getBusinessCode() == 200) {
+                    SharedPreferencesUtils.putString(LoginActivity.this, Constant.TOKEN, Constant.TOKEN_PREFIX + terminalAuthDto.getToken());
+                    HttpClient.instance.addHeader(Constant.TOKEN, Constant.TOKEN_PREFIX + terminalAuthDto.getToken());
+                } else {
+                    //toto show 密码错误
+                }
+            }
+        });
         startActivity(new Intent(this, WelcomeActivity.class));
     }
+
+
+    //todo 判断登录状态
+
 }

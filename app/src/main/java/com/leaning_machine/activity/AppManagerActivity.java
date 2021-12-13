@@ -11,6 +11,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.leaning_machine.R;
 
 import java.util.List;
