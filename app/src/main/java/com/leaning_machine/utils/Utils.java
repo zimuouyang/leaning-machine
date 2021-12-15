@@ -25,7 +25,8 @@ public class Utils {
     private static String TAG = "Utils";
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
-    public static UsedTimeEntity getUsedTime(Context context, long startTime, long endTime) {
+    public static UsedTimeEntity getUsedTime(Context context) {
+        long startTime = -1; long endTime = -1;
         UsedTimeEntity usedTimeEntity = new UsedTimeEntity();
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
         calendar.setTimeInMillis(startTime);

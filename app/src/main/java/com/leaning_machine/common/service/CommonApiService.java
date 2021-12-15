@@ -6,6 +6,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.leaning_machine.base.dto.ResourceDto;
 import com.leaning_machine.base.dto.TerminalAuthDto;
 import com.leaning_machine.base.dto.TerminalLoginDto;
 import com.leaning_machine.common.HttpClient;
@@ -13,6 +14,7 @@ import com.leaning_machine.common.api.CommonApi;
 
 import java.lang.reflect.Type;
 import java.util.Date;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -78,5 +80,9 @@ public class CommonApiService {
 
     public Observable<TerminalAuthDto> terminalLogin(TerminalLoginDto terminal) {
         return getService().terminalLogin(terminal);
+    }
+
+    public Observable<List<ResourceDto>> terminalResources() {
+        return getService().terminalResources();
     }
 }

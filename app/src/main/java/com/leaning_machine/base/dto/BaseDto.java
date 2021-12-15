@@ -9,7 +9,7 @@ public class BaseDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Expose
-    @SerializedName("businessCode")
+    @SerializedName("code")
     private int businessCode;
     @Expose @SerializedName("message")
     private String message;

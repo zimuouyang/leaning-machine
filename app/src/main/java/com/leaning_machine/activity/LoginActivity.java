@@ -19,7 +19,6 @@ import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.utils.SharedPreferencesUtils;
 
 import rx.Observer;
-import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -35,6 +34,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (SharedPreferencesUtils.getBoolean(this, Constant.LOGIN, false)) {
+            startActivity(new Intent(this, WelcomeActivity.class));
+        }
     }
 
 
@@ -91,8 +93,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void login() {
         TerminalLoginDto terminalLoginDto = new TerminalLoginDto();
-        terminalLoginDto.setName("zhans");
-        terminalLoginDto.setPwd("123456");
+        terminalLoginDto.setName(accountText.getText().toString());
+        terminalLoginDto.setPwd(passwordText.getText().toString());
         CommonApiService.instance.terminalLogin(terminalLoginDto).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<TerminalAuthDto>() {
             @Override
             public void onCompleted() {
@@ -107,14 +109,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onNext(TerminalAuthDto terminalAuthDto) {
                 if (terminalAuthDto.getBusinessCode() == 200) {
+                    startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
                     SharedPreferencesUtils.putString(LoginActivity.this, Constant.TOKEN, Constant.TOKEN_PREFIX + terminalAuthDto.getToken());
+                    SharedPreferencesUtils.putBoolean(LoginActivity.this, Constant.LOGIN, true);
                     HttpClient.instance.addHeader(Constant.TOKEN, Constant.TOKEN_PREFIX + terminalAuthDto.getToken());
                 } else {
                     //toto show 密码错误
+                    Toast.makeText(LoginActivity.this, "账户名或密码错误", Toast.LENGTH_SHORT).show();
+                    SharedPreferencesUtils.putBoolean(LoginActivity.this, Constant.LOGIN, false);
+                    SharedPreferencesUtils.putString(LoginActivity.this, Constant.TOKEN, "");
                 }
             }
         });
-        startActivity(new Intent(this, WelcomeActivity.class));
+
     }
 
 

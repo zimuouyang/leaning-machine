@@ -54,6 +54,11 @@ public class ResourceDto extends BaseDto {
         this.des = des;
     }
 
+    public ResourceDto(String resourceName, String des) {
+        this.resourceName = resourceName;
+        this.des = des;
+    }
+
     @Override
     public String toString() {
         return "ResourceDto{" +

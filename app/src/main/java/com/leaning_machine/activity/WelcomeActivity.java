@@ -64,6 +64,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 startActivity(new Intent(this, ExpandActivity.class));
                 break;
             case R.id.welcome_check_record:
+                startActivity(new Intent(this, ReadRecordActivity.class));
                 break;
             case R.id.welcome_english:
                 startActivity(new Intent(this, EnglishActivity.class));
@@ -78,6 +79,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 startActivity(new Intent(this, TextBookActivity.class));
                 break;
             case R.id.task:
+
                 break;
         }
     }

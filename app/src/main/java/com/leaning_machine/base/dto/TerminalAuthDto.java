@@ -6,7 +6,7 @@ import com.leaning_machine.base.dto.BaseDto;
 
 public class TerminalAuthDto extends BaseDto {
     @Expose
-    @SerializedName("token")
+    @SerializedName("result")
     private String token;
 
     public String getToken() {
@@ -15,5 +15,12 @@ public class TerminalAuthDto extends BaseDto {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    @Override
+    public String toString() {
+        return "TerminalAuthDto{" +
+                "token='" + token + '\'' +
+                '}';
     }
 }
