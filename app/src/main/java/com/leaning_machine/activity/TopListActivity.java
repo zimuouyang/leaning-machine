@@ -48,7 +48,12 @@ public class TopListActivity extends BaseActivity implements View.OnClickListene
         totalTitle.setOnClickListener(this);
         monthTitle.setOnClickListener(this);
         dayTitle.setOnClickListener(this);
+        findViewById(R.id.play).setOnClickListener(this);
 
+       initAdapter();
+    }
+
+    private void initAdapter() {
         topListAdapter = new TopListAdapter(this);
 
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -79,6 +84,9 @@ public class TopListActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.day_title:
                 changeLayout(2);
+                break;
+            case R.id.play:
+                finish();
                 break;
         }
     }

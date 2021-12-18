@@ -24,6 +24,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
         findViewById(R.id.about_app).setOnClickListener(this);
         findViewById(R.id.about_app_manage).setOnClickListener(this);
         findViewById(R.id.about_one_clean).setOnClickListener(this);
+        findViewById(R.id.play).setOnClickListener(this);
     }
 
     @Override
@@ -42,6 +43,9 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.about_one_clean:
                 oneClean();
+                break;
+            case R.id.play:
+                finish();
                 break;
         }
     }

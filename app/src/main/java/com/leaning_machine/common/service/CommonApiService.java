@@ -82,7 +82,7 @@ public class CommonApiService {
         return getService().terminalLogin(terminal);
     }
 
-    public Observable<List<ResourceDto>> terminalResources() {
-        return getService().terminalResources();
+    public Observable<List<ResourceDto>> terminalResources(int pageNo, int pageSize) {
+        return getService().terminalResources( pageNo, pageSize);
     }
 }

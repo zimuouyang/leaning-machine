@@ -14,10 +14,11 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         CommonApiService.instance.init(Constant.BASE_URI);
-//        String token = SharedPreferencesUtils.getString(this, Constant.TOKEN, "null");
-//        if (!token.isEmpty()) {
-//            HttpClient.instance.addHeader(Constant.TOKEN, token);
-//        }
+        HttpClient.instance.init(this);
+        String token = SharedPreferencesUtils.getString(this, Constant.TOKEN, "");
+        if (!token.isEmpty()) {
+            HttpClient.instance.addHeader(Constant.TOKEN, token);
+        }
 
     }
 }

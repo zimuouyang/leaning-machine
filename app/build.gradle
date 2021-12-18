@@ -58,4 +58,9 @@ dependencies {
     implementation 'io.reactivex:rxandroid:1.2.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.7'
 
+    implementation  'io.github.scwang90:refresh-layout-kernel:2.0.3'
+    implementation  'io.github.scwang90:refresh-header-classics:2.0.3'
+    implementation  'io.github.scwang90:refresh-footer-classics:2.0.3'
+
+
 }

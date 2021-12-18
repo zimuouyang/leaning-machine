@@ -7,6 +7,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,6 +41,7 @@ public class TopWithContentLayout extends LinearLayout implements View.OnClickLi
     private int currentIndex;
     private int topImgId;
     private String topContent;
+    private FinishClick finishClick;
 
 
     public TopWithContentLayout(Context context) {
@@ -103,6 +105,11 @@ public class TopWithContentLayout extends LinearLayout implements View.OnClickLi
 
     private void initClick() {
         personCenterImg.setOnClickListener(this);
+        findViewById(R.id.play).setOnClickListener(this);
+    }
+
+    public void setFinishClick(FinishClick finishClick) {
+        this.finishClick = finishClick;
     }
 
     public void addTitle(List<String> titles, TitleClick titleClick) {
@@ -152,10 +159,20 @@ public class TopWithContentLayout extends LinearLayout implements View.OnClickLi
             case R.id.person_center:
                 context.startActivity(new Intent(context, PersonCenterActivity.class));
                 break;
+            case R.id.play:
+                Log.d("ZZZ", "CLICK");
+                if (finishClick != null) {
+                    finishClick.finish();
+                }
+                break;
         }
     }
 
     public interface TitleClick {
         void onClick(int index, String title);
+    }
+
+    public interface FinishClick {
+        void finish();
     }
 }

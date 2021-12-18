@@ -65,6 +65,10 @@ public class TextBookActivity extends BaseActivity {
         titles.add(getString(R.string.kao_ba_xi_lie));
         titles.add(getString(R.string.kao_shen_jun_xi_lie));
 
+        initTopWithContentLayout();
+    }
+
+    private void initTopWithContentLayout() {
         topWithContentLayout.setAppList(keWenJiangLianList);
 
         topWithContentLayout.addTitle(titles, new TopWithContentLayout.TitleClick() {
@@ -93,6 +97,7 @@ public class TextBookActivity extends BaseActivity {
                 }
             }
         });
+        topWithContentLayout.setFinishClick(TextBookActivity.this::finish);
     }
 
     @Override
@@ -102,53 +107,53 @@ public class TextBookActivity extends BaseActivity {
 
     private void initKeWenJiangLianList() {
         keWenJiangLianList = new ArrayList<>();
-        keWenJiangLianList.add(new App(R.mipmap.ke_wen_jiang_lian_xiao_xue, getString(R.string.xiao_xue_yu_shu_ying_tong_bu)));
-        keWenJiangLianList.add(new App(R.mipmap.ke_wen_jiang_lian_gao_zhong, getString(R.string.chu_gao_zhong_ying_yu_tong_bu)));
+        keWenJiangLianList.add(new App(R.mipmap.ke_wen_jiang_lian_xiao_xue, getString(R.string.xiao_xue_yu_shu_ying_tong_bu), getString(R.string.package_name_xiao_xue_tong_bu)));
+        keWenJiangLianList.add(new App(R.mipmap.ke_wen_jiang_lian_gao_zhong, getString(R.string.chu_gao_zhong_ying_yu_tong_bu), getString(R.string.package_name_ke_ke_xue_ba)));
     }
 
     private void initAIWeiKeList() {
         aiWeiKeList = new ArrayList<>();
-        aiWeiKeList.add(new App(R.mipmap.ai_wei_ke_shu_li_hua, getString(R.string.zhong_xue_shu_li_hua)));
-        aiWeiKeList.add(new App(R.mipmap.ai_wei_ke_quan_wei_lian, getString(R.string.qu_wei_quan_ke_lian)));
+        aiWeiKeList.add(new App(R.mipmap.ai_wei_ke_shu_li_hua, getString(R.string.zhong_xue_shu_li_hua), getString(R.string.package_name_ou_la)));
+        aiWeiKeList.add(new App(R.mipmap.ai_wei_ke_quan_wei_lian, getString(R.string.qu_wei_quan_ke_lian), getString(R.string.package_name_qu_wei_lian)));
     }
 
 
     private void initTongBuHuiBen() {
         tongBuHuiBenList = new ArrayList<>();
-        tongBuHuiBenList.add(new App(R.mipmap.tong_bu_hui_ben_yi_qi_xue, getString(R.string.yi_qi_xue)));
+        tongBuHuiBenList.add(new App(R.mipmap.tong_bu_hui_ben_yi_qi_xue, getString(R.string.yi_qi_xue), getString(R.string.package_name_yi_qi_xue)));
     }
 
     private void initTongTiKu() {
         tongBuTiKuList = new ArrayList<>();
-        tongBuTiKuList.add(new App(R.mipmap.tong_bu_ti_ku_jing_you, getString(R.string.jing_you_wang)));
-        tongBuTiKuList.add(new App(R.mipmap.tong_bu_ti_ku_yuan_ti_ku, getString(R.string.yuan_ti_ku)));
-        tongBuTiKuList.add(new App(R.mipmap.tong_bu_ti_ku_mo_fa, getString(R.string.wei_lai_mo_fa_xiao)));
+        tongBuTiKuList.add(new App(R.mipmap.tong_bu_ti_ku_jing_you, getString(R.string.jing_you_wang), getString(R.string.package_name_jing_you)));
+        tongBuTiKuList.add(new App(R.mipmap.tong_bu_ti_ku_yuan_ti_ku, getString(R.string.yuan_ti_ku), getString(R.string.package_name_yuan_ti_ku)));
+        tongBuTiKuList.add(new App(R.mipmap.tong_bu_ti_ku_mo_fa, getString(R.string.wei_lai_mo_fa_xiao), getString(R.string.package_name_mo_fa_ti_ku)));
     }
 
     private void initKaoBaList() {
         kaoBaList = new ArrayList<>();
-        kaoBaList.add(new App(R.mipmap.kao_ba_english));
-        kaoBaList.add(new App(R.mipmap.kao_ba_yu_wen));
-        kaoBaList.add(new App(R.mipmap.kao_ba_math));
-        kaoBaList.add(new App(R.mipmap.kao_ba_hua_xue));
-        kaoBaList.add(new App(R.mipmap.kao_ba_wu_li));
-        kaoBaList.add(new App(R.mipmap.kao_ba_sheng_wu));
-        kaoBaList.add(new App(R.mipmap.kao_ba_li_shi));
-        kaoBaList.add(new App(R.mipmap.kao_ba_zheng_zhi));
-        kaoBaList.add(new App(R.mipmap.kao_ba_di_li));
+        kaoBaList.add(new App(R.mipmap.kao_ba_english, "", getString(R.string.package_name_chu_zhong_english)));
+        kaoBaList.add(new App(R.mipmap.kao_ba_yu_wen, "", getString(R.string.package_name_chu_zhong_chinese)));
+        kaoBaList.add(new App(R.mipmap.kao_ba_math, "", getString(R.string.package_name_chu_zhong_math)));
+        kaoBaList.add(new App(R.mipmap.kao_ba_hua_xue, "", getString(R.string.package_name_chu_zhong_hua_xue)));
+        kaoBaList.add(new App(R.mipmap.kao_ba_wu_li, "", getString(R.string.package_name_chu_zhong_wu_li)));
+        kaoBaList.add(new App(R.mipmap.kao_ba_sheng_wu, "", getString(R.string.package_name_chu_zhong_sheng_wu)));
+        kaoBaList.add(new App(R.mipmap.kao_ba_li_shi, "", getString(R.string.package_name_chu_zhong_li_shi)));
+        kaoBaList.add(new App(R.mipmap.kao_ba_zheng_zhi, "", getString(R.string.package_name_chu_zhong_zheng_zhi)));
+        kaoBaList.add(new App(R.mipmap.kao_ba_di_li, "", getString(R.string.package_name_chu_zhong_di_li)));
     }
 
     private void initKaoShenJunList() {
         kaoShenJunList = new ArrayList<>();
         kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_quan_ce));
-        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_english));
-        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_language));
-        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_math));
-        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_wu_li));
-        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_hua_xue));
-        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_di_li));
-        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_li_shi));
-        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_sheng_wu));
+        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_english, "", getString(R.string.package_name_gao_zhong_english)));
+        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_language, "", getString(R.string.package_name_gao_zhong_chinese)));
+        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_math, "", getString(R.string.package_name_gao_zhong_math)));
+        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_wu_li, "", getString(R.string.package_name_gao_zhong_wu_li)));
+        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_hua_xue, "", getString(R.string.package_name_gao_zhong_hua_xue)));
+        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_di_li, "", getString(R.string.package_name_gao_zhong_di_li)));
+        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_li_shi, "", getString(R.string.package_name_gao_zhong_li_shi)));
+        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_sheng_wu, "", getString(R.string.package_name_gao_zhong_sheng_wu)));
     }
 
 

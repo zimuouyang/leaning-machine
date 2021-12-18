@@ -47,13 +47,14 @@
     </RelativeLayout>
 
     <ImageView
+        android:id="@+id/ding_ding"
         android:layout_width="wrap_content"
         android:layout_height="140dp"
         android:layout_marginStart="20dp"
         android:scaleType="centerCrop"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@mipmap/dingding">
+        android:background="@mipmap/ding_ding">
     </ImageView>
 
     <LinearLayout
@@ -64,14 +65,14 @@
         android:layout_marginEnd="130dp">
 
         <ImageView
-            android:id="@+id/hanYuZiDian"
+            android:id="@+id/we_chat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@mipmap/we_chat" />
 
         <ImageView
-            android:id="@+id/xueXiQiangGuo"
+            android:id="@+id/qq"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

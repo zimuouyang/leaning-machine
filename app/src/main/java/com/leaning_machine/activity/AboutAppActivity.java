@@ -1,16 +1,18 @@
 package com.leaning_machine.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
 
 import com.leaning_machine.R;
 
-public class AboutAppActivity extends AppCompatActivity {
+public class AboutAppActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_app);
+    public void initView() {
+        findViewById(R.id.play).setOnClickListener(view -> finish());
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_about_app;
     }
 }

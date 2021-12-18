@@ -9,10 +9,104 @@
     <string name="others_middle_wu_li">com.kaoba.midphysics</string>
     <string name="others_middle_zheng_zi">com.kaoba.midpolitics</string>
 
+    <!-- 去上课-->
+    <string name="package_name_qq">com.tencent.mobileqq</string>
+    <string name="package_name_ding_ding">com.alibaba.android.rimet</string>
+    <string name="package_name_we_chat">com.tencent.mm</string>
 
-    <string name="go_class_qq">com.tencent.mobileqq</string>
-    <string name="go_class_ding_ding">com.alibaba.android.rimet</string>
-    <string name="go_class_we_chat">com.tencent.mm</string>
+    <!--语文-->
+    <string name="package_name_xue_xi_qiang_guo">cn.xuexi.android</string>
+    <string name="package_name_quan_li_shi">com.allhistory.dls.marble</string>
+    <string name="package_name_han_yu_zi_dian">com.apprush.game.chinesechar</string>
+    <string name="package_name_bi_shen_zuo_wen">com.bishen.zuowen</string>
+
+    <!-- 数学逻辑-->
+    <string name="package_name_du_du_math">com.enuma.todomathcn</string>
+    <string name="package_name_ke_han_xue_yuan">org.khanacademy.android</string>
+    <string name="package_name_moose_math">com.duckduckmoosedesign.km</string>
+    <string name="package_name_pythagorea">com.hil_hk.pythagorea</string>
+
+    <!-- 同步教材库-->
+
+    <!-- 课文讲练-->
+    <string name="package_name_ke_ke_xue_ba">com.kekenet.xueba</string>
+    <string name="package_name_xiao_xue_tong_bu">com.haojiazhang.xxb.english</string>
+
+    <!--同步绘本-->
+    <string name="package_name_yi_qi_xue">com.yiqizuoye.jzt</string>
+
+    <!--同步题库-->
+    <string name="package_name_jing_you">jyeoo.app.ystudy</string>
+    <string name="package_name_mo_fa_ti_ku">com.mofaxiao.student</string>
+    <string name="package_name_yuan_ti_ku">com.fenbi.android.gaozhong</string>
+
+    <!--同步AI微课-->
+    <string name="package_name_ou_la">com.ola100.app</string>
+    <string name="package_name_qu_wei_lian">com.leleketang.SchoolFantasy</string>
+
+    <!--考霸系列-->
+    <string name="package_name_chu_zhong_di_li">com.kaoba.midgeography</string>
+    <string name="package_name_chu_zhong_hua_xue">com.kaoba.midchemistry</string>
+    <string name="package_name_chu_zhong_li_shi">com.kaoba.midhistory</string>
+    <string name="package_name_chu_zhong_sheng_wu">com.kaoba.midbiology</string>
+    <string name="package_name_chu_zhong_math">com.gaoha.mathsplus</string>
+    <string name="package_name_chu_zhong_wu_li">com.kaoba.midphysics</string>
+    <string name="package_name_chu_zhong_english">com.gaoha.english</string>
+    <string name="package_name_chu_zhong_chinese">com.kaoba.yuwen</string>
+    <string name="package_name_chu_zhong_zheng_zhi">com.kaoba.midpolitics</string>
+
+    <!-- 考神君系列-->
+    <string name="package_name_gao_zhong_di_li">com.xiangqi.geography</string>
+    <string name="package_name_gao_zhong_hua_xue">com.xiangqi.chemistry</string>
+    <string name="package_name_gao_zhong_li_shi">com.csliyu.history</string>
+    <string name="package_name_gao_zhong_sheng_wu">com.xiangqi.biology</string>
+    <string name="package_name_gao_zhong_math">com.xiangqi.math</string>
+    <string name="package_name_gao_zhong_wu_li">com.xiangqi.physics</string>
+    <string name="package_name_gao_zhong_english">com.xiangqi.highschool</string>
+    <string name="package_name_gao_zhong_chinese">com.xiangqi.gzchinese</string>
+
+    <!-- 英语-->
+    <!-- 背单词-->
+    <string name="package_name_three_dan_ci">com.youdao.kiddict</string>
+    <string name="package_name_bai_ci_zhan">com.jiongji.andriod.card</string>
+    <string name="package_name_ai_bei_dan_ci">com.shark.crazyword</string>
+
+    <!-- 趣益智-->
+    <string name="package_name_molly">org.pbskids.mollyofdenali</string>
+    <string name="package_name_play_games">org.pbskids.gamesapp</string>
+    <string name="package_name_play_engineering">org.pbskids.playandlearnengineering</string>
+    <string name="package_name_play_science">org.pbskids.playandlearnscience</string>
+    <string name="package_name_puzzle_kids">com.rvappstudios.jigsaw.puzzles.kids</string>
+
+    <!-- 勤练习-->
+    <string name="package_name_xin_gai_nian_quan_ce">com.giant.newconcept</string>
+    <string name="package_name_civia_machine">cn.civaonline.ccstudentsclient</string>
+    <string name="package_name_duo_lin_guo">com.duolingo</string>
+    <string name="package_name_ef_hello">com.ef.efhello</string>
+
+    <!-- 爱阅读 -->
+    <string name="package_name_bai_ci_zhan_ai_yue_du">com.baicizhan.ireading</string>
+    <string name="package_name_ko_yu_machine">com.ccenglish.parent</string>
+    <string name="package_name_abc_reading">com.tal.abctimelibrary</string>
+    <string name="package_name_read_long">com.google.android.apps.seekh</string>
+    <string name="package_name_reading_pro">cn.readingprotoc.phone</string>
+
+    <!--学拼读-->
+    <string name="package_name_kids_sight_words">com.intellijoy.sightwords</string>
+    <string name="package_name_sight_words">cz.cfc.androidgp.sightwords</string>
+    <string name="package_name_abc_spelling">com.rvappstudios.abc.spelling.toddler.spell.phonics</string>
+    <string name="package_name_abc_kids_phonics">com.rvappstudios.abc_kids_toddler_tracing_phonics</string>
+    <string name="package_name_play_sight_words">com.playsightwords</string>
+    <string name="package_name_speed_phonics">com.eltkorea.speedphonics</string>
+    <string name="package_name_startfall_abcs">com.starfall.StarfallABCs</string>
+    <string name="package_name_startfall_learn_read">air.com.starfall.ltr</string>
+
+    <!-- 磨耳朵 -->
+    <string name="package_name_khan_kids">org.khankids.android</string>
+    <string name="package_name_math_kids">com.rvappstudios.math.kids.counting</string>
+    <string name="package_name_dong_ting_hui_ben">com.wenxi.audiobooks</string>
+    <string name="package_name_hai_ni_man_english">com.diiiapp.hnm</string>
+    <string name="package_name_raz">com.razkidscamb.americanread.android.architecture.newrazapp</string>
 
 
     <string name="math_moose_math">com.duckduckmoosedesign.km</string>
@@ -28,8 +122,8 @@
     <string name="english_mo_er_duo_dong_ting_hui_ben">com.wenxi.audiobooks</string>
 
     <string name="english_pin_du_abc_kids">com.rvappstudios.abc_kids_toddler_tracing_phonics</string>
-    <string name="english_pin_du_sightwords"> com.playsightwords</string>
-    <string name="english_pin_du_speedphonics"> com.eltkorea.speedphonics</string>
+    <string name="english_pin_du_sightwords">com.playsightwords</string>
+    <string name="english_pin_du_speedphonics">com.eltkorea.speedphonics</string>
     <string name="english_pin_du_starfall_abcs">com.starfall.StarfallABCs</string>
     <string name="english_pin_du_starfall_ltr">air.com.starfall.ltr</string>
 
@@ -80,9 +174,9 @@
     </string-array>
 
     <string-array name="go_class_group">
-        <item>@string/go_class_qq</item>
-        <item>@string/go_class_ding_ding</item>
-        <item>@string/go_class_we_chat</item>
+        <item>@string/package_name_qq</item>
+        <item>@string/package_name_ding_ding</item>
+        <item>@string/package_name_we_chat</item>
     </string-array>
 
     <string-array name="math_group">
@@ -155,6 +249,44 @@
         <item>@string/zuo_wen_zi_dian</item>
         <item>@string/zuo_wen_study</item>
     </string-array>
+
+    <string name="speed_phonics_des">系统全面地学习自然拼读，适合5—12岁孩子，课程共分3个级别：一级以以“字母音+短元音”为教学重点，通过26个字母的拼写和拼读来实现自然拼读课程的入门并培养以短元音为核心的字母拼读能力；二级以“长元音+双元音”为教学重点，培养长元音、双元音的拼读能力，增强阅读能力，提升复杂单词识读能力。三级以“双元音+双辅音”为教学重点，培养双元音、双辅音的拼读能力，培养对单词的整体感知、认读、拼写能力。</string>
+    <string name="abc_kids_des">通过两个卡通人物Lucas和Ruby的伴学，以各种简单有趣的游戏方式，主要学习26个字母及其大小写，同时学习相对应的以各个字母为首字母的常用单词。可离线使用。</string>
+    <string name="starfall_abcs_des">适合零基础、开始磨耳朵阶段的孩子，建立字母和发音的关系，认识字母的写法，掌握字母的发音，学习相应的单词；每个字母的学习都配有不同的互动小游戏，区分大小写并练习基础发音，让孩子学英语像学母语一样轻松快乐。可以升级学习Starfall Learn to read扎实拼读基础。可离线使用。</string>
+    <string name="starfall_learn_to_read_des">适合已经掌握了26个字母的发音和一定拼读基础的孩子（建议学完Starfall ABCs），主要学习短元音、长元音、双元音和复合元音等字母组合的发音，并将自然拼读技巧运用到句子的拼读中。旨在通过各种趣味活动、动画和歌曲，让孩子从听力、触摸、阅读等不同方式来掌握发音和拼写。设计思路遵循发展读写能力的四个阶段：1）让孩子通过游戏认识字母；2）学习发音和拼读；3）阅读简单的句子；4）阅读一些简单的绘本。可离线使用。</string>
+    <string name="abc_spelling_des">通过两个卡通人物Lucas和Ruby的伴学，以各种游戏形式学习由三个字母组成的单词的拼读拼写能力。可离线使用。</string>
+    <string name="kids_sight_words_des">高频词汇儿童识字游戏。通过四个精彩的听音找单词活动，帮助一只青蛙成长。游戏中，你会听到许多常用英语单词，找到它们，就可以帮助青蛙了。游戏全程英语语音，边游戏边学英语。可离线使用。</string>
+    <string name="sight_words_des">通过使用各种触摸互动游戏，让孩子学习常用单词或寻找提高词汇记忆。可分为“Pre Primary”和“Primary”两个级别，每个游戏都可选择“easy”或“hard”两个难度。完整学习所有单元后，能熟练掌握113个常用单词。可离线使用。</string>
+    <string name="sight_words_hei_ban_des">用字母游戏来学习常用词汇，共有5个难度等级，涵盖常用词汇较全面。操作简单有趣，进入界面可以直接创建喜欢的人物。共分6个类型的游戏，不同的小游戏都针对高频词的音、形、意分别练习，全方位锻炼孩子的听力与单词认读能力，练习词汇可达220词。可离线使用.</string>
+    <string name="khan_kids_des">没有比这更好的了！——像美国孩子一样，直接用英语学习！
+不用翻译，不必翻译，不能翻译！在沉浸式交互学习中习得英语思维！
+它将数学、科学、阅读、逻辑思维等内容融入到英语学习中，全方位构建了孩子英语启蒙的体系。依据场景化的主题进行教学，每个主题大约5——10分钟，难度循序渐进。并提供大量语音交互式动画、书籍、歌曲、故事等高品质素材，尤其是将Super Simple Song的优质儿歌嵌入到交互式课程中，将被动的视频转变为主动互动的学习，让孩子沉浸在学习的乐趣中。部分板块可离线使用。</string>
+    <string name="math_kids_des">全英文的数学启蒙学习，从最简单的数字和数量的对照，到20以内的加减运算，边学数学边磨英语耳朵。两个卡通人物Lucas和Ruby的伴学，增加了学习的趣味性。可离线使用。</string>
+    <string name="dong_ting_hui_ben_des">专注于少儿绘本故事阅读力启蒙，超过1000本精品有声高清趣味英语绘本， 包含当前流行的英语绘本分级阅读，如：廖彩杏书单、牛津阅读树分级、海尼曼分级阅读、兰登英语分级阅读、培生英语分级阅读、RAZ AA级、I AM系列、家有恐龙系列、苏斯博士系列、If You Give系列等等，音乐图片声音同步，少儿儿童英语启蒙自主学习更轻松；绘本自动翻页模式适合睡前播放磨耳朵，单页循环适合绘本精读。收藏夹方便英语分级阅读的小朋友持续学习。</string>
+    <string name="hai_ni_man_english_des">内容类似“动听英语绘本”，又多了“跟读录音”功能，同时绘本精读板块又多了“单词阅读”、“单词训练”和“高频词训练”。</string>
+    <string name="raz_des">有丰富的英文视频资源用来磨英语耳朵。</string>
+    <string name="read_along_des">内置一位名叫“Diya”陪读小伙伴，帮助孩子们培养自助学习的习惯和提升阅读能力。当孩子们大声朗读时，Diya会利用谷歌语音合成与识别技术来检测是否顺利地完成了相关段落的阅读，从而像老师或家长一样给予及时的反馈。如果对个别单词或句子感到不熟悉，可以随时随地通过点击Diya来知晓发音。Read along设置步步进阶的闯关激励机制，通过得到的星星数量来解锁徽章，提高孩子们的阅读兴趣。而且它资源内容丰富，并定期添加新的图书，且所有图书均可在下载后离线使用。如果家里多个孩子共用一个设备，Read along还可支持分成多个账号，以便追踪每个孩子的学习进度和提供个性化推荐。</string>
+    <string name="reading_pro_des">覆盖小初高K12全学段，集测、听、读于一体的专业英文分级阅读平台。它基于美国权威的阅读分级Lexile（蓝思）测评体系，可以根据每个用户英文阅读能力科学评估分级，推荐对应的分层读物，提高学生的阅读水平，帮助其成为独立高效的英文阅读者。蓝思书城共有包含大猫、Hilights、迪士尼等3000+本读物，主题保罗万象，涵盖文化传记、性格品行、人际交往、地理环境等等，从单词、跟读到阅读理解，符合中国学生的阅读习惯。通过细致化地分层，让不同英语水平的学生使用起来较为灵活，实现教育私人化定制。</string>
+    <string name="abc_reading_des">专为3——12岁中国孩子打造的在线英语分级阅读图书馆。绘本用的是raz，是美国80%的公立学校都要用到的官方阅读教材，内容安排呈线性螺旋式上升，分为29个级别，内容涵盖广泛。与牛津阅读树相比，RAZ最大的特点是：同级别内部，读本之间难度基本没有差异，不会出现前几本简单，越往后越难的情况。而且，相比ReadingPro，ABCReading趣味性和交互式互动更强，更适合初中以下学生。</string>
+    <string name="bai_ci_zhan_read_des">1)海量专辑，包括：世界经典名著、知名演讲、诗歌、小说、童话等难度自选，满足不同学习者的阅读需求；而且，还贴心地把长篇幅的文章分解开，适合每日10分钟左右的阅读；2)多种方式辅助深层次阅读，可调节音频语速；可点击单词听发音、看汉语意思；阅读完成后还有知识点回顾，包括重点词汇词组、金句、小练习等，对考试提分帮助较大。3）可以加入全网阅读小组，共同成长进步。</string>
+    <string name="duo_lin_guo_des">可以学习英语、日语、法语、意大利语、西班牙语等多门语言。从听、读、拼、义四个方面进行多元化的单词和语句训练，实现方式多样，每一单元都会有语法提示。颠覆传统学习方法，创造游戏般的体验，每次掌握一些单词或课程后，就会赢邻角。通过高分，可换道具、争排名，过关跳级，解锁更高级别的教程内容，非常有趣，把学习变成了玩游戏。</string>
+    <string name="ef_hello_des">专为英语口语练习者打造，丰富多彩的互动影音情景式交流，AI智能课程教练，协助你迅速提升学习。</string>
+    <string name="bai_ci_zhan_des">全情景配图式记忆单词，涵盖从低到高各阶段词汇，各种主流考试一网打尽。</string>
+    <string name="english_ci_dian">分类别模块的3D单词，形象生动。</string>
+
+    <string name="moose_math_des">全英文的数学启蒙，适合幼儿园和小学一年级的孩子。边学数学边磨英语耳朵。
+分为驼鹿果汁店（Moose Juice）、PUCK宠物店（Puck’s pets）和Lost and Found（失物招领）3个游戏屋共5个游戏来学习数量对照、20以内的加减法、图形认知和归类，以及长度测量等，游戏设置关卡升级，每升级一关都会送给小礼物装点游戏屋，增强孩子们学习的趣味性。</string>
+    <string name="dou_dou_math_des">需自己付费。全球900万家庭都在使用的数学学习启蒙app，适合2—8岁，超赞！家长可在微信端绑定“都都APP”自行查看“家长使用手册”</string>
+    <string name="pythagorea_des">是一款在正方形铺成的网格上进行几何作图的游戏。游戏内容涵盖了初中几何几乎所有的主题，从最简单的直线，到稍微复杂的平行线，然后到几何中最常见的三角形，紧接着就是各种特殊的四边形，最后还有一些需要解决有关圆的问题卡片。</string>
+    <string name="ai_dan_ci_des">基于艾宾浩斯遗忘曲线，个性化定制单词学习计划，通过对学习的分析，制定抗遗忘单词策略，让背单词更高效、更轻松、更高质量。</string>
+
+
+    <string name="ke_han_xue_yuan_des">由孟加拉裔美国人萨尔曼·可汗创立，是世界最先进的学习方式“翻转学习”的代表，被认为是正在打开“未来教育”的曙光。教学内容涉及数学、物理、化学、计算机，一直到理财人生等等，最著名的是从学前到高中的数学课程。</string>
+
+    <string name="bi_shen_zuo_wen_des">人工智能辅助写作软件，可以快速提升写作质量与效率，包含千万级写作素材库，海量写作素材应有尽有；并可建立智能私有素材库，在写作过程中基于所写内容实时调用匹配素材</string>
+    <string name="quan_li_shi_des">以时间和空间为维度生动地向我们介绍了一个全方位的丰富的历史世界。特点：1）详细的“关系图谱”：所有的关系都是有关联的，并可以通过链接互相跳转，通过同类信息的相关性，让我们 能更直观的了解事物的关系。更有趣的是，你可以随意的搜索两件事物的关联，比如说康熙和韦小宝的关系，除了在金庸小说里他们是很棒的哥们儿、是君臣，在真实的历史当中，他们还有着不一样的关联。
+2）可以很全面地了解各个国家。通过时间地图我们可以选择了解不同国家政治、经济、文化的详细内容；同时还提供历史时期的各大事件介绍，能够快速地了解一个国家在不同时期的发展，以及了解这个国家是如何一步步成为今天的模样。</string>
+    <string name="han_yu_zi_dian_des">字、成语和古诗词的积累神器，每日推送不同的内容，并配合有每日听写训练和每月游戏挑战，是语文素养积累的不错的工具。</string>
 
 
     <string name="pin_du">学拼读</string>

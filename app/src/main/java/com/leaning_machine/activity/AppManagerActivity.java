@@ -1,22 +1,18 @@
 package com.leaning_machine.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
 import com.leaning_machine.R;
 
 import java.util.List;
 
-public class AppManagerActivity extends BaseActivity {
+public class AppManagerActivity extends BaseActivity implements View.OnClickListener {
     private static String TAG = AppManagerActivity.class.getSimpleName();
 
     @Override
@@ -26,10 +22,12 @@ public class AppManagerActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        findViewById(R.id.play).setOnClickListener(this);
+
         findViewById(R.id.setting_center).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uninstallApk(AppManagerActivity.this, getString(R.string.go_class_we_chat));
+                uninstallApk(AppManagerActivity.this, getString(R.string.package_name_we_chat));
             }
         });
     }
@@ -77,5 +75,14 @@ public class AppManagerActivity extends BaseActivity {
             }
         }
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.play:
+                finish();
+                break;
+        }
     }
 }

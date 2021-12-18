@@ -51,6 +51,7 @@ public class ReadRecordActivity extends BaseActivity implements View.OnClickList
         readTitle.setOnClickListener(this);
         recordTitle.setOnClickListener(this);
         findViewById(R.id.person_center).setOnClickListener(this);
+        findViewById(R.id.play).setOnClickListener(this);
 
         resourceAdapter = new ResourceAdapter(this);
 
@@ -73,7 +74,7 @@ public class ReadRecordActivity extends BaseActivity implements View.OnClickList
     }
 
     public void getCloudResources() {
-        CommonApiService.instance.terminalResources().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<ResourceDto>>() {
+        CommonApiService.instance.terminalResources(1, 10).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<ResourceDto>>() {
             @Override
             public void onCompleted() {
 
@@ -107,6 +108,9 @@ public class ReadRecordActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.person_center:
                 startActivity(new Intent(this, PersonCenterActivity.class));
+                break;
+            case R.id.play:
+                finish();
                 break;
         }
     }
