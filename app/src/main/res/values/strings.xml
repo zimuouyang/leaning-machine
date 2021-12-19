@@ -396,4 +396,6 @@
     <string name="kao_shen_jun_holder">包含高中所有学科，性价比超高的资源合集</string>
     <string name="study_time">学习时长：%1$d 分钟</string>
 
+    <string name="msg_loading">Loading</string>
+
 </resources>

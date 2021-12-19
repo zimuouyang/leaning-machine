@@ -1,7 +1,12 @@
 package com.leaning_machine.common.api;
 
+import com.leaning_machine.base.dto.BaseDto;
+import com.leaning_machine.base.dto.CheckTask;
+import com.leaning_machine.base.dto.PageInfo;
 import com.leaning_machine.base.dto.ResourceDto;
 import com.leaning_machine.base.dto.TerminalAuthDto;
+import com.leaning_machine.base.dto.TerminalDetail;
+import com.leaning_machine.base.dto.TerminalDetailDto;
 import com.leaning_machine.base.dto.TerminalLoginDto;
 import com.leaning_machine.common.CommonApiConstants;
 
@@ -16,9 +21,19 @@ import rx.Observable;
 public interface CommonApi {
 
     @POST("terminal/login")
-    Observable<TerminalAuthDto> terminalLogin(@Body TerminalLoginDto terminal);
+    Observable<BaseDto<String>> terminalLogin(@Body TerminalLoginDto terminal);
 
     @GET("terminal/resources")
-    Observable<List<ResourceDto>> terminalResources(@Query(CommonApiConstants.PARAM_PAGE_NO) int pageNO,
+    Observable<BaseDto<PageInfo<ResourceDto>>> terminalResources(@Query(CommonApiConstants.PARAM_PAGE_NO) int pageNO,
                                                     @Query(CommonApiConstants.PARAM_PAGE_SIZE) int pageSiz);
+    @GET("apps")
+    Observable<BaseDto> getApps(@Query(CommonApiConstants.PARAM_PAGE_NO) int pageNO,
+                                                                 @Query(CommonApiConstants.PARAM_PAGE_SIZE) int pageSiz);
+
+    @GET("terminal/detail")
+    Observable<BaseDto<TerminalDetail>> getTerminalDetail();
+
+    @GET("check/task/details")
+    Observable<BaseDto<PageInfo<CheckTask>>> getCheckTasks(@Query(CommonApiConstants.PARAM_PAGE_NO) int pageNO,
+                                                           @Query(CommonApiConstants.PARAM_PAGE_SIZE) int pageSiz);
 }

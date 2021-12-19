@@ -72,4 +72,11 @@ public class App implements Serializable {
         this.name = name;
         this.packageName = packageName;
     }
+
+    public App( int drawableId, String name, String packageName, String detail) {
+        this.detail = detail;
+        this.drawableId = drawableId;
+        this.name = name;
+        this.packageName = packageName;
+    }
 }

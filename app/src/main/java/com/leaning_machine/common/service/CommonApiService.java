@@ -6,13 +6,20 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.leaning_machine.base.dto.BaseDto;
+import com.leaning_machine.base.dto.CheckTask;
+import com.leaning_machine.base.dto.PageInfo;
 import com.leaning_machine.base.dto.ResourceDto;
 import com.leaning_machine.base.dto.TerminalAuthDto;
+import com.leaning_machine.base.dto.TerminalDetail;
+import com.leaning_machine.base.dto.TerminalDetailDto;
 import com.leaning_machine.base.dto.TerminalLoginDto;
 import com.leaning_machine.common.HttpClient;
 import com.leaning_machine.common.api.CommonApi;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +65,13 @@ public class CommonApiService {
     public class DateSerializer implements JsonDeserializer<Date> {
         @Override
         public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            return new Date(json.getAsJsonPrimitive().getAsLong());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+               return simpleDateFormat.parse(json.getAsJsonPrimitive().getAsString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return null;
+            }
         }
     }
 
@@ -78,11 +91,25 @@ public class CommonApiService {
     }
 
 
-    public Observable<TerminalAuthDto> terminalLogin(TerminalLoginDto terminal) {
+    public Observable<BaseDto<String>> terminalLogin(TerminalLoginDto terminal) {
         return getService().terminalLogin(terminal);
     }
 
-    public Observable<List<ResourceDto>> terminalResources(int pageNo, int pageSize) {
+    public Observable<BaseDto<PageInfo<ResourceDto>>> terminalResources(int pageNo, int pageSize) {
         return getService().terminalResources( pageNo, pageSize);
     }
+
+    public Observable<BaseDto> getApps(int pageNo, int pageSize) {
+        return getService().getApps( pageNo, pageSize);
+    }
+
+    public Observable<BaseDto<TerminalDetail>> getTerminalDetail() {
+        return getService().getTerminalDetail();
+    }
+
+    public Observable<BaseDto<PageInfo<CheckTask>>> getCheckTasks(int pageNo, int pageSize) {
+        return getService().getCheckTasks(pageNo, pageSize);
+    }
+
+
 }

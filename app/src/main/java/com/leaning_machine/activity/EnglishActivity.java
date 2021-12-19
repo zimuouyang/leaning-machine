@@ -110,7 +110,7 @@ public class EnglishActivity extends BaseActivity {
 
     private void initPinDuList() {
         pinDuList = new ArrayList<>();
-        pinDuList.add(new App(R.mipmap.english_speed_phonics, getString(R.string.speed_phonics), getString(R.string.package_name_speed_phonics)));
+        pinDuList.add(new App(R.mipmap.english_speed_phonics, getString(R.string.speed_phonics), getString(R.string.package_name_speed_phonics), getString(R.string.speed_phonics_des)));
         pinDuList.add(new App(R.mipmap.english_abc_kids, getString(R.string.abc_kids), getString(R.string.package_name_abc_kids_phonics)));
         pinDuList.add(new App( R.mipmap.english_starfall_abcs, getString(R.string.starfall_abcs), getString(R.string.package_name_startfall_abcs)));
         pinDuList.add(new App(R.mipmap.english_starfall_learn, getString(R.string.starfall_learn_to_read), getString(R.string.package_name_startfall_learn_read)));

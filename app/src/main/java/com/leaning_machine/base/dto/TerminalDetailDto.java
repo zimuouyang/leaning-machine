@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class BaseDto<T> implements Serializable {
+public class TerminalDetailDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Expose
@@ -14,7 +14,8 @@ public class BaseDto<T> implements Serializable {
     @Expose @SerializedName("message")
     private String message;
     @Expose @SerializedName("result")
-    private T result;
+    private TerminalDetail result;
+
 
     public int getBusinessCode() {
         return businessCode;
@@ -32,20 +33,20 @@ public class BaseDto<T> implements Serializable {
         this.message = message;
     }
 
-    public T getResult() {
+    public TerminalDetail getResult() {
         return result;
     }
 
-    public void setResult(T result) {
+    public void setResult(TerminalDetail result) {
         this.result = result;
     }
 
     @Override
     public String toString() {
-        return "BaseDto{" +
+        return "TerminalDetailDto{" +
                 "businessCode=" + businessCode +
                 ", message='" + message + '\'' +
+                ", result=" + result +
                 '}';
     }
 }
-

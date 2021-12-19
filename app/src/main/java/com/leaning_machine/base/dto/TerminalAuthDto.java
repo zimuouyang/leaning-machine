@@ -1,12 +1,9 @@
 package com.leaning_machine.base.dto;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import com.leaning_machine.base.dto.BaseDto;
 
-public class TerminalAuthDto extends BaseDto {
-    @Expose
-    @SerializedName("result")
+import java.io.Serializable;
+
+public class TerminalAuthDto implements Serializable {
     private String token;
 
     public String getToken() {

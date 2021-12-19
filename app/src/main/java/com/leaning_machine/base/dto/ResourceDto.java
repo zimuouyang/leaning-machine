@@ -4,7 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.leaning_machine.base.dto.BaseDto;
 
-public class ResourceDto extends BaseDto {
+import java.io.Serializable;
+
+public class ResourceDto implements Serializable {
     @Expose
     @SerializedName("id")
     private Long id;

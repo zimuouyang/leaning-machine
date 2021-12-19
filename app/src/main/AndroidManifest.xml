@@ -21,9 +21,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Leaningmachine">
         <activity
-            android:name=".activity.TopListActivity"
+            android:name=".activity.WebViewActivity"
             android:screenOrientation="landscape"
             android:exported="false" />
+        <activity
+            android:name=".activity.TopListActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.ReadRecordActivity"
             android:exported="false"

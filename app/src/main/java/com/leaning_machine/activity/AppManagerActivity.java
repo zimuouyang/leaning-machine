@@ -8,16 +8,32 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 
+import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.base.dto.BaseDto;
+import com.leaning_machine.base.dto.PageInfo;
+import com.leaning_machine.base.dto.ResourceDto;
+import com.leaning_machine.common.service.CommonApiService;
 
 import java.util.List;
 
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 public class AppManagerActivity extends BaseActivity implements View.OnClickListener {
     private static String TAG = AppManagerActivity.class.getSimpleName();
+    private int currentPage = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getApp(1);
     }
 
     @Override
@@ -46,35 +62,36 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
 //        context.startActivity(intent);
     }
 
-    private void oneClean() {
-        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> infoList = am.getRunningAppProcesses();
-        List<ActivityManager.RunningServiceInfo> serviceInfos = am.getRunningServices(100);
-
-//        long beforeMem = getAvailMemory(ClearMemoryActivity.this);
-//        Log.d(TAG, "-----------before memory info : " + beforeMem);
-        int count = 0;
-        if (infoList != null) {
-            for (int i = 0; i < infoList.size(); ++i) {
-                ActivityManager.RunningAppProcessInfo appProcessInfo = infoList.get(i);
-                Log.d(TAG, "process name : " + appProcessInfo.processName);
-                //importance 该进程的重要程度  分为几个级别，数值越低就越重要。
-                Log.d(TAG, "importance : " + appProcessInfo.importance);
-
-                // 一般数值大于RunningAppProcessInfo.IMPORTANCE_SERVICE的进程都长时间没用或者空进程了
-                // 一般数值大于RunningAppProcessInfo.IMPORTANCE_VISIBLE的进程都是非可见进程，也就是在后台运行着
-                if (appProcessInfo.importance > ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
-                    String[] pkgList = appProcessInfo.pkgList;
-                    for (int j = 0; j < pkgList.length; ++j) {//pkgList 得到该进程下运行的包名
-                        Log.d(TAG, "It will be killed, package name : " + pkgList[j]);
-                        am.killBackgroundProcesses(pkgList[j]);
-                        count++;
-                    }
-                }
+    private void getApp(int page) {
+        CommonApiService.instance.getApps(page, 5).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BaseDto>() {
+            @Override
+            public void onCompleted() {
 
             }
-        }
 
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseDto pageInfoBaseDto) {
+                if (pageInfoBaseDto.getBusinessCode() == Constant.SUCCESS) {
+//                    hasData = !pageInfoBaseDto.getResult().isLastPage();
+//                    currentPage = pageInfoBaseDto.getResult().getPageNum();
+//                    resourceDtos.addAll(pageInfoBaseDto.getResult().getList());
+//                    resourceAdapter.setData(resourceDtos);
+//                    if (!hasData) {
+//                        refreshLayout.finishLoadMoreWithNoMoreData();
+//                    } else {
+//                        refreshLayout.finishLoadMore();
+//                    }
+                } else {
+//                    refreshLayout.finishLoadMore();
+                }
+            }
+
+        });
     }
 
     @Override

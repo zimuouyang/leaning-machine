@@ -10,8 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.base.dto.TerminalAuthDto;
 import com.leaning_machine.base.dto.TerminalLoginDto;
 import com.leaning_machine.common.HttpClient;
@@ -26,7 +29,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView accountText;
     TextView passwordText;
@@ -38,13 +41,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
         if (SharedPreferencesUtils.getBoolean(this, Constant.LOGIN, false)) {
             startActivity(new Intent(this, WelcomeActivity.class));
         }
+        initView();
     }
 
 
-    @Override
     public void initView() {
         accountText = findViewById(R.id.account);
         passwordText = findViewById(R.id.password);
@@ -56,11 +60,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         loginButton.setOnClickListener(this);
 
 
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_login;
     }
 
 
@@ -97,10 +96,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void login() {
+        HttpClient.instance.removeHeader(Constant.TOKEN);
         TerminalLoginDto terminalLoginDto = new TerminalLoginDto();
         terminalLoginDto.setName(accountText.getText().toString());
         terminalLoginDto.setPwd(passwordText.getText().toString());
-        CommonApiService.instance.terminalLogin(terminalLoginDto).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<TerminalAuthDto>() {
+        CommonApiService.instance.terminalLogin(terminalLoginDto).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BaseDto<String>>() {
             @Override
             public void onCompleted() {
 
@@ -112,12 +112,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }
 
             @Override
-            public void onNext(TerminalAuthDto terminalAuthDto) {
+            public void onNext(BaseDto<String> terminalAuthDto) {
                 if (terminalAuthDto.getBusinessCode() == 200) {
                     startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
-                    SharedPreferencesUtils.putString(LoginActivity.this, Constant.TOKEN, Constant.TOKEN_PREFIX + terminalAuthDto.getToken());
+                    SharedPreferencesUtils.putString(LoginActivity.this, Constant.TOKEN, Constant.TOKEN_PREFIX + terminalAuthDto.getResult());
                     SharedPreferencesUtils.putBoolean(LoginActivity.this, Constant.LOGIN, true);
-                    HttpClient.instance.addHeader(Constant.TOKEN, Constant.TOKEN_PREFIX + terminalAuthDto.getToken());
+                    HttpClient.instance.addHeader(Constant.TOKEN, Constant.TOKEN_PREFIX + terminalAuthDto.getResult());
                 } else {
                     //toto show 密码错误
                     Toast.makeText(LoginActivity.this, "账户名或密码错误", Toast.LENGTH_SHORT).show();
