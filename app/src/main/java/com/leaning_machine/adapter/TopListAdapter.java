@@ -10,17 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leaning_machine.R;
-import com.leaning_machine.base.dto.TopListDto;
+import com.leaning_machine.base.dto.TopListModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TopListAdapter extends RecyclerView.Adapter<TopListAdapter.MyViewHolder>{
     private Context context;
-    private List<TopListDto> list;
+    private List<TopListModel> list;
     private View inflater;
 
-    public TopListAdapter(Context context, List<TopListDto> list){
+    public TopListAdapter(Context context, List<TopListModel> list){
         this.context = context;
         this.list = list;
     }
@@ -29,7 +29,7 @@ public class TopListAdapter extends RecyclerView.Adapter<TopListAdapter.MyViewHo
         this.list = new ArrayList<>();
     }
 
-    public void setData(List<TopListDto> data) {
+    public void setData(List<TopListModel> data) {
         this.list = data;
         notifyDataSetChanged();
     }
@@ -43,10 +43,10 @@ public class TopListAdapter extends RecyclerView.Adapter<TopListAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        TopListDto topListDto = list.get(position);
-        holder.nameText.setText(topListDto.getName());
-        holder.timeText.setText(context.getString(R.string.study_time, topListDto.getTime()));
-        holder.rankingText.setText(String.valueOf(topListDto.getRanking()));
+        TopListModel topListDto = list.get(position);
+        holder.nameText.setText(topListDto.getUserName());
+        holder.timeText.setText(context.getString(R.string.study_time, topListDto.getTime() / 60));
+        holder.rankingText.setText(String.valueOf(topListDto.getIndex()));
 
     }
 

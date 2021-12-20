@@ -16,6 +16,13 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.leaning_machine.R;
+import com.leaning_machine.base.dto.Announcement;
+import com.leaning_machine.base.dto.BaseDto;
+import com.leaning_machine.common.service.CommonApiService;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 public class WebViewActivity extends BaseActivity {
     public static String EXTRA_URL= "URL";
@@ -51,7 +58,6 @@ public class WebViewActivity extends BaseActivity {
     public int getLayoutId() {
         return R.layout.activity_web_view;
     }
-
 
     //WebViewClient主要帮助WebView处理各种通知、请求事件
     private WebViewClient webViewClient=new WebViewClient(){

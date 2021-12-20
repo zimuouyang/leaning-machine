@@ -1,17 +1,8 @@
 package com.leaning_machine.base.application;
 
 import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 
-import java.lang.annotation.Annotation;
+@GlideModule
+public class MyGlideModule extends AppGlideModule {}
 
-public class MyGlideModule implements GlideModule {
-    @Override
-    public String glideName() {
-        return null;
-    }
-
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        return null;
-    }
-}

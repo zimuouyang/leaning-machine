@@ -46,10 +46,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void openApp(String packageName) {
         PackageManager packageManager = getPackageManager();
-        Intent intent = packageManager.getLaunchIntentForPackage(packageName);
-        if (intent == null) {
+        if (!Utils.checkAppInstalled(this, packageName)) {
             Toast.makeText(this, "未安装", Toast.LENGTH_LONG).show();
-        } else {
+            return;
+        }
+        Intent intent = packageManager.getLaunchIntentForPackage(packageName);
+        if (intent != null) {
             startActivity(intent);
         }
     }

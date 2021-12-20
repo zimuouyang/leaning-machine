@@ -6,6 +6,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.leaning_machine.base.dto.Announcement;
 import com.leaning_machine.base.dto.AppDto;
 import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.base.dto.CheckRecord;
@@ -16,6 +17,7 @@ import com.leaning_machine.base.dto.TerminalAuthDto;
 import com.leaning_machine.base.dto.TerminalDetail;
 import com.leaning_machine.base.dto.TerminalDetailDto;
 import com.leaning_machine.base.dto.TerminalLoginDto;
+import com.leaning_machine.base.dto.TopListResultModel;
 import com.leaning_machine.common.HttpClient;
 import com.leaning_machine.common.api.CommonApi;
 
@@ -27,6 +29,7 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -114,7 +117,7 @@ public class CommonApiService {
         return getService().getCheckTasks(pageNo, pageSize);
     }
 
-    public Observable<ResponseBody> downloadAppFile(String fileName) {
+    public Observable<Response<ResponseBody>> downloadAppFile(String fileName) {
         return getService().downloadAppFile(fileName);
     }
 
@@ -122,4 +125,11 @@ public class CommonApiService {
         return getService().checkRecord(checkRecord);
     }
 
+    public Observable<BaseDto<TopListResultModel>> getTopList() {
+        return getService().getTopList();
+    }
+
+    public Observable<BaseDto<Announcement>> getAnnouncement() {
+        return getService().getAnnouncement();
+    }
 }

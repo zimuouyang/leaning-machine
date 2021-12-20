@@ -156,7 +156,6 @@
                     android:background="@drawable/top_time_bg"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="36分钟"
                     android:textColor="#ffffff"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -182,7 +181,6 @@
                     android:background="@drawable/top_time_bg"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="36分钟"
                     android:textColor="#ffffff"
                     android:textSize="11sp" />
             </LinearLayout>
@@ -209,7 +207,6 @@
                     android:background="@drawable/top_time_bg"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:text="36分钟"
                     android:textColor="#ffffff"
                     android:textSize="11sp" />
             </LinearLayout>

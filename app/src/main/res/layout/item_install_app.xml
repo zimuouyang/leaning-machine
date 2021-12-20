@@ -31,6 +31,7 @@
         android:textSize="14sp" />
 
     <Button
+        android:id="@+id/install_btn"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="30dp"

@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.base.dto.Announcement;
+import com.leaning_machine.base.dto.BaseDto;
+import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.layout.PasswordDialog;
 import com.leaning_machine.utils.SharedPreferencesUtils;
 
@@ -33,7 +37,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     ImageView goMath;
     ImageView goLanguage;
     ImageView goTextBook;
-    ImageView task;
+    TextView task;
 
 
     @Override
@@ -66,6 +70,23 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     @Override
     public int getLayoutId() {
         return R.layout.activity_welcome;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getAnnouncement();
+    }
+
+    private void getAnnouncement() {
+        CommonApiService.instance.getAnnouncement().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<BaseDto<Announcement>>() {
+            @Override
+            public void call(BaseDto<Announcement> announcementBaseDto) {
+                if (announcementBaseDto.getBusinessCode() == 200) {
+                    task.setText(announcementBaseDto.getResult().getContent());
+                }
+            }
+        });
     }
 
 

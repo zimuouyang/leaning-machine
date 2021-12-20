@@ -53,12 +53,12 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getApp(1);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getApp(1);
     }
 
     @Override
