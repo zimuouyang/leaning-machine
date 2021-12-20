@@ -20,6 +20,9 @@
         android:roundIcon="@drawable/ic_lanucher"
         android:supportsRtl="true"
         android:theme="@style/Theme.Leaningmachine">
+
+
+
         <activity
             android:name=".activity.WebViewActivity"
             android:screenOrientation="landscape"

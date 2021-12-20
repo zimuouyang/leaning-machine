@@ -12,11 +12,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.leaning_machine.Constant;
 import com.leaning_machine.R;
 import com.leaning_machine.activity.WebViewActivity;
 import com.leaning_machine.activity.WelcomeActivity;
+import com.leaning_machine.base.dto.BaseDto;
+import com.leaning_machine.base.dto.CheckRecord;
 import com.leaning_machine.base.dto.CheckTask;
 import com.leaning_machine.base.dto.ResourceDto;
+import com.leaning_machine.base.dto.TerminalDetail;
+import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.utils.Utils;
 
 import java.text.SimpleDateFormat;
@@ -25,11 +30,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
+import rx.schedulers.Schedulers;
+
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
     private Context context;
     private List<CheckTask> list;
     private View inflater;
     @SuppressLint("UseCompatLoadingForDrawables")
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private int[] drawables = new int[]{R.mipmap.item_icon_1, R.mipmap.item_icon_2, R.mipmap.item_icon_3, R.mipmap.item_icon_4 };
 
     public TaskAdapter(Context context, List<CheckTask> list){
@@ -72,13 +83,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
         holder.readButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkTask.getRecordDate().getTime() > new Date().getTime()) {
-                    return;
+                if (!checkTask.isRecorded()) {
+                    //是当前打卡日期
+                    if (simpleDateFormat.format(checkTask.getRecordDate()).equals(simpleDateFormat.format(new Date()))) {
+                        addCheckRecord(checkTask);
+                    }
                 }
-                Intent intent = new Intent(context, WebViewActivity.class);
-                intent.putExtra(WebViewActivity.EXTRA_URL, checkTask.getResource().getAddress());
-                context.startActivity(intent);
-
             }
         });
     }
@@ -86,6 +96,51 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    private void addCheckRecord(CheckTask checkTask) {
+        CheckRecord checkRecord = new CheckRecord();
+        checkRecord.setCheckTask(checkTask);
+        checkRecord.setResource(checkTask.getResource());
+        checkRecord.setRecordDate(new Date());
+        checkRecord.setTerminalUser(new TerminalDetail());
+        CommonApiService.instance.addRecord(checkRecord).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).finallyDo(new Action0() {
+            @Override
+            public void call() {
+                Intent intent = new Intent(context, WebViewActivity.class);
+                intent.putExtra(WebViewActivity.EXTRA_URL, checkTask.getResource().getAddress());
+                context.startActivity(intent);
+            }
+        }).subscribe(new Observer<BaseDto>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseDto pageInfoBaseDto) {
+                if (pageInfoBaseDto.getBusinessCode() == Constant.SUCCESS) {
+//                    hasData = !pageInfoBaseDto.getResult().isLastPage();
+//                    currentPage = pageInfoBaseDto.getResult().getPageNum();
+//                    resourceDtos.addAll(pageInfoBaseDto.getResult().getList());
+//                    resourceAdapter.setData(resourceDtos);
+//                    if (!hasData) {
+//                        refreshLayout.finishLoadMoreWithNoMoreData();
+//                    } else {
+//                        refreshLayout.finishLoadMore();
+//                    }
+
+                } else {
+//                    refreshLayout.finishLoadMore();
+                }
+            }
+
+        });
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {

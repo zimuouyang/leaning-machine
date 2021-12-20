@@ -52,8 +52,12 @@ public class ReadFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getCloudResources(1);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getCloudResources(1);
     }
 
     @Override

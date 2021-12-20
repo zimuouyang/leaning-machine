@@ -34,6 +34,18 @@ public class SharedPreferencesUtils {
         return settings.getLong(key, defaultValue);
     }
 
+    public static boolean putInt(Context context, String key, int value) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt(key, value);
+        return editor.commit();
+    }
+
+    public static long getInt(Context context, String key, int defaultValue) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        return settings.getInt(key, defaultValue);
+    }
+
     public static boolean putBoolean(Context context, String key, boolean value) {
         SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();

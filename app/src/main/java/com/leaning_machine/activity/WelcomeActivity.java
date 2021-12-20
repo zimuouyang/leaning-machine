@@ -7,7 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.layout.PasswordDialog;
+import com.leaning_machine.utils.SharedPreferencesUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -70,7 +73,12 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.welcome_go_class:
-                startActivity(new Intent(this, GoClassActivity.class));
+                if (SharedPreferencesUtils.getInt(this, Constant.ROLE, 0) == 1) {
+                    startActivity(new Intent(this, GoClassActivity.class));
+                } else {
+                    PasswordDialog passwordDialog = new PasswordDialog(this);
+                    passwordDialog.show();
+                }
                 break;
             case R.id.welcome_extension:
                 startActivity(new Intent(this, ExpandActivity.class));

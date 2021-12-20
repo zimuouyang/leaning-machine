@@ -46,8 +46,6 @@ public class TaskFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getCheckTask(1);
-
     }
 
     @Override
@@ -56,6 +54,12 @@ public class TaskFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_task, container, false);
         initView(view);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getCheckTask(1);
     }
 
     private void initView(View view) {

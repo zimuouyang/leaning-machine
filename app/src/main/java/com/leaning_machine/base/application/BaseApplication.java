@@ -8,6 +8,7 @@ import com.leaning_machine.common.HttpClient;
 import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.utils.SharedPreferencesUtils;
 
+
 public class BaseApplication extends Application {
 
     @Override

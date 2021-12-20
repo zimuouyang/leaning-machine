@@ -12,4 +12,7 @@ public class Constant {
     public static String TOTAL_DAY = "TOTAL_DAY";
     public static String MAX_DAY = "MAX_DAY";
     public static String CURRENT_DAY = "CURRENT_DAY";
+    public static String TERMINAL_ID = "TERMINAL_ID";
+    public static String ROLE = "ROLE";
+    public static String TERMINAL_PWD = "TERMINAL_PWD";
 }
