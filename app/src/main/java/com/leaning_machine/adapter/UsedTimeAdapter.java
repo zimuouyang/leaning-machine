@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UsedTimeAdapter extends RecyclerView.Adapter<UsedTimeAdapter.MyViewHolder>{
+public class  UsedTimeAdapter extends RecyclerView.Adapter<UsedTimeAdapter.MyViewHolder>{
     private Context context;
     private List<UsedTimeEntity> list;
     private View inflater;

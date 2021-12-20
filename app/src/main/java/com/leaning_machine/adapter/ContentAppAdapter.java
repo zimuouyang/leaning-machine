@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leaning_machine.R;
+import com.leaning_machine.layout.CommonDialog;
 import com.leaning_machine.model.App;
 
 import java.util.ArrayList;
@@ -58,6 +59,18 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
                 openApp(app.getPackageName(), context);
             }
         });
+
+        if (app.getDetail() != null && !app.getDetail().isEmpty()) {
+            holder.appDesView.setVisibility(View.VISIBLE);
+            holder.appDesView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CommonDialog.newBuilder().context(context).des(app.getDetail()).build().show();
+                }
+            });
+        } else {
+            holder.appDesView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -67,12 +80,14 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         ImageView appImageView;
+        ImageView appDesView;
         TextView appNameText;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             appImageView = itemView.findViewById(R.id.app_img);
             appNameText = itemView.findViewById(R.id.app_name);
+            appDesView = itemView.findViewById(R.id.app_des);
         }
     }
 

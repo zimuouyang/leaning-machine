@@ -22,15 +22,20 @@ public class MathActivity extends BaseActivity {
     @Override
     public void initView() {
         topWithContentLayout = findViewById(R.id.content);
+        initTopWithContentLayout();
     }
 
     private void initData() {
         list = new ArrayList<>();
-        list.add(new App(R.mipmap.moose_math, getString(R.string.moose_math), getString(R.string.math_moose_math)));
-        list.add(new App(R.mipmap.dou_dou_math, getString(R.string.dou_dou_shu_xue), getString(R.string.math_du_du_math)));
-        list.add(new App( R.mipmap.pythagorea, getString(R.string.pythagorea), getString(R.string.math_pythagorea)));
-        list.add(new App(R.mipmap.ke_han_xue_yuan, getString(R.string.ke_han_xue_yuan), getString(R.string.math_ke_han_xue_yuan)));
+        list.add(new App(R.mipmap.moose_math, getString(R.string.moose_math), getString(R.string.package_name_moose_math)));
+        list.add(new App(R.mipmap.dou_dou_math, getString(R.string.dou_dou_shu_xue), getString(R.string.package_name_du_du_math)));
+        list.add(new App( R.mipmap.pythagorea, getString(R.string.pythagorea), getString(R.string.package_name_pythagorea)));
+        list.add(new App(R.mipmap.ke_han_xue_yuan, getString(R.string.ke_han_xue_yuan), getString(R.string.package_name_ke_han_xue_yuan)));
         topWithContentLayout.setAppList(list);
+    }
+
+    private void initTopWithContentLayout() {
+        topWithContentLayout.setFinishClick(MathActivity.this::finish);
     }
 
     @Override

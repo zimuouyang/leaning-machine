@@ -3,10 +3,24 @@ package com.leaning_machine.activity;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.layout.PasswordDialog;
+import com.leaning_machine.utils.SharedPreferencesUtils;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * @author John
@@ -25,6 +39,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -58,12 +73,18 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.welcome_go_class:
-                startActivity(new Intent(this, GoClassActivity.class));
+                if (SharedPreferencesUtils.getInt(this, Constant.ROLE, 0) == 1) {
+                    startActivity(new Intent(this, GoClassActivity.class));
+                } else {
+                    PasswordDialog passwordDialog = new PasswordDialog(this);
+                    passwordDialog.show();
+                }
                 break;
             case R.id.welcome_extension:
                 startActivity(new Intent(this, ExpandActivity.class));
                 break;
             case R.id.welcome_check_record:
+                startActivity(new Intent(this, ReadRecordActivity.class));
                 break;
             case R.id.welcome_english:
                 startActivity(new Intent(this, EnglishActivity.class));
@@ -78,6 +99,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 startActivity(new Intent(this, TextBookActivity.class));
                 break;
             case R.id.task:
+
                 break;
         }
     }

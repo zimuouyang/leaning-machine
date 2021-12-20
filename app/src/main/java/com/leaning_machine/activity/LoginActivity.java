@@ -10,9 +10,26 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.leaning_machine.R;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+import com.leaning_machine.Constant;
+import com.leaning_machine.R;
+import com.leaning_machine.base.dto.BaseDto;
+import com.leaning_machine.base.dto.TerminalAuthDto;
+import com.leaning_machine.base.dto.TerminalLoginDto;
+import com.leaning_machine.common.HttpClient;
+import com.leaning_machine.common.service.CommonApiService;
+import com.leaning_machine.utils.SharedPreferencesUtils;
+
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView accountText;
     TextView passwordText;
@@ -24,10 +41,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        if (SharedPreferencesUtils.getBoolean(this, Constant.LOGIN, false)) {
+            startActivity(new Intent(this, WelcomeActivity.class));
+        }
+        initView();
     }
 
 
-    @Override
     public void initView() {
         accountText = findViewById(R.id.account);
         passwordText = findViewById(R.id.password);
@@ -38,11 +59,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         messageLoginText.setOnClickListener(this);
         loginButton.setOnClickListener(this);
 
-    }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_login;
     }
 
 
@@ -79,6 +96,40 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void login() {
-        startActivity(new Intent(this, WelcomeActivity.class));
+        HttpClient.instance.removeHeader(Constant.TOKEN);
+        TerminalLoginDto terminalLoginDto = new TerminalLoginDto();
+        terminalLoginDto.setName(accountText.getText().toString());
+        terminalLoginDto.setPwd(passwordText.getText().toString());
+        CommonApiService.instance.terminalLogin(terminalLoginDto).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BaseDto<String>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseDto<String> terminalAuthDto) {
+                if (terminalAuthDto.getBusinessCode() == 200) {
+                    startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
+                    SharedPreferencesUtils.putString(LoginActivity.this, Constant.TOKEN, Constant.TOKEN_PREFIX + terminalAuthDto.getResult());
+                    SharedPreferencesUtils.putBoolean(LoginActivity.this, Constant.LOGIN, true);
+                    HttpClient.instance.addHeader(Constant.TOKEN, Constant.TOKEN_PREFIX + terminalAuthDto.getResult());
+                } else {
+                    //toto show 密码错误
+                    Toast.makeText(LoginActivity.this, "账户名或密码错误", Toast.LENGTH_SHORT).show();
+                    SharedPreferencesUtils.putBoolean(LoginActivity.this, Constant.LOGIN, false);
+                    SharedPreferencesUtils.putString(LoginActivity.this, Constant.TOKEN, "");
+                }
+            }
+        });
+
     }
+
+
+    //todo 判断登录状态
+
 }

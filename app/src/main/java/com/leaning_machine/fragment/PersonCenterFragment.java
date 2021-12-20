@@ -44,6 +44,7 @@ public class PersonCenterFragment extends BaseFragment implements View.OnClickLi
     private UsedTimeAdapter adapter;
     private TextView textView;
 
+
     public PersonCenterFragment() {
         // Required empty public constructor
     }
