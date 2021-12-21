@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.base.dto.LearnTime;
 import com.leaning_machine.db.GlobalDatabase;
 import com.leaning_machine.db.dao.UsedPackageDao;
 import com.leaning_machine.db.entity.UsedPackageEntity;
@@ -134,9 +135,9 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
             @Override
             public Observable<UsedMax> call(Boolean aBoolean) {
                 //今日已使用超过时间
-                TodayUse todayUse = SharedPreferencesUtils.getObject(context, Constant.SP_TODAY_USE_TIME, TodayUse.class, null);
+                LearnTime todayUse = SharedPreferencesUtils.getObject(context, Constant.SP_TODAY_USE_TIME, LearnTime.class, null);
                 if (todayUse != null) {
-                    if (todayUse.getDateTime().equals(Utils.getDateString()) && todayUse.getUseTime() > Constant.TWO_HOURS) {
+                    if (todayUse.getCreateDate().equals(Utils.getDateString()) && todayUse.getTotal() > Constant.TWO_HOURS) {
                         return Observable.just(UsedMax.DAY_MAX);
                     }
                 }

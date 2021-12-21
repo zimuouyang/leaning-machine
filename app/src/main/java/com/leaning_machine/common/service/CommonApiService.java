@@ -35,6 +35,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class CommonApiService {
     public static CommonApiService instance = getInstance();
@@ -136,5 +138,13 @@ public class CommonApiService {
 
     public Observable<BaseDto> logOut() {
         return getService().terminalLogout();
+    }
+
+    public Observable<BaseDto> sendSms(String phoneNumber) {
+        return getService().sendSms(phoneNumber).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<BaseDto<String>> checkCode(String phoneNumber, String code) {
+        return getService().checkCode(phoneNumber, code).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread());
     }
 }

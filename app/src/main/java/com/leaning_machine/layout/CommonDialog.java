@@ -8,6 +8,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.leaning_machine.R;
@@ -25,13 +26,6 @@ public class CommonDialog extends Dialog {
         init();
     }
 
-    public CommonDialog(Builder builder, Context context, int theme) {
-        super(context, theme);
-        setCanceledOnTouchOutside(true);
-        this.context = builder.context;
-        this.des = builder.des;
-        init();
-    }
 
     public static Builder newBuilder() {
         return new Builder();
@@ -46,6 +40,20 @@ public class CommonDialog extends Dialog {
 
         desText.setText(des);
         findViewById(R.id.close).setOnClickListener(view -> dismiss());
+        setContentView(layout);
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        /**
+         * 设置宽度全屏，要设置在show的后面
+         */
+        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+        layoutParams.width= LayoutParams.MATCH_PARENT;
+        layoutParams.height= LayoutParams.MATCH_PARENT;
+        getWindow().getDecorView().setPadding(0, 0, 0, 0);
+        getWindow().setAttributes(layoutParams);
     }
 
     public static class Builder {

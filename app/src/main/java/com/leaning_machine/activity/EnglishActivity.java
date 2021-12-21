@@ -111,46 +111,46 @@ public class EnglishActivity extends BaseActivity {
     private void initPinDuList() {
         pinDuList = new ArrayList<>();
         pinDuList.add(new App(R.mipmap.english_speed_phonics, getString(R.string.speed_phonics), getString(R.string.package_name_speed_phonics), getString(R.string.speed_phonics_des)));
-        pinDuList.add(new App(R.mipmap.english_abc_kids, getString(R.string.abc_kids), getString(R.string.package_name_abc_kids_phonics)));
-        pinDuList.add(new App( R.mipmap.english_starfall_abcs, getString(R.string.starfall_abcs), getString(R.string.package_name_startfall_abcs)));
-        pinDuList.add(new App(R.mipmap.english_starfall_learn, getString(R.string.starfall_learn_to_read), getString(R.string.package_name_startfall_learn_read)));
-        pinDuList.add(new App(R.mipmap.english_kids_sight_words, getString(R.string.kids_sight_words), getString(R.string.package_name_kids_sight_words)));
-        pinDuList.add(new App(R.mipmap.english_play_sight_words, getString(R.string.play_sight_words), getString(R.string.package_name_play_sight_words)));
-        pinDuList.add(new App(R.mipmap.english_sight_words, getString(R.string.sight_words), getString(R.string.package_name_sight_words)));
-        pinDuList.add(new App(R.mipmap.english_abc_spelling, getString(R.string.abc_spelling), getString(R.string.package_name_abc_spelling)));
+        pinDuList.add(new App(R.mipmap.english_abc_kids, getString(R.string.abc_kids), getString(R.string.package_name_abc_kids_phonics), getString(R.string.abc_kids_des)));
+        pinDuList.add(new App( R.mipmap.english_starfall_abcs, getString(R.string.starfall_abcs), getString(R.string.package_name_startfall_abcs), getString(R.string.starfall_abcs_des)));
+        pinDuList.add(new App(R.mipmap.english_starfall_learn, getString(R.string.starfall_learn_to_read), getString(R.string.package_name_startfall_learn_read), getString(R.string.starfall_learn_to_read_des)));
+        pinDuList.add(new App(R.mipmap.english_kids_sight_words, getString(R.string.kids_sight_words), getString(R.string.package_name_kids_sight_words), getString(R.string.kids_sight_words_des)));
+        pinDuList.add(new App(R.mipmap.english_play_sight_words, getString(R.string.play_sight_words), getString(R.string.package_name_play_sight_words), getString(R.string.sight_words_hei_ban_des)));
+        pinDuList.add(new App(R.mipmap.english_sight_words, getString(R.string.sight_words), getString(R.string.package_name_sight_words), getString(R.string.sight_words_des)));
+        pinDuList.add(new App(R.mipmap.english_abc_spelling, getString(R.string.abc_spelling), getString(R.string.package_name_abc_spelling), getString(R.string.abc_spelling_des)));
     }
 
     private void initMoErDuoList() {
         moErDuoList = new ArrayList<>();
-        moErDuoList.add(new App(R.mipmap.english_khan_kids, getString(R.string.khan_kids), getString(R.string.package_name_khan_kids)));
-        moErDuoList.add(new App(R.mipmap.english_math_kids, getString(R.string.math_kids), getString(R.string.package_name_math_kids)));
-        moErDuoList.add(new App(R.mipmap.english_hui_ben, getString(R.string.dong_ting_hui_ben), getString(R.string.package_name_dong_ting_hui_ben)));
-        moErDuoList.add(new App(R.mipmap.english_ying_yu_qi_meng, getString(R.string.hai_ni_han_english), getString(R.string.package_name_hai_ni_man_english)));
-        moErDuoList.add(new App(R.mipmap.english_raz_ke_tang, getString(R.string.raz_ke_tang), getString(R.string.package_name_raz)));
+        moErDuoList.add(new App(R.mipmap.english_khan_kids, getString(R.string.khan_kids), getString(R.string.package_name_khan_kids), getString(R.string.khan_kids_des)));
+        moErDuoList.add(new App(R.mipmap.english_math_kids, getString(R.string.math_kids), getString(R.string.package_name_math_kids), getString(R.string.math_kids_des)));
+        moErDuoList.add(new App(R.mipmap.english_hui_ben, getString(R.string.dong_ting_hui_ben), getString(R.string.package_name_dong_ting_hui_ben), getString(R.string.dong_ting_hui_ben_des)));
+        moErDuoList.add(new App(R.mipmap.english_ying_yu_qi_meng, getString(R.string.hai_ni_han_english), getString(R.string.package_name_hai_ni_man_english), getString(R.string.hai_ni_man_english_des)));
+        moErDuoList.add(new App(R.mipmap.english_raz_ke_tang, getString(R.string.raz_ke_tang), getString(R.string.package_name_raz), getString(R.string.raz_des)));
     }
 
     private void initAiYueDuList() {
         aiYueDuList = new ArrayList<>();
-        aiYueDuList.add(new App(R.mipmap.english_read_along, getString(R.string.read_along), getString(R.string.package_name_read_long)));
-        aiYueDuList.add(new App(R.mipmap.english_reading_pro, getString(R.string.reading_pro), getString(R.string.package_name_reading_pro)));
-        aiYueDuList.add(new App(R.mipmap.english_abc_reading, getString(R.string.abc_reading), getString(R.string.package_name_abc_reading)));
-        aiYueDuList.add(new App(R.mipmap.english_bai_ci_zhan_yue_du, getString(R.string.bai_ci_zhan_yue_du), getString(R.string.package_name_bai_ci_zhan_ai_yue_du)));
+        aiYueDuList.add(new App(R.mipmap.english_read_along, getString(R.string.read_along), getString(R.string.package_name_read_long), getString(R.string.read_along_des)));
+        aiYueDuList.add(new App(R.mipmap.english_reading_pro, getString(R.string.reading_pro), getString(R.string.package_name_reading_pro), getString(R.string.reading_pro_des)));
+        aiYueDuList.add(new App(R.mipmap.english_abc_reading, getString(R.string.abc_reading), getString(R.string.package_name_abc_reading), getString(R.string.abc_reading_des)));
+        aiYueDuList.add(new App(R.mipmap.english_bai_ci_zhan_yue_du, getString(R.string.bai_ci_zhan_yue_du), getString(R.string.package_name_bai_ci_zhan_ai_yue_du), getString(R.string.bai_ci_zhan_read_des)));
         aiYueDuList.add(new App(R.mipmap.english_ko_yu_machine, getString(R.string.kou_yu_machine), getString(R.string.package_name_ko_yu_machine)));
     }
 
     private void initQinLianXiList() {
         qinLianXiList = new ArrayList<>();
-        qinLianXiList.add(new App(R.mipmap.english_duo_lin_go, getString(R.string.duo_lin_guo), getString(R.string.package_name_duo_lin_guo)));
-        qinLianXiList.add(new App(R.mipmap.english_ef_hello, getString(R.string.ef_hello), getString(R.string.package_name_ef_hello)));
+        qinLianXiList.add(new App(R.mipmap.english_duo_lin_go, getString(R.string.duo_lin_guo), getString(R.string.package_name_duo_lin_guo), getString(R.string.duo_lin_guo_des)));
+        qinLianXiList.add(new App(R.mipmap.english_ef_hello, getString(R.string.ef_hello), getString(R.string.package_name_ef_hello), getString(R.string.ef_hello_des)));
         qinLianXiList.add(new App(R.mipmap.english_xin_gai_nian, getString(R.string.xin_gai_nian_quan_ce), getString(R.string.package_name_xin_gai_nian_quan_ce)));
         qinLianXiList.add(new App(R.mipmap.english_civa_machine, getString(R.string.civa_machine), getString(R.string.package_name_civia_machine)));
     }
 
     private void initBeiDanCiList() {
         beiDanCiList = new ArrayList<>();
-        beiDanCiList.add(new App(R.mipmap.english_bei_dan_ci, getString(R.string.bei_dan_ci), getString(R.string.package_name_ai_bei_dan_ci)));
-        beiDanCiList.add(new App(R.mipmap.english_bai_ci_zhan, getString(R.string.bai_ci_zhan), getString(R.string.package_name_bai_ci_zhan)));
-        beiDanCiList.add(new App(R.mipmap.english_3d_dan_ci, getString(R.string.three_dan_ci), getString(R.string.package_name_three_dan_ci)));
+        beiDanCiList.add(new App(R.mipmap.english_bei_dan_ci, getString(R.string.bei_dan_ci), getString(R.string.package_name_ai_bei_dan_ci), getString(R.string.english_ci_dian)));
+        beiDanCiList.add(new App(R.mipmap.english_bai_ci_zhan, getString(R.string.bai_ci_zhan), getString(R.string.package_name_bai_ci_zhan), getString(R.string.bai_ci_zhan_des)));
+        beiDanCiList.add(new App(R.mipmap.english_3d_dan_ci, getString(R.string.three_dan_ci), getString(R.string.package_name_three_dan_ci), getString(R.string.ai_dan_ci_des)));
     }
 
     private void initQiYiZhiList() {

@@ -60,4 +60,11 @@ public interface CommonApi {
 
     @GET("terminal/signOut")
     Observable<BaseDto> terminalLogout();
+
+    @GET("terminal/sendSms")
+    Observable<BaseDto> sendSms(@Query(value = CommonApiConstants.PARAM_PHONE_NUM, encoded = true) String phoneNum);
+
+    @GET("checkCode")
+    Observable<BaseDto<String>> checkCode(@Query(value = CommonApiConstants.PARAM_PHONE_NUM) String phoneNum, @Query(value = CommonApiConstants.PARAM_CODE) String code);
+
 }

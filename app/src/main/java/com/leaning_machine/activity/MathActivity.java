@@ -27,10 +27,10 @@ public class MathActivity extends BaseActivity {
 
     private void initData() {
         list = new ArrayList<>();
-        list.add(new App(R.mipmap.moose_math, getString(R.string.moose_math), getString(R.string.package_name_moose_math)));
-        list.add(new App(R.mipmap.dou_dou_math, getString(R.string.dou_dou_shu_xue), getString(R.string.package_name_du_du_math)));
-        list.add(new App( R.mipmap.pythagorea, getString(R.string.pythagorea), getString(R.string.package_name_pythagorea)));
-        list.add(new App(R.mipmap.ke_han_xue_yuan, getString(R.string.ke_han_xue_yuan), getString(R.string.package_name_ke_han_xue_yuan)));
+        list.add(new App(R.mipmap.moose_math, getString(R.string.moose_math), getString(R.string.package_name_moose_math), getString(R.string.moose_math_des)));
+        list.add(new App(R.mipmap.dou_dou_math, getString(R.string.dou_dou_shu_xue), getString(R.string.package_name_du_du_math), getString(R.string.dou_dou_math_des)));
+        list.add(new App( R.mipmap.pythagorea, getString(R.string.pythagorea), getString(R.string.package_name_pythagorea), getString(R.string.pythagorea_des)));
+        list.add(new App(R.mipmap.ke_han_xue_yuan, getString(R.string.ke_han_xue_yuan), getString(R.string.package_name_ke_han_xue_yuan), getString(R.string.ke_han_xue_yuan_des)));
         topWithContentLayout.setAppList(list);
     }
 

@@ -178,6 +178,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         SharedPreferencesUtils.putLong(this, Constant.TOTAL_DAY, Utils.daysBetween(terminalDetail.getFirstLoginDate(), new Date()) + 1);
         SharedPreferencesUtils.putLong(this, Constant.TERMINAL_ID, terminalDetail.getId());
         SharedPreferencesUtils.putInt(this, Constant.ROLE, terminalDetail.getRole());
+        SharedPreferencesUtils.putString(this, Constant.TERMINAL_PWD, terminalDetail.getTerminalSign());
     }
 
     private void showProgress() {
