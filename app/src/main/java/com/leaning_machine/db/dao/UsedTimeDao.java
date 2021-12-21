@@ -26,4 +26,7 @@ public interface UsedTimeDao {
     @Query("SELECT * FROM USED_TIME WHERE USED_DATE =:date")
     UsedTimeEntity getUsedTimeEntity(String date);
 
+    @Query("DELETE FROM USED_TIME")
+    void deleteAll();
+
 }

@@ -3,6 +3,8 @@ package com.leaning_machine.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
 /**
  * @author John
  * @date 2021/5/19
@@ -56,5 +58,23 @@ public class SharedPreferencesUtils {
     public static boolean getBoolean(Context context, String key, boolean defaultValue) {
         SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         return settings.getBoolean(key, defaultValue);
+    }
+
+    public static void putObject(Context context, String key, Object object) {
+        if (null == object) {
+            return;
+        }
+        Gson gson = new Gson();
+        String strJson = gson.toJson(object);
+        putString(context, key, strJson);
+    }
+
+    public static <T> T getObject(Context context, String key, Class<T> clazz, T defaultObject) {
+        String strJson = getString(context, key, null);
+        if (null == strJson) {
+            return defaultObject;
+        }
+        Gson gson = new Gson();
+        return gson.fromJson(strJson, clazz);
     }
 }

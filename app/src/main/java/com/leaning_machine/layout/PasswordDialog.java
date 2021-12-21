@@ -16,6 +16,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EdgeEffect;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -34,10 +35,15 @@ public class PasswordDialog extends AlertDialog implements View.OnClickListener 
     private EditText pwdText;
     private ImageView cancelImg;
     private ImageView confirmImg;
+    private PasswordClick passwordClick;
 
     public PasswordDialog(Context context) {
         super(context, R.style.LoadDialog);
         mContext = context;
+    }
+
+    public void setPasswordClick(PasswordClick passwordClick) {
+        this.passwordClick = passwordClick;
     }
 
     @Override
@@ -56,6 +62,16 @@ public class PasswordDialog extends AlertDialog implements View.OnClickListener 
         voiceImg.setOnClickListener(this);
         confirmImg.setOnClickListener(this);
         cancelImg.setOnClickListener(this);
+
+        pwdText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean focused) {
+                if (focused) {
+                    //dialog弹出软键盘
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+                }
+            }
+        });
     }
 
 
@@ -70,6 +86,9 @@ public class PasswordDialog extends AlertDialog implements View.OnClickListener 
                 break;
             case R.id.confirm:
                 if (confirmPwd()) {
+                    if (this.passwordClick != null) {
+                        passwordClick.onSuccess();
+                    }
                     dismiss();
                 } else {
                     Toast.makeText(mContext, "密码错误", Toast.LENGTH_SHORT).show();
@@ -86,5 +105,9 @@ public class PasswordDialog extends AlertDialog implements View.OnClickListener 
             return true;
         }
         return false;
+    }
+
+    public interface PasswordClick {
+        void onSuccess();
     }
 }

@@ -17,8 +17,8 @@ import com.leaning_machine.model.App;
 
 import java.util.List;
 
+import okhttp3.Response;
 import okhttp3.ResponseBody;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -47,7 +47,7 @@ public interface CommonApi {
 
     @Streaming
     @POST("app/download")
-    Observable<Response<ResponseBody>> downloadAppFile(@Query(value = CommonApiConstants.PARAM_FILE_NAME, encoded = true) String fileName);
+    Observable<ResponseBody> downloadAppFile(@Query(value = CommonApiConstants.PARAM_FILE_NAME, encoded = true) String fileName);
 
     @POST("check/record")
     Observable<BaseDto> checkRecord(@Body CheckRecord checkRecord);
@@ -58,5 +58,6 @@ public interface CommonApi {
     @GET("announcement/latest")
     Observable<BaseDto<Announcement>> getAnnouncement();
 
-
+    @GET("terminal/signOut")
+    Observable<BaseDto> terminalLogout();
 }

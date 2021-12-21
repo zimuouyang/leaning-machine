@@ -3,6 +3,7 @@ package com.leaning_machine.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.leaning_machine.Constant;
 import com.leaning_machine.R;
 import com.leaning_machine.layout.CommonDialog;
+import com.leaning_machine.layout.PasswordDialog;
 import com.leaning_machine.model.App;
+import com.leaning_machine.model.UsingApp;
+import com.leaning_machine.utils.SharedPreferencesUtils;
+import com.leaning_machine.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +62,23 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openApp(app.getPackageName(), context);
+                boolean isTeacher = SharedPreferencesUtils.getInt(context, Constant.ROLE, 0) == 1;
+                if (app.getPackageName().equals(context.getString(R.string.package_name_xue_xi_qiang_guo))) {
+                    if (isTeacher) {
+                        openApp(app.getPackageName(), context);
+                    } else {
+                        PasswordDialog passwordDialog = new PasswordDialog(context);
+                        passwordDialog.setPasswordClick(new PasswordDialog.PasswordClick() {
+                            @Override
+                            public void onSuccess() {
+                                openApp(app.getPackageName(), context);
+                            }
+                        });
+                        passwordDialog.show();
+                    }
+                } else {
+                    openApp(app.getPackageName(), context);
+                }
             }
         });
 
@@ -93,10 +115,17 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
 
     public void openApp(String packageName, Context context) {
         PackageManager packageManager = context.getPackageManager();
-        Intent intent = packageManager.getLaunchIntentForPackage(packageName);
-        if (intent == null) {
+        if (!Utils.checkAppInstalled(context, packageName)) {
             Toast.makeText(context, "未安装", Toast.LENGTH_LONG).show();
-        } else {
+            return;
+        }
+        UsingApp usingApp = new UsingApp();
+        usingApp.setStartTime(System.currentTimeMillis());
+        usingApp.setPackageName(packageName);
+        SharedPreferencesUtils.putObject(context.getApplicationContext(), Constant.USING_PACKAGE, usingApp);
+        Log.d("zzz", usingApp.toString());
+        Intent intent = packageManager.getLaunchIntentForPackage(packageName);
+        if (intent != null) {
             context.startActivity(intent);
         }
     }

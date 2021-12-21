@@ -28,8 +28,9 @@ import java.util.Date;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
+
+import okhttp3.Response;
 import okhttp3.ResponseBody;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -117,7 +118,7 @@ public class CommonApiService {
         return getService().getCheckTasks(pageNo, pageSize);
     }
 
-    public Observable<Response<ResponseBody>> downloadAppFile(String fileName) {
+    public Observable<ResponseBody> downloadAppFile(String fileName) {
         return getService().downloadAppFile(fileName);
     }
 
@@ -131,5 +132,9 @@ public class CommonApiService {
 
     public Observable<BaseDto<Announcement>> getAnnouncement() {
         return getService().getAnnouncement();
+    }
+
+    public Observable<BaseDto> logOut() {
+        return getService().terminalLogout();
     }
 }

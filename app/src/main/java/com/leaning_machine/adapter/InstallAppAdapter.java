@@ -35,8 +35,13 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
-import retrofit2.Response;
 import rx.Observer;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
@@ -95,26 +100,51 @@ public class InstallAppAdapter extends RecyclerView.Adapter<InstallAppAdapter.My
     }
 
     private void downloadApp() {
-        CommonApiService.instance.
-                downloadAppFile("2021/12/02/7f535f2d-2e22-49be-9b20-0e9ed3525659.apk").
-                subscribeOn(Schedulers.io()).
-                observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Response<ResponseBody>>() {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart("fileName", "2021/12/02/7f535f2d-2e22-49be-9b20-0e9ed3525659.apk")
+                .build();
+        Request request = new Request.Builder()
+                .url("http://8.142.131.31:8080/api/v1/app/download")
+                .method("POST", body)
+                .addHeader("Authorization", "Terminal_Bearer eyJhbGciOiJIUzUxMiIsInppcCI6IkRFRiJ9.eNocyEEOhCAMBdC7_DUk7VAocBs0NDqryYiJifHuGpfvnWj7WFBP7Fv_o6JtzXA5fMf6aNJZCmf2psm8cCKfoxUfg-a5W2STAoe1DVROQkT6UXLox--NICk8cd0AAAD__w.meI2biRHZSyDxgPqod4a_8Ob7QNgCObsI5k4JXYkNBBERktVnd3bb3Wq6GSfqckYA7xmXPBi0Ecg01dFQBLhrg")
+                .build();
+
+        new Thread(new Runnable() {
             @Override
-            public void onCompleted() {
-
+            public void run() {
+                try {
+                    Response response = client.newCall(request).execute();
+                    Log.d("zzz", "success " + response.isSuccessful());
+                    Log.d("zzz", response.headers().toString() + "   "+ response.body().contentLength());
+                    writeResponseBodyToDisk(response.body());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+        }).start();
 
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(Response<ResponseBody> response) {
-                Log.d("zzz", response.isSuccessful() + "  "+ response.message() + " ---" + response.headers().toString());
-                writeResponseBodyToDisk(response.body());
-            }
-        });
+//        CommonApiService.instance.
+//                downloadAppFile("2021/12/02/7f535f2d-2e22-49be-9b20-0e9ed3525659.apk").
+//                subscribeOn(Schedulers.io()).subscribe(new Observer<ResponseBody>() {
+//            @Override
+//            public void onCompleted() {
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(ResponseBody response) {
+//               Log.d("zzz" , " " + response.contentLength()) ;
+//
+//                writeResponseBodyToDisk(response);
+//            }
+//        });
     }
 
     private boolean writeResponseBodyToDisk(ResponseBody body) {

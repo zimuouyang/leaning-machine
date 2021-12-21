@@ -15,4 +15,6 @@ public class Constant {
     public static String TERMINAL_ID = "TERMINAL_ID";
     public static String ROLE = "ROLE";
     public static String TERMINAL_PWD = "TERMINAL_PWD";
+    public static String USING_PACKAGE = "USING_PACKAGE";
+    public static String TODAY_USED = "TODAY_USED";
 }

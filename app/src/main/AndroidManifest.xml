@@ -19,9 +19,8 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_lanucher"
         android:supportsRtl="true"
+        android:windowSoftInputMode="adjustPan|stateHidden"
         android:theme="@style/Theme.Leaningmachine">
-
-
 
         <activity
             android:name=".activity.WebViewActivity"

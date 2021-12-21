@@ -6,17 +6,21 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.leaning_machine.db.dao.UsedPackageDao;
 import com.leaning_machine.db.dao.UsedTimeDao;
+import com.leaning_machine.db.entity.UsedPackageEntity;
 import com.leaning_machine.db.entity.UsedTimeEntity;
 
 /**
  * Created by John on 2021/9/16.
  */
-@Database(entities = {UsedTimeEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {UsedTimeEntity.class, UsedPackageEntity.class}, version = 2, exportSchema = false)
 public abstract class GlobalDatabase extends RoomDatabase {
     public static String DATABASE_NAME = "learn-db";
 
     public abstract UsedTimeDao usedTimeDao();
+    public abstract UsedPackageDao usedPackageDao();
+
     private static GlobalDatabase INSTANCE;
     private static final Object sLock = new Object();
 

@@ -37,6 +37,9 @@ public class TerminalDetail implements Serializable {
     @Expose
     @SerializedName("role")
     private int role;
+    @Expose
+    @SerializedName("terminalSign")
+    private String terminalSign;
 
     public int getId() {
         return id;
@@ -118,6 +121,13 @@ public class TerminalDetail implements Serializable {
         this.role = role;
     }
 
+    public String getTerminalSign() {
+        return terminalSign;
+    }
+
+    public void setTerminalSign(String terminalSign) {
+        this.terminalSign = terminalSign;
+    }
 
     @Override
     public String toString() {
