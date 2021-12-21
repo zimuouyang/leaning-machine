@@ -16,15 +16,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.db.GlobalDatabase;
+import com.leaning_machine.db.dao.UsedPackageDao;
+import com.leaning_machine.db.entity.UsedPackageEntity;
 import com.leaning_machine.layout.CommonDialog;
 import com.leaning_machine.layout.PasswordDialog;
 import com.leaning_machine.model.App;
+import com.leaning_machine.model.TodayUse;
+import com.leaning_machine.model.UsedMax;
 import com.leaning_machine.model.UsingApp;
 import com.leaning_machine.utils.SharedPreferencesUtils;
 import com.leaning_machine.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.MyViewHolder> {
     private Context context;
@@ -114,16 +126,62 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
     }
 
     public void openApp(String packageName, Context context) {
-        PackageManager packageManager = context.getPackageManager();
         if (!Utils.checkAppInstalled(context, packageName)) {
             Toast.makeText(context, "未安装", Toast.LENGTH_LONG).show();
             return;
         }
+        Observable.just(Boolean.TRUE).flatMap(new Func1<Boolean, Observable<UsedMax>>() {
+            @Override
+            public Observable<UsedMax> call(Boolean aBoolean) {
+                //今日已使用超过时间
+                TodayUse todayUse = SharedPreferencesUtils.getObject(context, Constant.SP_TODAY_USE_TIME, TodayUse.class, null);
+                if (todayUse != null) {
+                    if (todayUse.getDateTime().equals(Utils.getDateString()) && todayUse.getUseTime() > Constant.TWO_HOURS) {
+                        return Observable.just(UsedMax.DAY_MAX);
+                    }
+                }
+                UsedPackageDao usedPackageDao = GlobalDatabase.getInstance(context.getApplicationContext()).usedPackageDao();
+                UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(Utils.getDateString(), packageName);
+                if (usedPackageEntity != null && usedPackageEntity.getTime() > Constant.HALF_HOURS) {
+                    //如果未超过15分钟，不可以打开
+                    if ((System.currentTimeMillis() - usedPackageEntity.getLastUseTime()) <  Constant.FIFTEEN_MINUTES) {
+                        return Observable.just(UsedMax.DAY_MAX);
+                    }
+                }
+                return Observable.just(UsedMax.NORMAL);
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<UsedMax>() {
+            @Override
+            public void call(UsedMax aBoolean) {
+                switch (aBoolean) {
+                    case NORMAL:
+                        startThirdApp(packageName);
+                        break;
+                    case DAY_MAX:
+                        showDayMaxDialog();
+                        break;
+                    case SINGLE_APP_MAX:
+                        showSingleAppMaxDialog();
+                        break;
+                }
+            }
+        });
+    }
+
+    private void showDayMaxDialog() {
+
+    }
+
+    private void showSingleAppMaxDialog() {
+
+    }
+
+    private void startThirdApp(String packageName) {
+        PackageManager packageManager = context.getPackageManager();
         UsingApp usingApp = new UsingApp();
         usingApp.setStartTime(System.currentTimeMillis());
         usingApp.setPackageName(packageName);
         SharedPreferencesUtils.putObject(context.getApplicationContext(), Constant.USING_PACKAGE, usingApp);
-        Log.d("zzz", usingApp.toString());
         Intent intent = packageManager.getLaunchIntentForPackage(packageName);
         if (intent != null) {
             context.startActivity(intent);

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -14,10 +13,7 @@ import com.leaning_machine.Constant;
 import com.leaning_machine.R;
 import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.base.dto.LearnTime;
-import com.leaning_machine.base.dto.PageInfo;
-import com.leaning_machine.base.dto.ResourceDto;
 import com.leaning_machine.base.dto.TerminalDetail;
-import com.leaning_machine.base.dto.TerminalDetailDto;
 import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.db.GlobalDatabase;
 import com.leaning_machine.db.dao.UsedPackageDao;
@@ -54,41 +50,38 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("zzz", "onresume");
-        //证明有正在使用的应用
-        UsingApp usingApp = SharedPreferencesUtils.getObject(this, Constant.USING_PACKAGE, UsingApp.class, null);
 
-        if (usingApp != null) {
-            //保存数据库
-            Log.d("zzz", usingApp.toString());
-            saveAppTime(usingApp);
-        }
 
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d("zzz", "onRestart");
+        //证明有正在使用的应用
+        UsingApp usingApp = SharedPreferencesUtils.getObject(this, Constant.USING_PACKAGE, UsingApp.class, null);
+
+        if (usingApp != null) {
+            //保存数据库
+            saveAppTime(usingApp);
+        }
     }
 
     private void saveAppTime(UsingApp usingApp) {
         Observable.create(new Observable.OnSubscribe<UsingApp>() {
             @Override
             public void call(Subscriber<? super UsingApp> subscriber) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 UsedPackageDao usedPackageDao = GlobalDatabase.getInstance(getApplicationContext()).usedPackageDao();
-                UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(simpleDateFormat.format(new Date()), usingApp.getPackageName());
+                UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(Utils.getDateString(), usingApp.getPackageName());
                 if (usedPackageEntity != null) {
                     usedPackageEntity.setTime(usedPackageEntity.getTime() + (System.currentTimeMillis() - usingApp.getStartTime()) / 1000 );
                 } else {
                     usedPackageEntity = new UsedPackageEntity();
-                    usedPackageEntity.setDate(simpleDateFormat.format(new Date()));
+                    usedPackageEntity.setDate(Utils.getDateString());
                     usedPackageEntity.setPackageName(usingApp.getPackageName());
                     usedPackageEntity.setTime((System.currentTimeMillis() - usingApp.getStartTime()) / 1000 );
+                    usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
                 }
                 usedPackageDao.insertUsedTime(usedPackageEntity);
-                Log.d("zzz", usedPackageDao.getAll().toString());
                 subscriber.onNext(usingApp);
                 subscriber.onCompleted();
             }
@@ -137,11 +130,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             Toast.makeText(this, "未安装", Toast.LENGTH_LONG).show();
             return;
         }
-        UsingApp usingApp = new UsingApp();
-        usingApp.setStartTime(System.currentTimeMillis());
-        usingApp.setPackageName(packageName);
-        SharedPreferencesUtils.putObject(getApplicationContext(), Constant.USING_PACKAGE, usingApp);
-        Log.d("zzz", usingApp.toString());
         Intent intent = packageManager.getLaunchIntentForPackage(packageName);
         if (intent != null) {
             startActivity(intent);
@@ -149,9 +137,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void getTerminalDetail() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         //今天没有同步过
-        if (SharedPreferencesUtils.getString(this, Constant.SYNC_DATE, "").equals(simpleDateFormat.format(new Date()))) {
+        if (SharedPreferencesUtils.getString(this, Constant.SYNC_DATE, "").equals(Utils.getDateString())) {
             return;
         }
         CommonApiService.instance.getTerminalDetail().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BaseDto<TerminalDetail>>() {
@@ -173,7 +160,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                     startLogin();
                 }
             }
-
         });
     }
 
@@ -186,7 +172,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (terminalDetail.getInvalidationDate().getTime() < new Date().getTime()) {
             startLogin();
         }
-        SharedPreferencesUtils.putString(this, Constant.SYNC_DATE, simpleDateFormat.format(new Date()));
+        SharedPreferencesUtils.putString(this, Constant.SYNC_DATE, Utils.getDateString());
         SharedPreferencesUtils.putLong(this, Constant.MAX_DAY, terminalDetail.getMaxContinuousDay());
         SharedPreferencesUtils.putLong(this, Constant.CURRENT_DAY, terminalDetail.getCurrentContinuousDay());
         SharedPreferencesUtils.putLong(this, Constant.TOTAL_DAY, Utils.daysBetween(terminalDetail.getFirstLoginDate(), new Date()) + 1);

@@ -239,4 +239,9 @@ public class Utils {
         }
         return packageInfo != null;
     }
+
+    public static String getDateString() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(new Date());
+    }
 }

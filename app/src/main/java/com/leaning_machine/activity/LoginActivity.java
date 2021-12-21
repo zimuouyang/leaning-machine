@@ -4,6 +4,7 @@ package com.leaning_machine.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -73,6 +74,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.d("zzz", "account_login");
                 accountLogin = true;
                 switchLogin();
+                final MyCountDownTimer myCountDownTimer = new MyCountDownTimer(60000,1000);
+                myCountDownTimer.start();
                 break;
             case R.id.message_login:
                 accountLogin = false;
@@ -126,10 +129,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
-
     }
 
+    private class MyCountDownTimer extends CountDownTimer {
 
-    //todo 判断登录状态
+        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
 
+        //计时过程
+        @Override
+        public void onTick(long l) {
+            //防止计时过程中重复点击
+            loginButton.setClickable(false);
+            loginButton.setText(l/1000+"s");
+
+        }
+
+        //计时完毕的方法
+        @Override
+        public void onFinish() {
+            //重新给Button设置文字
+            loginButton.setText("重新获取验证码");
+            //设置可点击
+            loginButton.setClickable(true);
+        }
+    }
 }

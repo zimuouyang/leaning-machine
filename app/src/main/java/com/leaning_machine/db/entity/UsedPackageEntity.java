@@ -21,6 +21,10 @@ public class UsedPackageEntity {
     private String packageName;
 
     @NonNull
+    @ColumnInfo(name = "LAST_TIME")
+    private long lastUseTime;
+
+    @NonNull
     @ColumnInfo(name = "TIME")
     private long time;
 
@@ -58,12 +62,21 @@ public class UsedPackageEntity {
         this.time = time;
     }
 
+    public long getLastUseTime() {
+        return lastUseTime;
+    }
+
+    public void setLastUseTime(long lastUseTime) {
+        this.lastUseTime = lastUseTime;
+    }
+
     @Override
     public String toString() {
         return "UsedPackageEntity{" +
                 "id=" + id +
                 ", date='" + date + '\'' +
                 ", packageName='" + packageName + '\'' +
+                ", lastUseTime=" + lastUseTime +
                 ", time=" + time +
                 '}';
     }
