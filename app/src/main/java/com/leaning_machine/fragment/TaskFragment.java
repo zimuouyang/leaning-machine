@@ -46,6 +46,7 @@ public class TaskFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getCheckTask(1);
     }
 
     @Override
@@ -59,7 +60,6 @@ public class TaskFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getCheckTask(1);
     }
 
     private void initView(View view) {

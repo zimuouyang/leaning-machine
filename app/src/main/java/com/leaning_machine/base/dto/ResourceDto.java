@@ -61,6 +61,10 @@ public class ResourceDto implements Serializable {
         this.des = des;
     }
 
+    public ResourceDto() {
+
+    }
+
     @Override
     public String toString() {
         return "ResourceDto{" +

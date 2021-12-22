@@ -17,8 +17,8 @@ public class CheckTask implements Serializable {
     private String des;
 
     @Expose
-    @SerializedName("taskId")
-    private Long taskId;
+    @SerializedName("id")
+    private Long id;
 
     @Expose
     @SerializedName("recorded")
@@ -44,12 +44,12 @@ public class CheckTask implements Serializable {
         this.des = des;
     }
 
-    public Long getTaskId() {
-        return taskId;
+    public Long getId() {
+        return id;
     }
 
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public ResourceDto getResource() {

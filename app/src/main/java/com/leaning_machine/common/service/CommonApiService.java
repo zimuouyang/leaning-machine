@@ -32,6 +32,7 @@ import okhttp3.OkHttpClient;
 
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -121,7 +122,7 @@ public class CommonApiService {
         return getService().getCheckTasks(pageNo, pageSize);
     }
 
-    public Observable<ResponseBody> downloadAppFile(String fileName) {
+    public Call<ResponseBody> downloadAppFile(String fileName) {
         return getService().downloadAppFile(fileName);
     }
 

@@ -9,7 +9,7 @@ import java.util.Date;
 public class TerminalDetail implements Serializable {
     @Expose
     @SerializedName("id")
-    private int id;
+    private long id;
     @Expose
     @SerializedName("name")
     private String name;
@@ -41,11 +41,11 @@ public class TerminalDetail implements Serializable {
     @SerializedName("terminalSign")
     private String terminalSign;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -2,6 +2,8 @@ package com.leaning_machine.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.leaning_machine.R;
+import com.leaning_machine.activity.WebViewActivity;
 import com.leaning_machine.base.dto.ResourceDto;
 
 import java.util.ArrayList;
@@ -55,7 +58,9 @@ public class ResourceAdapter extends RecyclerView.Adapter<ResourceAdapter.MyView
         holder.readButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resourceDto.getAddress();
+                Uri uri = Uri.parse(resourceDto.getAddress());
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                context.startActivity(intent);
             }
         });
     }

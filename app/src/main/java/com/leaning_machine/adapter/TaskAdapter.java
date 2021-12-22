@@ -3,11 +3,13 @@ package com.leaning_machine.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +24,8 @@ import com.leaning_machine.base.dto.CheckTask;
 import com.leaning_machine.base.dto.ResourceDto;
 import com.leaning_machine.base.dto.TerminalDetail;
 import com.leaning_machine.common.service.CommonApiService;
+import com.leaning_machine.domain.DefaultObserver;
+import com.leaning_machine.utils.SharedPreferencesUtils;
 import com.leaning_machine.utils.Utils;
 
 import java.text.SimpleDateFormat;
@@ -71,6 +75,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
         holder.resourceImage.setImageDrawable(context.getResources().getDrawable(drawables[new Random().nextInt(4)]));
         holder.resourceTitle.setText(checkTask.getResource().getResourceName());
         holder.resourceDes.setText("日期：  " + simpleDateFormat.format(checkTask.getRecordDate()));
+        holder.readButton.setTag(position);
         if (checkTask.isRecorded()) {
             holder.readButton.setImageDrawable(context.getDrawable(R.mipmap.recorded_task));
         } else {
@@ -86,8 +91,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
                 if (!checkTask.isRecorded()) {
                     //是当前打卡日期
                     if (simpleDateFormat.format(checkTask.getRecordDate()).equals(simpleDateFormat.format(new Date()))) {
-                        addCheckRecord(checkTask);
+                        addCheckRecord(checkTask, (int)holder.readButton.getTag());
+                    } else {
+                        Toast.makeText(context, "还未到打卡时间", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    openLink(checkTask);
                 }
             }
         });
@@ -98,49 +107,39 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
         return list.size();
     }
 
-    private void addCheckRecord(CheckTask checkTask) {
+    private void addCheckRecord(CheckTask checkTask, int position) {
         CheckRecord checkRecord = new CheckRecord();
         checkRecord.setCheckTask(checkTask);
-        checkRecord.setResource(checkTask.getResource());
-        checkRecord.setRecordDate(new Date());
-        checkRecord.setTerminalUser(new TerminalDetail());
-        CommonApiService.instance.addRecord(checkRecord).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).finallyDo(new Action0() {
-            @Override
-            public void call() {
-                Intent intent = new Intent(context, WebViewActivity.class);
-                intent.putExtra(WebViewActivity.EXTRA_URL, checkTask.getResource().getAddress());
-                context.startActivity(intent);
-            }
-        }).subscribe(new Observer<BaseDto>() {
+        ResourceDto resourceDto = new ResourceDto();
+        resourceDto.setId(checkTask.getResource().getId());
+        checkRecord.setResource(resourceDto);
+        checkRecord.setRecordDate(Utils.getDateString());
+        TerminalDetail terminalDetail = new TerminalDetail();
+        terminalDetail.setId(SharedPreferencesUtils.getLong(context, Constant.TERMINAL_ID, 0));
+        checkRecord.setTerminalUser(terminalDetail);
+        CommonApiService.instance.addRecord(checkRecord).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new DefaultObserver<BaseDto>() {
             @Override
             public void onCompleted() {
-
+                super.onCompleted();
+                openLink(checkTask);
             }
 
             @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(BaseDto pageInfoBaseDto) {
-                if (pageInfoBaseDto.getBusinessCode() == Constant.SUCCESS) {
-//                    hasData = !pageInfoBaseDto.getResult().isLastPage();
-//                    currentPage = pageInfoBaseDto.getResult().getPageNum();
-//                    resourceDtos.addAll(pageInfoBaseDto.getResult().getList());
-//                    resourceAdapter.setData(resourceDtos);
-//                    if (!hasData) {
-//                        refreshLayout.finishLoadMoreWithNoMoreData();
-//                    } else {
-//                        refreshLayout.finishLoadMore();
-//                    }
-
-                } else {
-//                    refreshLayout.finishLoadMore();
+            public void onNext(BaseDto baseDto) {
+                super.onNext(baseDto);
+                if (baseDto.getBusinessCode() == 200) {
+                    checkTask.setRecorded(true);
+                    list.set(position, checkTask);
+                    notifyDataSetChanged();
                 }
             }
-
         });
+    }
+
+    private void openLink(CheckTask checkTask) {
+        Uri uri = Uri.parse(checkTask.getResource().getAddress());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        context.startActivity(intent);
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -151,7 +150,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
             resourceImage = itemView.findViewById(R.id.resource_img);
             resourceTitle = itemView.findViewById(R.id.resource_title);
             resourceDes = itemView.findViewById(R.id.resource_des);

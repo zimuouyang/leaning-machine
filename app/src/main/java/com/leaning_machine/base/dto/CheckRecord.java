@@ -11,7 +11,7 @@ public class CheckRecord implements Serializable {
 
     @Expose
     @SerializedName("recordDate")
-    private Date recordDate;
+    private String recordDate;
 
     @Expose
     @SerializedName("des")
@@ -34,11 +34,11 @@ public class CheckRecord implements Serializable {
 //    private static final long serialVersionUID = 1L;
 
 
-    public Date getRecordDate() {
+    public String getRecordDate() {
         return recordDate;
     }
 
-    public void setRecordDate(Date recordDate) {
+    public void setRecordDate(String recordDate) {
         this.recordDate = recordDate;
     }
 

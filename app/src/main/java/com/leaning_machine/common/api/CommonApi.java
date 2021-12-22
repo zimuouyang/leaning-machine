@@ -20,6 +20,7 @@ import java.util.List;
 
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -48,7 +49,7 @@ public interface CommonApi {
 
     @Streaming
     @POST("app/download")
-    Observable<ResponseBody> downloadAppFile(@Query(value = CommonApiConstants.PARAM_FILE_NAME, encoded = true) String fileName);
+    Call<ResponseBody> downloadAppFile(@Query(value = CommonApiConstants.PARAM_FILE_NAME, encoded = true) String fileName);
 
     @POST("check/record")
     Observable<BaseDto> checkRecord(@Body CheckRecord checkRecord);

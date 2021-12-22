@@ -35,16 +35,20 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
-import rx.Observer;
-import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class InstallAppAdapter extends RecyclerView.Adapter<InstallAppAdapter.MyViewHolder> {
@@ -115,36 +119,47 @@ public class InstallAppAdapter extends RecyclerView.Adapter<InstallAppAdapter.My
             @Override
             public void run() {
                 try {
-                    Response response = client.newCall(request).execute();
+                    okhttp3.Response response = client.newCall(request).execute();
                     Log.d("zzz", "success " + response.isSuccessful());
                     Log.d("zzz", response.headers().toString() + "   "+ response.body().contentLength());
-                    writeResponseBodyToDisk(response.body());
+//                    writeResponseBodyToDisk(response.body());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
 
-//        CommonApiService.instance.
-//                downloadAppFile("2021/12/02/7f535f2d-2e22-49be-9b20-0e9ed3525659.apk").
-//                subscribeOn(Schedulers.io()).subscribe(new Observer<ResponseBody>() {
+//        Observable.create(new Observable.OnSubscribe<Response>() {
 //            @Override
-//            public void onCompleted() {
+//            public void call(Subscriber<? super Response> subscriber) {
 //
+//                    CommonApiService.instance.
+//                            downloadAppFile("2021/12/02/7f535f2d-2e22-49be-9b20-0e9ed3525659.apk").enqueue(new Callback<ResponseBody>() {
+//                        @Override
+//                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                            boolean success = response.isSuccessful();
+//                            Log.d("zzz", success + "   ");
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//                        }
+//                    });
+//
+//                    subscriber.onNext(null);
+//
+//                subscriber.onCompleted();
 //            }
 //
+//        }).subscribeOn(Schedulers.io()).subscribe(new Action1<Response>() {
 //            @Override
-//            public void onError(Throwable e) {
-//
-//            }
-//
-//            @Override
-//            public void onNext(ResponseBody response) {
-//               Log.d("zzz" , " " + response.contentLength()) ;
-//
-//                writeResponseBodyToDisk(response);
+//            public void call(Response response) {
+////                Log.d("zzz", response.isSuccessful() + "   " + response.headers().toString());
 //            }
 //        });
+
+
     }
 
     private boolean writeResponseBodyToDisk(ResponseBody body) {
