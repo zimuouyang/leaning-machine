@@ -44,11 +44,11 @@ public class LearnTime implements Serializable {
 
     @Expose
     @SerializedName("math")
-    private Long math = 0L;
+    private long math = 0L;
 
     @Expose
     @SerializedName("others")
-    private Long others = 0L;
+    private long others = 0L;
 
     @Expose
     @SerializedName("createDate")
@@ -56,7 +56,7 @@ public class LearnTime implements Serializable {
 
     @Expose
     @SerializedName("userId")
-    private Long userId;
+    private long userId;
 
 
     public Long getTotal() {

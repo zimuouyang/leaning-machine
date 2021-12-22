@@ -109,61 +109,6 @@
     <string name="package_name_raz">com.razkidscamb.americanread.android.architecture.newrazapp</string>
 
 
-    <string name="math_moose_math">com.duckduckmoosedesign.km</string>
-    <string name="math_pythagorea">com.hil_hk.pythagorea</string>
-    <string name="math_du_du_math">com.enuma.todomathcn</string>
-    <string name="math_high_math">com.xiangqi.math</string>
-    <string name="math_ke_han_xue_yuan">org.khanacademy.android</string>
-    <string name="math_ou_la_math">com.ola100.app</string>
-
-
-    <string name="english_mo_er_duo_khankids">org.khankids.android</string>
-    <string name="english_mo_er_duo_raz">com.razkidscamb.americanread.android.architecture.newrazapp</string>
-    <string name="english_mo_er_duo_dong_ting_hui_ben">com.wenxi.audiobooks</string>
-
-    <string name="english_pin_du_abc_kids">com.rvappstudios.abc_kids_toddler_tracing_phonics</string>
-    <string name="english_pin_du_sightwords">com.playsightwords</string>
-    <string name="english_pin_du_speedphonics">com.eltkorea.speedphonics</string>
-    <string name="english_pin_du_starfall_abcs">com.starfall.StarfallABCs</string>
-    <string name="english_pin_du_starfall_ltr">air.com.starfall.ltr</string>
-
-    <string name="english_liu_li_shuo_ko_yu">com.ccenglish.parent</string>
-    <string name="english_liu_li_shuo_liu_li_shuo"> com.liulishuo.engzo</string>
-    <string name="english_liu_li_shuo_pei_yin">com.ishowedu.peiyin</string>
-
-
-    <string name="english_ai_yue_du_abc_reading">com.tal.abctimelibrary</string>
-    <string name="english_ai_yue_du_read_long">com.google.android.apps.seekh</string>
-    <string name="english_ai_yue_du_reading_pro">cn.readingprotob</string>
-
-
-    <string name="english_qin_lian_xi_civia">cn.civaonline.ccstudentsclient</string>
-    <string name="english_qin_lian_xi_duo_lin_guo"> com.duolingo</string>
-    <string name="english_qin_lian_xi_ef_hello">com.ef.efhello</string>
-    <string name="english_qin_lian_xi_middle_english">com.gaoha.english</string>
-    <string name="english_qin_lian_xi_high_english">com.giant.high</string>
-    <string name="english_qin_lian_xi_new_gai_nian">com.giant.newconcept</string>
-
-    <string name="english_bei_dan_ci_three_d">com.youdao.kiddict</string>
-    <string name="english_bei_dan_ci_ai_bei_dan_ci">com.shark.crazyword</string>
-    <string name="english_bei_dan_ci_bai_ci_zhan">com.jiongji.andriod.card</string>
-
-
-    <string name="english_qu_yi_zhi_molly">org.pbskids.mollyofdenali</string>
-    <string name="english_qu_yi_zhi_pbsk">org.pbskids.gamesapp </string>
-    <string name="english_qu_yi_zhi_engineering">org.pbskids.playandlearnengineering</string>
-    <string name="english_qu_yi_zhi_science">org.pbskids.playandlearnscience </string>
-    <string name="english_qu_yi_zhi_kids">com.rvappstudios.jigsaw.puzzles.kids </string>
-
-    <string name="english_movie">com.tubitv</string>
-
-    <string name="zuo_wen_bi_shen">com.bishen.zuowen</string>
-    <string name="zuo_wen_middle">com.kaoba.yuwen</string>
-    <string name="zuo_wen_high">com.xiangqi.gzchinese</string>
-    <string name="zuo_wen_zi_dian">com.apprush.game.chinesechar</string>
-    <string name="zuo_wen_study">cn.xuexi.android</string>
-
-
     <string-array name="others_group">
         <item>@string/others_middle_geography</item>
         <item>@string/others_middle_hua_xue</item>
@@ -179,76 +124,70 @@
         <item>@string/package_name_we_chat</item>
     </string-array>
 
+
     <string-array name="math_group">
-        <item>@string/math_moose_math</item>
-        <item>@string/math_pythagorea</item>
-        <item>@string/math_moose_math</item>
-        <item>@string/math_du_du_math</item>
-        <item>@string/math_high_math</item>
-        <item>@string/math_ke_han_xue_yuan</item>
-        <item>@string/math_ou_la_math</item>
-    </string-array>
-
-    <string-array name="mo_er_duo_group">
-        <item>@string/english_mo_er_duo_khankids</item>
-        <item>@string/english_mo_er_duo_raz</item>
-        <item>@string/english_mo_er_duo_dong_ting_hui_ben</item>
-    </string-array>
-
-    <string-array name="xue_pin_du_group">
-        <item>@string/english_pin_du_abc_kids</item>
-        <item>@string/english_pin_du_sightwords</item>
-        <item>@string/english_pin_du_speedphonics</item>
-        <item>@string/english_pin_du_starfall_abcs</item>
-        <item>@string/english_pin_du_starfall_ltr</item>
-    </string-array>
-
-    <string-array name="liu_li_shuo_group">
-        <item>@string/english_liu_li_shuo_ko_yu</item>
-        <item>@string/english_liu_li_shuo_liu_li_shuo</item>
-        <item>@string/english_liu_li_shuo_pei_yin</item>
-    </string-array>
-
-    <string-array name="ai_yue_du_group">
-        <item>@string/english_ai_yue_du_abc_reading</item>
-        <item>@string/english_ai_yue_du_read_long</item>
-        <item>@string/english_ai_yue_du_reading_pro</item>
-    </string-array>
-
-    <string-array name="qin_lian_xi_group">
-        <item>@string/english_qin_lian_xi_civia</item>
-        <item>@string/english_qin_lian_xi_duo_lin_guo</item>
-        <item>@string/english_qin_lian_xi_ef_hello</item>
-        <item>@string/english_qin_lian_xi_middle_english</item>
-        <item>@string/english_qin_lian_xi_high_english</item>
-        <item>@string/english_qin_lian_xi_new_gai_nian</item>
-    </string-array>
-
-    <string-array name="bei_dan_ci_group">
-        <item>@string/english_bei_dan_ci_three_d</item>
-        <item>@string/english_bei_dan_ci_ai_bei_dan_ci</item>
-        <item>@string/english_bei_dan_ci_bai_ci_zhan</item>
-    </string-array>
-
-    <string-array name="qu_yi_zhi_group">
-        <item>@string/english_qu_yi_zhi_molly</item>
-        <item>@string/english_qu_yi_zhi_pbsk</item>
-        <item>@string/english_qu_yi_zhi_engineering</item>
-        <item>@string/english_qu_yi_zhi_science</item>
-        <item>@string/english_qu_yi_zhi_kids</item>
-    </string-array>
-
-    <string-array name="see_movie_group">
-        <item>@string/english_movie</item>
+        <item>@string/package_name_du_du_math</item>
+        <item>@string/package_name_moose_math</item>
+        <item>@string/package_name_pythagorea</item>
+        <item>@string/package_name_ke_han_xue_yuan</item>
     </string-array>
 
     <string-array name="yu_wen_group">
-        <item>@string/zuo_wen_bi_shen</item>
-        <item>@string/zuo_wen_middle</item>
-        <item>@string/zuo_wen_high</item>
-        <item>@string/zuo_wen_zi_dian</item>
-        <item>@string/zuo_wen_study</item>
+        <item>@string/package_name_han_yu_zi_dian</item>
+        <item>@string/package_name_xue_xi_qiang_guo</item>
+        <item>@string/package_name_quan_li_shi</item>
+        <item>@string/package_name_bi_shen_zuo_wen</item>
     </string-array>
+
+    <string-array name="mo_er_duo_group">
+        <item>@string/package_name_khan_kids</item>
+        <item>@string/package_name_math_kids</item>
+        <item>@string/package_name_dong_ting_hui_ben</item>
+        <item>@string/package_name_hai_ni_man_english</item>
+        <item>@string/package_name_raz</item>
+    </string-array>
+
+    <string-array name="xue_pin_du_group">
+        <item>@string/package_name_speed_phonics</item>
+        <item>@string/package_name_abc_kids_phonics</item>
+        <item>@string/package_name_startfall_abcs</item>
+        <item>@string/package_name_startfall_learn_read</item>
+        <item>@string/package_name_kids_sight_words</item>
+        <item>@string/package_name_play_sight_words</item>
+        <item>@string/package_name_sight_words</item>
+        <item>@string/package_name_abc_reading</item>
+    </string-array>
+
+
+    <string-array name="ai_yue_du_group">
+        <item>@string/package_name_read_long</item>
+        <item>@string/package_name_reading_pro</item>
+        <item>@string/package_name_abc_reading</item>
+        <item>@string/package_name_bai_ci_zhan_ai_yue_du</item>
+        <item>@string/package_name_ko_yu_machine</item>
+    </string-array>
+
+    <string-array name="qin_lian_xi_group">
+        <item>@string/package_name_duo_lin_guo</item>
+        <item>@string/package_name_ef_hello</item>
+        <item>@string/package_name_xin_gai_nian_quan_ce</item>
+        <item>@string/package_name_civia_machine</item>
+    </string-array>
+
+    <string-array name="bei_dan_ci_group">
+        <item>@string/package_name_ai_bei_dan_ci</item>
+        <item>@string/package_name_bai_ci_zhan</item>
+        <item>@string/package_name_three_dan_ci</item>
+    </string-array>
+
+    <string-array name="qu_yi_zhi_group">
+        <item>@string/package_name_puzzle_kids</item>
+        <item>@string/package_name_play_games</item>
+        <item>@string/package_name_molly</item>
+        <item>@string/package_name_play_science</item>
+        <item>@string/package_name_play_engineering</item>
+    </string-array>
+
 
     <string name="speed_phonics_des">系统全面地学习自然拼读，适合5—12岁孩子，课程共分3个级别：一级以以“字母音+短元音”为教学重点，通过26个字母的拼写和拼读来实现自然拼读课程的入门并培养以短元音为核心的字母拼读能力；二级以“长元音+双元音”为教学重点，培养长元音、双元音的拼读能力，增强阅读能力，提升复杂单词识读能力。三级以“双元音+双辅音”为教学重点，培养双元音、双辅音的拼读能力，培养对单词的整体感知、认读、拼写能力。</string>
     <string name="abc_kids_des">通过两个卡通人物Lucas和Ruby的伴学，以各种简单有趣的游戏方式，主要学习26个字母及其大小写，同时学习相对应的以各个字母为首字母的常用单词。可离线使用。</string>
@@ -301,6 +240,7 @@
     <string name="math">数学</string>
     <string name="language">语文</string>
     <string name="others">其他</string>
+    <string name="today_total_length">今日学习总时长</string>
 
     <string name="date">日期</string>
     <string name="total_length">总时长</string>

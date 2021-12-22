@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.leaning_machine.db.GlobalDatabase;
 import com.leaning_machine.db.dao.UsedPackageDao;
 import com.leaning_machine.db.entity.UsedPackageEntity;
 import com.leaning_machine.db.entity.UsedTimeEntity;
+import com.leaning_machine.domain.DefaultObserver;
 import com.leaning_machine.layout.LoadingAlertDialog;
 import com.leaning_machine.model.UsingApp;
 import com.leaning_machine.utils.SharedPreferencesUtils;
@@ -28,12 +30,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -67,9 +71,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void saveAppTime(UsingApp usingApp) {
-        Observable.create(new Observable.OnSubscribe<UsingApp>() {
+        Observable.create(new Observable.OnSubscribe<List<LearnTime>>() {
             @Override
-            public void call(Subscriber<? super UsingApp> subscriber) {
+            public void call(Subscriber<? super List<LearnTime>> subscriber) {
+                //插入当天应用使用的数据库
                 UsedPackageDao usedPackageDao = GlobalDatabase.getInstance(getApplicationContext()).usedPackageDao();
                 UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(Utils.getDateString(), usingApp.getPackageName());
                 if (usedPackageEntity != null) {
@@ -82,20 +87,39 @@ public abstract class BaseActivity extends AppCompatActivity {
                     usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
                 }
                 usedPackageDao.insertUsedTime(usedPackageEntity);
-                subscriber.onNext(usingApp);
+
+
+                //插入总的数据库并上传
+
+                subscriber.onNext(updateLearnTime(usingApp));
                 subscriber.onCompleted();
             }
-        }).subscribeOn(Schedulers.newThread()).subscribe(new Action1<UsingApp>() {
+        }).subscribeOn(Schedulers.newThread()).flatMap(new Func1<List<LearnTime>, Observable<BaseDto>>() {
             @Override
-            public void call(UsingApp usingApp) {
-
+            public Observable<BaseDto> call(List<LearnTime> learnTimes) {
+                return CommonApiService.instance.addLearnTime(learnTimes);
+            }
+        }).subscribe(new DefaultObserver<BaseDto>() {
+            @Override
+            public void onNext(BaseDto baseDto) {
+                super.onNext(baseDto);
+                Log.d("BaseActivity", baseDto == null ? "Response is null" : baseDto.getBusinessCode() + " : " + baseDto.getMessage());
             }
         });
     }
 
-    private void updateLearnTime(UsingApp usingApp) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private List<LearnTime> updateLearnTime(UsingApp usingApp) {
+        UsedTimeEntity usedTimeEntity = GlobalDatabase.getInstance(this).usedTimeDao().getUsedTimeEntity(Utils.getDateString());
+        if (usedTimeEntity == null) {
+            usedTimeEntity = new UsedTimeEntity();
+            usedTimeEntity.setDate(Utils.getDateString());
+        }
+        Utils.addTime(usedTimeEntity, usingApp, this);
+        GlobalDatabase.getInstance(this).usedTimeDao().insertUsedTime(usedTimeEntity);
+
+
         List<UsedTimeEntity> usedTimeEntities = GlobalDatabase.getInstance(this).usedTimeDao().getAll();
+
         List<LearnTime> learnTimes = new ArrayList<>();
         if (usedTimeEntities != null) {
             for (UsedTimeEntity timeEntity: usedTimeEntities) {
@@ -104,7 +128,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 learnTime.setTotal(timeEntity.getTotalLength());
                 learnTime.setSpelling(timeEntity.getPinDuLength());
                 learnTime.setGrindEars(timeEntity.getErDuoLength());
-                learnTime.setFluent(timeEntity.getLiuLiLength());
+                learnTime.setFluent(timeEntity.getQuLeZhiLength());
                 learnTime.setLoveRead(timeEntity.getYueDuLength());
                 learnTime.setPracticeFrequently(timeEntity.getLianXiLength());
                 learnTime.setReciteWords(timeEntity.getDanCiLength());
@@ -115,9 +139,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 learnTimes.add(learnTime);
             }
         }
-        LearnTime learnTime = new LearnTime();
-        learnTime.setUserId(SharedPreferencesUtils.getLong(getApplicationContext(), Constant.TERMINAL_ID, 0));
-        learnTime.setCreateDate(simpleDateFormat.format(new Date()));
+        return learnTimes;
     }
 
     public abstract void initView();

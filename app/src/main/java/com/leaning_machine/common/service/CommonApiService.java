@@ -11,6 +11,7 @@ import com.leaning_machine.base.dto.AppDto;
 import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.base.dto.CheckRecord;
 import com.leaning_machine.base.dto.CheckTask;
+import com.leaning_machine.base.dto.LearnTime;
 import com.leaning_machine.base.dto.PageInfo;
 import com.leaning_machine.base.dto.ResourceDto;
 import com.leaning_machine.base.dto.TerminalAuthDto;
@@ -146,5 +147,9 @@ public class CommonApiService {
 
     public Observable<BaseDto<String>> checkCode(String phoneNumber, String code) {
         return getService().checkCode(phoneNumber, code).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<BaseDto> addLearnTime(List<LearnTime> learnTimes) {
+        return getService().addLearnTime(learnTimes);
     }
 }

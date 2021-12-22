@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class TodayUse implements Serializable {
     private long useTime;
 
-    private String dateTime;
+    private String name;
 
     public long getUseTime() {
         return useTime;
@@ -15,11 +15,15 @@ public class TodayUse implements Serializable {
         this.useTime = useTime;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public String getName() {
+        return name;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public TodayUse(String name) {
+        this.name = name;
     }
 }

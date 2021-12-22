@@ -14,8 +14,11 @@ import android.view.WindowManager;
 import androidx.annotation.ArrayRes;
 import androidx.annotation.RequiresApi;
 
+import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.base.dto.LearnTime;
 import com.leaning_machine.db.entity.UsedTimeEntity;
+import com.leaning_machine.model.UsingApp;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -95,14 +98,6 @@ public class Utils {
                     continue;
                 }
 
-                if (isExistPackageName(packageName, R.array.liu_li_shuo_group, context)) {
-                    liuLiShuo += timeInForeground;
-                }
-
-                if (isExistPackageName(packageName, R.array.see_movie_group, context)) {
-                    kanDianYing += timeInForeground;
-                    continue;
-                }
 
                 if (isExistPackageName(packageName, R.array.qu_yi_zhi_group, context)) {
                     qinLianxi += timeInForeground;
@@ -167,6 +162,8 @@ public class Utils {
             return betweenDays; //不相等说明确实未跨天
     }
 
+
+
     private static boolean isExistPackageName(String packageName, @ArrayRes int stringId, Context context) {
         String[] array = context.getResources().getStringArray(stringId);
         for (String string : array) {
@@ -201,6 +198,20 @@ public class Utils {
         long seconds = (int) (time / 1000) % 60;
         long minutes = (int) ((time / (1000 * 60)) % 60);
         long hours = (int) ((time / (1000 * 60 * 60)) % 24);
+
+        if (hours > 0) {
+            return hours + "时" + minutes + "分" + seconds + "秒";
+        } else if (minutes > 0) {
+            return minutes + "分" + seconds + "秒";
+        } else {
+            return seconds + "秒";
+        }
+    }
+
+    public static String parseSecondTime(long time) {
+        long seconds = (int) (time  % 60);
+        long minutes = (int) ((time / 60) % 60);
+        long hours = (int) ((time / (60 * 60)) % 24);
 
         if (hours > 0) {
             return hours + "时" + minutes + "分" + seconds + "秒";
@@ -255,6 +266,52 @@ public class Utils {
         m = p.matcher(str);
         b = m.matches();
         return b;
+    }
+
+    public static UsedTimeEntity addTime(UsedTimeEntity usedTimeEntity, UsingApp usingApp, Context context) {
+        String packageName = usingApp.getPackageName();
+        long time = (System.currentTimeMillis() - usingApp.getStartTime()) / 1000;
+
+        LearnTime todayUse = SharedPreferencesUtils.getObject(context, Constant.SP_TODAY_USE_TIME, LearnTime.class, null);
+        if (todayUse == null) {
+            todayUse = new LearnTime();
+            todayUse.setCreateDate(getDateString());
+        }
+
+        usedTimeEntity.setTotalLength(usedTimeEntity.getTotalLength() + time);
+        todayUse.setTotal(todayUse.getTotal() + time);
+
+        if (isExistPackageName(packageName, R.array.xue_pin_du_group, context)) {
+            usedTimeEntity.setPinDuLength(usedTimeEntity.getPinDuLength() + time);
+            todayUse.setSpelling(todayUse.getSpelling() + time);
+        } else if (isExistPackageName(packageName, R.array.mo_er_duo_group, context)) {
+            usedTimeEntity.setErDuoLength(usedTimeEntity.getErDuoLength() + time);
+            todayUse.setGrindEars(todayUse.getGrindEars() + time);
+        } else if (isExistPackageName(packageName, R.array.ai_yue_du_group, context)) {
+            usedTimeEntity.setYueDuLength(usedTimeEntity.getYueDuLength() + time);
+            todayUse.setLoveRead(todayUse.getLoveRead() + time);
+        } else if (isExistPackageName(packageName, R.array.qin_lian_xi_group, context)) {
+            usedTimeEntity.setLianXiLength(usedTimeEntity.getLianXiLength() + time);
+            todayUse.setPracticeFrequently(todayUse.getPracticeFrequently() + time);
+        } else if (isExistPackageName(packageName, R.array.bei_dan_ci_group, context)) {
+            usedTimeEntity.setDanCiLength(usedTimeEntity.getDanCiLength() + time);
+            todayUse.setReciteWords(todayUse.getReciteWords() + time);
+        }else if (isExistPackageName(packageName, R.array.qu_yi_zhi_group, context)) {
+            usedTimeEntity.setQuLeZhiLength(usedTimeEntity.getQuLeZhiLength() + time);
+            todayUse.setFluent(todayUse.getFluent() + time);
+        } else if (isExistPackageName(packageName, R.array.math_group, context)) {
+            usedTimeEntity.setMathLength(usedTimeEntity.getMathLength() + time);
+            todayUse.setMath(todayUse.getMath() + time);
+        } else if (isExistPackageName(packageName, R.array.yu_wen_group, context)) {
+            usedTimeEntity.setLanguageLength(usedTimeEntity.getLanguageLength() + time);
+            todayUse.setLanguage(todayUse.getLanguage() + time);
+        } else {
+            usedTimeEntity.setOtherLength(usedTimeEntity.getOtherLength() + time);
+            todayUse.setOthers(todayUse.getOthers() + time);
+        }
+        SharedPreferencesUtils.putObject(context, Constant.SP_TODAY_USE_TIME, todayUse);
+
+        return usedTimeEntity;
     }
 
 }

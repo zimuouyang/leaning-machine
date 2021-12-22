@@ -129,11 +129,7 @@ public class PersonCenterFragment extends BaseFragment implements View.OnClickLi
         if (getActivity() == null) {
             return;
         }
-        switch (view.getId()) {
-            case R.id.read_along:
-                openApp(getString(R.string.english_ai_yue_du_read_long), getActivity());
-                break;
-        }
+
     }
 
     private class UsedTimeTask extends AsyncTask<Void, Integer, List<UsedTimeEntity>> {

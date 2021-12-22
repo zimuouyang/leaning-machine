@@ -23,14 +23,12 @@ import com.leaning_machine.db.entity.UsedPackageEntity;
 import com.leaning_machine.layout.CommonDialog;
 import com.leaning_machine.layout.PasswordDialog;
 import com.leaning_machine.model.App;
-import com.leaning_machine.model.TodayUse;
 import com.leaning_machine.model.UsedMax;
 import com.leaning_machine.model.UsingApp;
 import com.leaning_machine.utils.SharedPreferencesUtils;
 import com.leaning_machine.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 import rx.Observable;

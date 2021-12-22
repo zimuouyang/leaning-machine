@@ -15,18 +15,21 @@
     <application
         android:name=".base.application.BaseApplication"
         android:allowBackup="false"
-        android:usesCleartextTraffic="true"
         android:icon="@drawable/ic_lanucher"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_lanucher"
         android:supportsRtl="true"
-        android:windowSoftInputMode="adjustPan|stateHidden"
-        android:theme="@style/Theme.Leaningmachine">
-
+        android:theme="@style/Theme.Leaningmachine"
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="adjustPan|stateHidden">
         <activity
-            android:name=".activity.WebViewActivity"
+            android:name=".activity.TodayLearnActivity"
             android:screenOrientation="landscape"
             android:exported="false" />
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.TopListActivity"
             android:exported="false"

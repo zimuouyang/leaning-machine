@@ -47,6 +47,7 @@ public class PersonCenterActivity extends BaseActivity implements View.OnClickLi
                 startActivity(new Intent(this, ListenStatisticalActivity.class));
                 break;
             case R.id.statistics:
+                startActivity(new Intent(this, TodayLearnActivity.class));
                 break;
             case R.id.about_us:
                 startActivity(new Intent(this, AboutUsActivity.class));

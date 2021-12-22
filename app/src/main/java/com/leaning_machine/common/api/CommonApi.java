@@ -5,6 +5,7 @@ import com.leaning_machine.base.dto.AppDto;
 import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.base.dto.CheckRecord;
 import com.leaning_machine.base.dto.CheckTask;
+import com.leaning_machine.base.dto.LearnTime;
 import com.leaning_machine.base.dto.PageInfo;
 import com.leaning_machine.base.dto.ResourceDto;
 import com.leaning_machine.base.dto.TerminalAuthDto;
@@ -66,5 +67,13 @@ public interface CommonApi {
 
     @GET("checkCode")
     Observable<BaseDto<String>> checkCode(@Query(value = CommonApiConstants.PARAM_PHONE_NUM) String phoneNum, @Query(value = CommonApiConstants.PARAM_CODE) String code);
+
+    /**
+     * 增加学习时长
+     * @param learnTimes
+     * @return
+     */
+    @POST("learn/time")
+    Observable<BaseDto> addLearnTime(@Body List<LearnTime> learnTimes);
 
 }
