@@ -2,6 +2,7 @@ package com.leaning_machine.activity;
 
 import android.content.Intent;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.leaning_machine.base.dto.Announcement;
 import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.layout.PasswordDialog;
+import com.leaning_machine.model.VoiceType;
 import com.leaning_machine.utils.SharedPreferencesUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -97,7 +99,13 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 if (SharedPreferencesUtils.getInt(this, Constant.ROLE, 0) == 1) {
                     startActivity(new Intent(this, GoClassActivity.class));
                 } else {
-                    PasswordDialog passwordDialog = new PasswordDialog(this);
+                    PasswordDialog passwordDialog = new PasswordDialog.Builder().context(this).type(VoiceType.PASSWORD).build();
+                    passwordDialog.setPasswordClick(new PasswordDialog.PasswordClick() {
+                        @Override
+                        public void onSuccess() {
+                            startActivity(new Intent(WelcomeActivity.this, GoClassActivity.class));
+                        }
+                    });
                     passwordDialog.show();
                 }
                 break;

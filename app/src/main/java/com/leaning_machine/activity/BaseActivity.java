@@ -62,7 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         //证明有正在使用的应用
-        UsingApp usingApp = SharedPreferencesUtils.getObject(this, Constant.USING_PACKAGE, UsingApp.class, null);
+        UsingApp usingApp = SharedPreferencesUtils.getObject(getApplicationContext(), Constant.USING_PACKAGE, UsingApp.class, null);
 
         if (usingApp != null) {
             //保存数据库
@@ -97,12 +97,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         }).subscribeOn(Schedulers.newThread()).flatMap(new Func1<List<LearnTime>, Observable<BaseDto>>() {
             @Override
             public Observable<BaseDto> call(List<LearnTime> learnTimes) {
+                SharedPreferencesUtils.putObject(getApplicationContext(), Constant.USING_PACKAGE,null);
                 return CommonApiService.instance.addLearnTime(learnTimes);
             }
-        }).subscribe(new DefaultObserver<BaseDto>() {
+        }).observeOn(Schedulers.io()).subscribe(new DefaultObserver<BaseDto>() {
             @Override
             public void onNext(BaseDto baseDto) {
                 super.onNext(baseDto);
+                if (baseDto != null && baseDto.getBusinessCode() == 200) {
+                    GlobalDatabase.getInstance(BaseActivity.this).usedTimeDao().deleteAll();
+                }
                 Log.d("BaseActivity", baseDto == null ? "Response is null" : baseDto.getBusinessCode() + " : " + baseDto.getMessage());
             }
         });

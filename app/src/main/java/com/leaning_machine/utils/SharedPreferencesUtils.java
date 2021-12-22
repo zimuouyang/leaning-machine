@@ -61,7 +61,11 @@ public class SharedPreferencesUtils {
     }
 
     public static void putObject(Context context, String key, Object object) {
+        SharedPreferences settings = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
         if (null == object) {
+            editor.remove(key);
+            editor.commit();
             return;
         }
         Gson gson = new Gson();

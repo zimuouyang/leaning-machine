@@ -14,6 +14,7 @@ package com.leaning_machine.layout;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.model.VoiceType;
 import com.leaning_machine.utils.SharedPreferencesUtils;
 
 public class PasswordDialog extends AlertDialog implements View.OnClickListener {
@@ -36,9 +38,13 @@ public class PasswordDialog extends AlertDialog implements View.OnClickListener 
     private ImageView cancelImg;
     private ImageView confirmImg;
     private PasswordClick passwordClick;
+    private Context context;
+    private VoiceType voiceType;
 
-    public PasswordDialog(Context context) {
+    public PasswordDialog(Builder builder, Context context) {
         super(context, R.style.LoadDialog);
+        this.context = builder.context;
+        this.voiceType = builder.voiceType;
         mContext = context;
     }
 
@@ -58,6 +64,10 @@ public class PasswordDialog extends AlertDialog implements View.OnClickListener 
         pwdText = findViewById(R.id.password_text);
         cancelImg = findViewById(R.id.cancel);
         confirmImg = findViewById(R.id.confirm);
+        if (voiceType == VoiceType.PASSWORD) {
+            pwdText.setVisibility(View.VISIBLE);
+            cancelImg.setVisibility(View.VISIBLE);
+        }
 
         voiceImg.setOnClickListener(this);
         confirmImg.setOnClickListener(this);
@@ -74,27 +84,56 @@ public class PasswordDialog extends AlertDialog implements View.OnClickListener 
         });
     }
 
-
+    public static PasswordDialog.Builder newBuilder() {
+        return new PasswordDialog.Builder();
+    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.voice:
+                playVoice();
                 break;
             case R.id.cancel:
                 dismiss();
                 break;
             case R.id.confirm:
-                if (confirmPwd()) {
-                    if (this.passwordClick != null) {
-                        passwordClick.onSuccess();
+                if (voiceType == VoiceType.PASSWORD) {
+                    if (confirmPwd()) {
+                        if (this.passwordClick != null) {
+                            passwordClick.onSuccess();
+                        }
+                        dismiss();
+                    } else {
+                        Toast.makeText(mContext, "密码错误", Toast.LENGTH_SHORT).show();
                     }
-                    dismiss();
                 } else {
-                    Toast.makeText(mContext, "密码错误", Toast.LENGTH_SHORT).show();
+                    dismiss();
                 }
                 break;
         }
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        playVoice();
+    }
+
+    private void playVoice() {
+        MediaPlayer mMediaPlayer;
+        switch (voiceType) {
+            case TODAY:
+                mMediaPlayer = MediaPlayer.create(mContext, R.raw.today);
+                break;
+            case MINUTE:
+                mMediaPlayer = MediaPlayer.create(mContext, R.raw.minute);
+                break;
+            default:
+                mMediaPlayer = MediaPlayer.create(mContext, R.raw.password);
+                break;
+        }
+        mMediaPlayer.start();
     }
 
     private boolean confirmPwd() {
@@ -105,6 +144,37 @@ public class PasswordDialog extends AlertDialog implements View.OnClickListener 
             return true;
         }
         return false;
+    }
+
+    public static class Builder {
+        private String des;
+        private Context context;
+        private VoiceType voiceType;
+
+
+        public PasswordDialog.Builder context(Context context) {
+            this.context = context;
+            return this;
+        }
+
+
+        public PasswordDialog.Builder des(String des) {
+            this.des = des;
+            return this;
+        }
+
+        public PasswordDialog.Builder type(VoiceType voiceType) {
+            this.voiceType = voiceType;
+            return this;
+        }
+
+
+        public PasswordDialog build() {
+            if (this.context == null) {
+                throw new NullPointerException("Activity can not be NULL!!");
+            }
+            return new PasswordDialog(this, context);
+        }
     }
 
     public interface PasswordClick {

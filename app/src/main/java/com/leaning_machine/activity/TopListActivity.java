@@ -13,6 +13,7 @@ import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.base.dto.TopListModel;
 import com.leaning_machine.base.dto.TopListResultModel;
 import com.leaning_machine.common.service.CommonApiService;
+import com.leaning_machine.utils.Utils;
 
 import java.util.List;
 
@@ -133,7 +134,7 @@ public class TopListActivity extends BaseActivity implements View.OnClickListene
     }
 
     private String detailTitle(TopListModel topListModel) {
-        return topListModel.getUserName() + " : " + topListModel.getTime() / 60 + "分钟";
+        return topListModel.getUserName() + " : " + Utils.parseSecondTime(topListModel.getTime());
     }
 
     @Override

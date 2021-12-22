@@ -25,6 +25,7 @@ import com.leaning_machine.layout.PasswordDialog;
 import com.leaning_machine.model.App;
 import com.leaning_machine.model.UsedMax;
 import com.leaning_machine.model.UsingApp;
+import com.leaning_machine.model.VoiceType;
 import com.leaning_machine.utils.SharedPreferencesUtils;
 import com.leaning_machine.utils.Utils;
 
@@ -78,7 +79,7 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
                     if (isTeacher) {
                         openApp(app.getPackageName(), context);
                     } else {
-                        PasswordDialog passwordDialog = new PasswordDialog(context);
+                        PasswordDialog passwordDialog = new PasswordDialog.Builder().context(context).type(VoiceType.PASSWORD).build();
                         passwordDialog.setPasswordClick(new PasswordDialog.PasswordClick() {
                             @Override
                             public void onSuccess() {
@@ -168,11 +169,11 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
     }
 
     private void showDayMaxDialog() {
-
+        new PasswordDialog.Builder().context(context).type(VoiceType.TODAY).build().show();
     }
 
     private void showSingleAppMaxDialog() {
-
+        new PasswordDialog.Builder().context(context).type(VoiceType.MINUTE).build().show();
     }
 
     private void startThirdApp(String packageName) {
