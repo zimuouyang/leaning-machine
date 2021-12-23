@@ -12,6 +12,7 @@ import com.leaning_machine.base.dto.TerminalAuthDto;
 import com.leaning_machine.base.dto.TerminalDetail;
 import com.leaning_machine.base.dto.TerminalDetailDto;
 import com.leaning_machine.base.dto.TerminalLoginDto;
+import com.leaning_machine.base.dto.TerminalSign;
 import com.leaning_machine.base.dto.TopListResultModel;
 import com.leaning_machine.common.CommonApiConstants;
 import com.leaning_machine.model.App;
@@ -76,5 +77,10 @@ public interface CommonApi {
      */
     @POST("learn/time")
     Observable<BaseDto> addLearnTime(@Body List<LearnTime> learnTimes);
+
+
+    @GET("terminal/sign/latest")
+    Observable<BaseDto<TerminalSign>> getLatestSign();
+
 
 }

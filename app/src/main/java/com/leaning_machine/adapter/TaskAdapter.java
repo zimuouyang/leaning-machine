@@ -133,6 +133,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
                     notifyDataSetChanged();
                 }
             }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                openLink(checkTask);
+            }
         });
     }
 

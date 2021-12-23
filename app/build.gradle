@@ -62,5 +62,8 @@ dependencies {
     implementation 'com.scwang.smart:refresh-footer-classics:2.0.3'
     implementation 'com.scwang.smart:refresh-header-classics:2.0.3'
 
+    implementation 'me.jessyan:progressmanager:1.5.0'
+    implementation 'com.yanzhenjie:permission:2.0.3'
+
 
 }

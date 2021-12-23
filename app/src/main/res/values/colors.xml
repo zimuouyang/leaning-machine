@@ -12,4 +12,5 @@
 
     <color name="select_read_text">#FF91C53E</color>
     <color name="un_select_text">#FF777777</color>
+    <color name="transparent">#00000000</color><!--透明 -->
 </resources>

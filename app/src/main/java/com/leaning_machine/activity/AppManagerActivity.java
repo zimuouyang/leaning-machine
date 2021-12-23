@@ -1,10 +1,15 @@
 package com.leaning_machine.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,14 +25,23 @@ import com.leaning_machine.base.dto.AppDto;
 import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.base.dto.PageInfo;
 import com.leaning_machine.common.service.CommonApiService;
+import com.leaning_machine.layout.DownloadCircleDialog;
 import com.leaning_machine.layout.SpaceItemDecoration;
+import com.leaning_machine.utils.AppUtils;
+import com.leaning_machine.utils.DownloadUtils;
+import com.leaning_machine.utils.FormatUtils;
+import com.leaning_machine.utils.SdUtils;
+import com.leaning_machine.utils.ToastUtil;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.runtime.Permission;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.jessyan.progressmanager.body.ProgressInfo;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -48,6 +62,7 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
     private int currentPage = 1;
     private InstallAppAdapter installAppAdapter;
     private RecyclerView recyclerView;
+    DownloadCircleDialog dialogProgress;
 
 
     @Override
@@ -89,7 +104,7 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
             }
         });
         initReadAdapter();
-
+        dialogProgress = new DownloadCircleDialog(this);
     }
 
     private void initReadAdapter( ) {
@@ -101,6 +116,13 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
 
         appDtos = new ArrayList<>();
         installAppAdapter.setData(appDtos);
+
+        installAppAdapter.setDownloadClick(new InstallAppAdapter.DownloadClick() {
+            @Override
+            public void onDownload(AppDto appDto) {
+                showNewVersion(Constant.DOWNLOAD_URI + appDto.getFileId());
+            }
+        });
     }
 
     @Override
@@ -181,5 +203,71 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
         uninstallAppLayout.setVisibility(isInstall ? View.GONE : View.VISIBLE);
         appLayout.setVisibility(isInstall ? View.VISIBLE : View.GONE);
 
+    }
+
+    private void showNewVersion(String url) {
+        AndPermission.with(this)
+                .runtime()
+                .permission(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
+                .onGranted(data -> {
+                    downloadApk(AppManagerActivity.this, url);
+
+                })
+                .onDenied(data -> Log.e("zzz", "未获得权限" + data.toString())).start();
+    }
+
+    public void downloadApk(final Activity context, String down_url) {
+        dialogProgress.show();
+        DownloadUtils.getInstance().download(down_url, SdUtils.getDownloadPath(), "QQ.apk", new DownloadUtils.OnDownloadListener() {
+            @Override
+            public void onDownloadSuccess() {
+                dialogProgress.dismiss();
+                ToastUtil.showShort("恭喜你下载成功，开始安装！");
+                String successDownloadApkPath = SdUtils.getDownloadPath() + "QQ.apk";
+                installApkO(AppManagerActivity.this, successDownloadApkPath);
+            }
+            @Override
+            public void onDownloading(ProgressInfo progressInfo) {
+                dialogProgress.setProgress(progressInfo.getPercent());
+                boolean finish = progressInfo.isFinish();
+                if (!finish) {
+                    long speed = progressInfo.getSpeed();
+                    dialogProgress.setMsg("(" + (speed > 0 ? FormatUtils.formatSize(context, speed) : speed) + "/s)正在下载...");
+                } else {
+                    dialogProgress.setMsg("下载完成！");
+                }
+            }
+            @Override
+            public void onDownloadFailed() {
+                dialogProgress.dismiss();
+                ToastUtil.showShort("下载失败！");
+            }
+        });
+
+    }
+    // 3.下载成功，开始安装,兼容8.0安装位置来源的权限
+    private void installApkO(Context context, String downloadApkPath) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //是否有安装位置来源的权限
+            boolean haveInstallPermission = getPackageManager().canRequestPackageInstalls();
+            if (haveInstallPermission) {
+                AppUtils.installApk(context, downloadApkPath);
+            } else {
+                Uri packageUri = Uri.parse("package:"+ AppUtils.getAppPackageName());
+                Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,packageUri);
+                startActivityForResult(intent,10086);
+            }
+        } else {
+            AppUtils.installApk(context, downloadApkPath);
+        }
+    }
+    //4.开启了安装未知来源应用权限后，再次进行步骤3的安装。
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 10086) {
+            String successDownloadApkPath = SdUtils.getDownloadPath() + "QQ.apk";
+            installApkO(AppManagerActivity.this, successDownloadApkPath);
+        }
     }
 }

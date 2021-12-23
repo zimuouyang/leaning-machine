@@ -13,7 +13,9 @@ import com.leaning_machine.Constant;
 import com.leaning_machine.R;
 import com.leaning_machine.base.dto.Announcement;
 import com.leaning_machine.base.dto.BaseDto;
+import com.leaning_machine.base.dto.TerminalSign;
 import com.leaning_machine.common.service.CommonApiService;
+import com.leaning_machine.domain.DefaultObserver;
 import com.leaning_machine.layout.PasswordDialog;
 import com.leaning_machine.model.VoiceType;
 import com.leaning_machine.utils.SharedPreferencesUtils;
@@ -78,6 +80,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     protected void onResume() {
         super.onResume();
         getAnnouncement();
+        getLatestSign();
     }
 
     private void getAnnouncement() {
@@ -86,6 +89,18 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             public void call(BaseDto<Announcement> announcementBaseDto) {
                 if (announcementBaseDto.getBusinessCode() == 200) {
                     task.setText(announcementBaseDto.getResult().getContent());
+                }
+            }
+        });
+    }
+
+    private void getLatestSign() {
+        CommonApiService.instance.getLatestSign().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new DefaultObserver<BaseDto<TerminalSign>>() {
+            @Override
+            public void onNext(BaseDto<TerminalSign> terminalSignBaseDto) {
+                super.onNext(terminalSignBaseDto);
+                if (terminalSignBaseDto.getBusinessCode() == 200) {
+                    SharedPreferencesUtils.putString(getApplicationContext(), Constant.TERMINAL_PWD, terminalSignBaseDto.getResult().getSign());
                 }
             }
         });

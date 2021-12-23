@@ -106,7 +106,7 @@ public class TopListActivity extends BaseActivity implements View.OnClickListene
         } else {
             list = dayList;
         }
-        if (list.size() >= 3) {
+        if (list.size() > 3) {
             topListAdapter.setData(list);
         }
         setTitle(list);

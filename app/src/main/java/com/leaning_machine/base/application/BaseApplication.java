@@ -7,6 +7,7 @@ import com.leaning_machine.activity.LoginActivity;
 import com.leaning_machine.common.HttpClient;
 import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.utils.SharedPreferencesUtils;
+import com.leaning_machine.utils.SmallUtils;
 
 
 public class BaseApplication extends Application {
@@ -16,6 +17,7 @@ public class BaseApplication extends Application {
         super.onCreate();
         CommonApiService.instance.init(Constant.BASE_URI);
         HttpClient.instance.init(this);
+        SmallUtils.init(this);
         String token = SharedPreferencesUtils.getString(this, Constant.TOKEN, "");
         if (!token.isEmpty()) {
             HttpClient.instance.addHeader(Constant.TOKEN, token);

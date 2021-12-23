@@ -2,12 +2,24 @@ package com.leaning_machine.activity;
 
 import android.os.Bundle;
 
+
+import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.base.dto.BaseDto;
+import com.leaning_machine.base.dto.TerminalSign;
+import com.leaning_machine.common.service.CommonApiService;
+import com.leaning_machine.domain.DefaultObserver;
 import com.leaning_machine.layout.TopWithContentLayout;
 import com.leaning_machine.model.App;
 
+import com.leaning_machine.utils.SharedPreferencesUtils;
+
+
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class LanguageActivity extends BaseActivity {
     TopWithContentLayout topWithContentLayout;
@@ -17,6 +29,7 @@ public class LanguageActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initData();
+        getLatestSign();
     }
 
     @Override
@@ -33,6 +46,18 @@ public class LanguageActivity extends BaseActivity {
         topWithContentLayout.setAppList(list);
 
         topWithContentLayout.setFinishClick(LanguageActivity.this::finish);
+    }
+
+    private void getLatestSign() {
+        CommonApiService.instance.getLatestSign().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new DefaultObserver<BaseDto<TerminalSign>>() {
+            @Override
+            public void onNext(BaseDto<TerminalSign> terminalSignBaseDto) {
+                super.onNext(terminalSignBaseDto);
+                if (terminalSignBaseDto.getBusinessCode() == 200) {
+                    SharedPreferencesUtils.putString(getApplicationContext(), Constant.TERMINAL_PWD, terminalSignBaseDto.getResult().getSign());
+                }
+            }
+        });
     }
 
     @Override

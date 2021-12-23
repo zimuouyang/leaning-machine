@@ -18,6 +18,7 @@ import com.leaning_machine.base.dto.TerminalAuthDto;
 import com.leaning_machine.base.dto.TerminalDetail;
 import com.leaning_machine.base.dto.TerminalDetailDto;
 import com.leaning_machine.base.dto.TerminalLoginDto;
+import com.leaning_machine.base.dto.TerminalSign;
 import com.leaning_machine.base.dto.TopListResultModel;
 import com.leaning_machine.common.HttpClient;
 import com.leaning_machine.common.api.CommonApi;
@@ -152,5 +153,9 @@ public class CommonApiService {
 
     public Observable<BaseDto> addLearnTime(List<LearnTime> learnTimes) {
         return getService().addLearnTime(learnTimes);
+    }
+
+    public Observable<BaseDto<TerminalSign>> getLatestSign() {
+        return getService().getLatestSign();
     }
 }

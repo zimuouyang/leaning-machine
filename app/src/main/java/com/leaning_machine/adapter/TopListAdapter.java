@@ -30,7 +30,12 @@ public class TopListAdapter extends RecyclerView.Adapter<TopListAdapter.MyViewHo
     }
 
     public void setData(List<TopListModel> data) {
-        this.list = data;
+        list = new ArrayList<>();
+        if (data.size() > 3) {
+            for (int i = 3; i < data.size(); i++) {
+                this.list.add(data.get(i));
+            }
+        }
         notifyDataSetChanged();
     }
 
