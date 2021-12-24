@@ -33,7 +33,7 @@ import rx.schedulers.Schedulers;
 public class ReadFragment extends Fragment {
     private RefreshLayout refreshLayout;
     private List<ResourceDto> resourceDtos;
-    private boolean hasData;
+    private boolean hasData = false;
     private int currentPage = 1;
     private ResourceAdapter resourceAdapter;
     private RecyclerView recyclerView;
@@ -109,6 +109,11 @@ public class ReadFragment extends Fragment {
             @Override
             public void onNext(BaseDto<PageInfo<ResourceDto>> pageInfoBaseDto) {
                 if (pageInfoBaseDto.getBusinessCode() == Constant.SUCCESS) {
+                    PageInfo<ResourceDto> pageInfo = pageInfoBaseDto.getResult();
+                    if (pageInfo == null || pageInfo.getList() == null || pageInfo.getList().size() == 0) {
+                        refreshLayout.finishLoadMoreWithNoMoreData();
+                        return;
+                    }
                     hasData = !pageInfoBaseDto.getResult().isLastPage();
                     currentPage = pageInfoBaseDto.getResult().getPageNum();
                     resourceDtos.addAll(pageInfoBaseDto.getResult().getList());

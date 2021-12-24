@@ -5,6 +5,7 @@ import com.leaning_machine.base.dto.AppDto;
 import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.base.dto.CheckRecord;
 import com.leaning_machine.base.dto.CheckTask;
+import com.leaning_machine.base.dto.DownloadHistory;
 import com.leaning_machine.base.dto.LearnTime;
 import com.leaning_machine.base.dto.PageInfo;
 import com.leaning_machine.base.dto.ResourceDto;
@@ -25,6 +26,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Streaming;
 import rx.Observable;
@@ -82,5 +84,9 @@ public interface CommonApi {
     @GET("terminal/sign/latest")
     Observable<BaseDto<TerminalSign>> getLatestSign();
 
+    @GET("download/history/{downloadId}")
+    Observable<BaseDto> saveDownloadHistory(@Path("downloadId") long downloadId);
 
+    @GET("download/histories")
+    Observable<BaseDto<List<DownloadHistory>>> getDownloadHistories();
 }

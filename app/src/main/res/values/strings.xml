@@ -189,6 +189,99 @@
     </string-array>
 
 
+    <string-array name="total_array">
+        <item>@string/package_name_qq</item>
+        <item>@string/package_name_ding_ding</item>
+        <item>@string/package_name_we_chat</item>
+
+
+        <item>@string/package_name_du_du_math</item>
+        <item>@string/package_name_moose_math</item>
+        <item>@string/package_name_pythagorea</item>
+        <item>@string/package_name_ke_han_xue_yuan</item>
+
+        <item>@string/package_name_han_yu_zi_dian</item>
+        <item>@string/package_name_xue_xi_qiang_guo</item>
+        <item>@string/package_name_quan_li_shi</item>
+        <item>@string/package_name_bi_shen_zuo_wen</item>
+
+        <item>@string/package_name_khan_kids</item>
+        <item>@string/package_name_math_kids</item>
+        <item>@string/package_name_dong_ting_hui_ben</item>
+        <item>@string/package_name_hai_ni_man_english</item>
+        <item>@string/package_name_raz</item>
+
+        <item>@string/package_name_speed_phonics</item>
+        <item>@string/package_name_abc_kids_phonics</item>
+        <item>@string/package_name_startfall_abcs</item>
+        <item>@string/package_name_startfall_learn_read</item>
+        <item>@string/package_name_kids_sight_words</item>
+        <item>@string/package_name_play_sight_words</item>
+        <item>@string/package_name_sight_words</item>
+        <item>@string/package_name_abc_reading</item>
+
+        <item>@string/package_name_read_long</item>
+        <item>@string/package_name_reading_pro</item>
+        <item>@string/package_name_abc_reading</item>
+        <item>@string/package_name_bai_ci_zhan_ai_yue_du</item>
+        <item>@string/package_name_ko_yu_machine</item>
+
+        <item>@string/package_name_duo_lin_guo</item>
+        <item>@string/package_name_ef_hello</item>
+        <item>@string/package_name_xin_gai_nian_quan_ce</item>
+        <item>@string/package_name_civia_machine</item>
+
+        <item>@string/package_name_ai_bei_dan_ci</item>
+        <item>@string/package_name_bai_ci_zhan</item>
+        <item>@string/package_name_three_dan_ci</item>
+
+        <item>@string/package_name_puzzle_kids</item>
+        <item>@string/package_name_play_games</item>
+        <item>@string/package_name_molly</item>
+        <item>@string/package_name_play_science</item>
+        <item>@string/package_name_play_engineering</item>
+
+
+        <item> @string/package_name_ke_ke_xue_ba</item>
+        <item> @string/package_name_xiao_xue_tong_bu</item>
+
+        <!--同步绘本-->
+        <item> @string/package_name_yi_qi_xue</item>
+
+        <!--同步题库-->
+        <item >@string/package_name_jing_you</item>
+        <item >@string/package_name_mo_fa_ti_ku</item>
+
+        <item>@string/package_name_yuan_ti_ku</item>
+
+        <!--同步AI微课-->
+        <item >@string/package_name_ou_la</item>
+        <item>@string/package_name_qu_wei_lian</item>
+
+        <!--考霸系列-->
+        <item >@string/package_name_chu_zhong_di_li</item>
+        <item >@string/package_name_chu_zhong_hua_xue</item>
+        <item >@string/package_name_chu_zhong_li_shi</item>
+        <item >@string/package_name_chu_zhong_sheng_wu</item>
+        <item >@string/package_name_chu_zhong_math</item>
+        <item >@string/package_name_chu_zhong_wu_li</item>
+        <item>@string/package_name_chu_zhong_english</item>
+        <item>@string/package_name_chu_zhong_chinese</item>
+        <item >@string/package_name_chu_zhong_zheng_zhi</item>
+
+        <!-- 考神君系列-->
+        <item >@string/package_name_gao_zhong_di_li</item>
+        <item >@string/package_name_gao_zhong_hua_xue</item>
+        <item >@string/package_name_gao_zhong_li_shi</item>
+        <item >@string/package_name_gao_zhong_sheng_wu</item>
+        <item >@string/package_name_gao_zhong_math</item>
+        <item >@string/package_name_gao_zhong_wu_li</item>
+        <item >@string/package_name_gao_zhong_english</item>
+        <item >@string/package_name_gao_zhong_chinese</item>
+
+    </string-array>
+
+
     <string name="speed_phonics_des">系统全面地学习自然拼读，适合5—12岁孩子，课程共分3个级别：一级以以“字母音+短元音”为教学重点，通过26个字母的拼写和拼读来实现自然拼读课程的入门并培养以短元音为核心的字母拼读能力；二级以“长元音+双元音”为教学重点，培养长元音、双元音的拼读能力，增强阅读能力，提升复杂单词识读能力。三级以“双元音+双辅音”为教学重点，培养双元音、双辅音的拼读能力，培养对单词的整体感知、认读、拼写能力。</string>
     <string name="abc_kids_des">通过两个卡通人物Lucas和Ruby的伴学，以各种简单有趣的游戏方式，主要学习26个字母及其大小写，同时学习相对应的以各个字母为首字母的常用单词。可离线使用。</string>
     <string name="starfall_abcs_des">适合零基础、开始磨耳朵阶段的孩子，建立字母和发音的关系，认识字母的写法，掌握字母的发音，学习相应的单词；每个字母的学习都配有不同的互动小游戏，区分大小写并练习基础发音，让孩子学英语像学母语一样轻松快乐。可以升级学习Starfall Learn to read扎实拼读基础。可离线使用。</string>

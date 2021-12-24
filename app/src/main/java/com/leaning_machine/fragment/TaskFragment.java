@@ -34,7 +34,7 @@ import rx.schedulers.Schedulers;
 public class TaskFragment extends Fragment {
     private RefreshLayout refreshLayout;
     private List<CheckTask> checkTasks;
-    private boolean hasData;
+    private boolean hasData = false;
     private int currentPage = 1;
     private TaskAdapter taskAdapter;
     private RecyclerView recyclerView;
@@ -102,6 +102,11 @@ public class TaskFragment extends Fragment {
             @Override
             public void onNext(BaseDto<PageInfo<CheckTask>> checks) {
                 if (checks.getBusinessCode() == Constant.SUCCESS) {
+                    PageInfo<CheckTask> pageInfo = checks.getResult();
+                    if (pageInfo == null || pageInfo.getList() == null || pageInfo.getList().size() == 0) {
+                        refreshLayout.finishLoadMoreWithNoMoreData();
+                        return;
+                    }
                     hasData = !checks.getResult().isLastPage();
                     currentPage = checks.getResult().getPageNum();
                     checkTasks.addAll(checks.getResult().getList());

@@ -88,7 +88,13 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void call(BaseDto<Announcement> announcementBaseDto) {
                 if (announcementBaseDto.getBusinessCode() == 200) {
-                    task.setText(announcementBaseDto.getResult().getContent());
+                    Announcement announcement = announcementBaseDto.getResult();
+                    if (announcement != null) {
+                        task.setVisibility(View.VISIBLE);
+                        task.setText(announcement.getContent());
+                    } else {
+                        task.setVisibility(View.GONE);
+                    }
                 }
             }
         });

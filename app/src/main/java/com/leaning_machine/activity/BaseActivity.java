@@ -199,6 +199,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             startLogin();
         }
         SharedPreferencesUtils.putString(this, Constant.SYNC_DATE, Utils.getDateString());
+        SharedPreferencesUtils.putString(this, Constant.USER_NAME, terminalDetail.getName());
         SharedPreferencesUtils.putLong(this, Constant.MAX_DAY, terminalDetail.getMaxContinuousDay());
         SharedPreferencesUtils.putLong(this, Constant.CURRENT_DAY, terminalDetail.getCurrentContinuousDay());
         SharedPreferencesUtils.putLong(this, Constant.TOTAL_DAY, Utils.daysBetween(terminalDetail.getFirstLoginDate(), new Date()) + 1);

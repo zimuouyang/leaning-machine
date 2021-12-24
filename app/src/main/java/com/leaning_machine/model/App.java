@@ -79,4 +79,8 @@ public class App implements Serializable {
         this.name = name;
         this.packageName = packageName;
     }
+
+    public App() {
+
+    }
 }

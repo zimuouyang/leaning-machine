@@ -3,6 +3,7 @@ package com.leaning_machine.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.base.application.GlideApp;
 import com.leaning_machine.base.dto.LearnTime;
 import com.leaning_machine.db.GlobalDatabase;
 import com.leaning_machine.db.dao.UsedPackageDao;
@@ -69,6 +71,9 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
         App app = list.get(position);
         if (!app.isRemote()) {
             holder.appImageView.setImageDrawable(context.getDrawable(app.getDrawableId()));
+        } else {
+            GlideApp.with(context).load(Constant.IMAGE_URI + app.getImgUrl()).error(R.mipmap.top_avatar_1).into(holder.appImageView);
+            holder.appNameText.setTextColor(Color.WHITE);
         }
         holder.appNameText.setText(app.getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

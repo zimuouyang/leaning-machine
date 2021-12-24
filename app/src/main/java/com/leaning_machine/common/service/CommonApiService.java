@@ -11,6 +11,7 @@ import com.leaning_machine.base.dto.AppDto;
 import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.base.dto.CheckRecord;
 import com.leaning_machine.base.dto.CheckTask;
+import com.leaning_machine.base.dto.DownloadHistory;
 import com.leaning_machine.base.dto.LearnTime;
 import com.leaning_machine.base.dto.PageInfo;
 import com.leaning_machine.base.dto.ResourceDto;
@@ -157,5 +158,13 @@ public class CommonApiService {
 
     public Observable<BaseDto<TerminalSign>> getLatestSign() {
         return getService().getLatestSign();
+    }
+
+    public Observable<BaseDto> saveDownloadHistory(long id) {
+        return getService().saveDownloadHistory(id);
+    }
+
+    public Observable<BaseDto<List<DownloadHistory>>> getHistories() {
+        return  getService().getDownloadHistories();
     }
 }

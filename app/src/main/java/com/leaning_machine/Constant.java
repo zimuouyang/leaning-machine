@@ -13,6 +13,7 @@ public class Constant {
     public static String SYNC_DATE = "SYNC_DATE";
     public static String TOTAL_DAY = "TOTAL_DAY";
     public static String MAX_DAY = "MAX_DAY";
+    public static String USER_NAME = "USER_NAME";
     public static String CURRENT_DAY = "CURRENT_DAY";
     public static String TERMINAL_ID = "TERMINAL_ID";
     public static String ROLE = "ROLE";

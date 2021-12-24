@@ -25,6 +25,7 @@ import com.leaning_machine.base.dto.AppDto;
 import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.base.dto.PageInfo;
 import com.leaning_machine.common.service.CommonApiService;
+import com.leaning_machine.domain.DefaultObserver;
 import com.leaning_machine.layout.DownloadCircleDialog;
 import com.leaning_machine.layout.SpaceItemDecoration;
 import com.leaning_machine.utils.AppUtils;
@@ -63,6 +64,7 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
     private InstallAppAdapter installAppAdapter;
     private RecyclerView recyclerView;
     DownloadCircleDialog dialogProgress;
+    private Long appId;
 
 
     @Override
@@ -120,7 +122,9 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
         installAppAdapter.setDownloadClick(new InstallAppAdapter.DownloadClick() {
             @Override
             public void onDownload(AppDto appDto) {
-                showNewVersion(Constant.DOWNLOAD_URI + appDto.getFileId());
+                appId = appDto.getId();
+                addDownloadHistory();
+//                showNewVersion(Constant.DOWNLOAD_URI + appDto.getFileId());
             }
         });
     }
@@ -269,5 +273,9 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
             String successDownloadApkPath = SdUtils.getDownloadPath() + "QQ.apk";
             installApkO(AppManagerActivity.this, successDownloadApkPath);
         }
+    }
+
+    private void addDownloadHistory() {
+        CommonApiService.instance.saveDownloadHistory(appId).subscribeOn(Schedulers.newThread()).subscribe(new DefaultObserver<>());
     }
 }

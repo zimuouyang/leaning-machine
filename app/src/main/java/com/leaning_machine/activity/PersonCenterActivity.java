@@ -3,6 +3,7 @@ package com.leaning_machine.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.leaning_machine.Constant;
@@ -16,6 +17,8 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class PersonCenterActivity extends BaseActivity implements View.OnClickListener {
+    private TextView nameText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,9 @@ public class PersonCenterActivity extends BaseActivity implements View.OnClickLi
         findViewById(R.id.about_us).setOnClickListener(this);
         findViewById(R.id.main).setOnClickListener(this);
         findViewById(R.id.log_out).setOnClickListener(this);
+        nameText = findViewById(R.id.name_text);
+
+        nameText.setText(SharedPreferencesUtils.getString(this, Constant.USER_NAME, ""));
     }
 
     @Override
@@ -75,7 +81,7 @@ public class PersonCenterActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void toLogin() {
-        SharedPreferencesUtils.putBoolean(this, Constant.LOGIN, false);
+        SharedPreferencesUtils.clear(this);
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
