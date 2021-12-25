@@ -96,6 +96,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void switchLogin() {
+        accountText.setText("");
+        passwordText.setText("");
         if (accountLogin) {
             accountLoginText.setBackground(getDrawable(R.drawable.bg_corner_15_white));
             accountLoginText.setTextColor(getResources().getColor(R.color.select_login_text));
@@ -144,6 +146,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     HttpClient.instance.addHeader(Constant.TOKEN, Constant.TOKEN_PREFIX + terminalAuthDto.getResult());
                     startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
                     finish();
+                } else if (terminalAuthDto.getBusinessCode() == Constant.CODE_USER_BEYOND_DATE || terminalAuthDto.getBusinessCode() ==Constant.CODE_USER_NOT_EXIST){
+                    Toast.makeText(LoginActivity.this, terminalAuthDto.getMessage(), Toast.LENGTH_SHORT).show();
+                    SharedPreferencesUtils.putBoolean(LoginActivity.this, Constant.LOGIN, false);
+                    SharedPreferencesUtils.putString(LoginActivity.this, Constant.TOKEN, "");
                 } else {
                     //toto show 密码错误
                     Toast.makeText(LoginActivity.this, "账户名或密码错误", Toast.LENGTH_SHORT).show();
@@ -156,13 +162,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void getCode() {
         myCountDownTimer = new MyCountDownTimer(60000, 1000);
-        myCountDownTimer.start();
+
         String phoneNumber = accountText.getText().toString();
         if (!Utils.isMobile(phoneNumber)) {
             Toast.makeText(LoginActivity.this, "请输入正确的手机号码", Toast.LENGTH_SHORT).show();
+            return;
         }
         CommonApiService.instance.sendSms(phoneNumber).subscribe(new DefaultObserver<BaseDto>() {
-
+            @Override
+            public void onNext(BaseDto baseDto) {
+                super.onNext(baseDto);
+                if (baseDto.getBusinessCode() == 200) {
+                    myCountDownTimer.start();
+                } else if (baseDto.getBusinessCode() == Constant.CODE_USER_BEYOND_DATE || baseDto.getBusinessCode() ==Constant.CODE_USER_NOT_EXIST){
+                    Toast.makeText(LoginActivity.this, baseDto.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
         });
     }
 

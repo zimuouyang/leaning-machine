@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.leaning_machine.Constant;
 import com.leaning_machine.R;
 import com.leaning_machine.adapter.TopListAdapter;
 import com.leaning_machine.base.dto.BaseDto;
@@ -61,6 +62,8 @@ public class TopListActivity extends BaseActivity implements View.OnClickListene
                             monthList = topListResultModelBaseDto.getResult().getMonthList();
                             totalList = topListResultModelBaseDto.getResult().getTotalList();
                             setTopList();
+                        } else if (topListResultModelBaseDto.getBusinessCode() == Constant.INVALID_CODE){
+                            Utils.goToLogin(TopListActivity.this);
                         }
                     }
                 });

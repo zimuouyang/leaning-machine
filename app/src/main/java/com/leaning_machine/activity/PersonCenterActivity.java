@@ -11,6 +11,7 @@ import com.leaning_machine.R;
 import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.utils.SharedPreferencesUtils;
+import com.leaning_machine.utils.Utils;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -72,17 +73,11 @@ public class PersonCenterActivity extends BaseActivity implements View.OnClickLi
             @Override
             public void call(BaseDto baseDto) {
                 if (baseDto.getBusinessCode() == 200) {
-                   toLogin();
+                   Utils.goToLogin(getApplicationContext());
                 } else {
                     Toast.makeText(PersonCenterActivity.this, "登出失败", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
-
-    private void toLogin() {
-        SharedPreferencesUtils.clear(this);
-        startActivity(new Intent(this, LoginActivity.class));
-        finish();
     }
 }

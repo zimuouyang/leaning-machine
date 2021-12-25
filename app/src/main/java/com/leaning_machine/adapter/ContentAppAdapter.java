@@ -25,6 +25,7 @@ import com.leaning_machine.db.entity.UsedPackageEntity;
 import com.leaning_machine.layout.CommonDialog;
 import com.leaning_machine.layout.PasswordDialog;
 import com.leaning_machine.model.App;
+import com.leaning_machine.model.AppType;
 import com.leaning_machine.model.UsedMax;
 import com.leaning_machine.model.UsingApp;
 import com.leaning_machine.model.VoiceType;
@@ -44,6 +45,7 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
     private Context context;
     private List<App> list;
     private View inflater;
+    private AppType appType = AppType.LOCAL;
 
     public ContentAppAdapter(Context context, List<App> list){
         this.context = context;
@@ -54,6 +56,12 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
         this.list = new ArrayList<>();
     }
 
+    public ContentAppAdapter(Context context, AppType appType){
+        this.context = context;
+        this.list = new ArrayList<>();
+        this.appType = appType;
+    }
+
     public void setData(List<App> data) {
         this.list = data;
         notifyDataSetChanged();
@@ -62,7 +70,7 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        inflater = LayoutInflater.from(context).inflate(R.layout.item_app,parent,false);
+        inflater = LayoutInflater.from(context).inflate(appType == AppType.LOCAL ? R.layout.item_app : R.layout.item_expand_app,parent,false);
         return new ContentAppAdapter.MyViewHolder(inflater);
     }
 
@@ -72,8 +80,7 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
         if (!app.isRemote()) {
             holder.appImageView.setImageDrawable(context.getDrawable(app.getDrawableId()));
         } else {
-            GlideApp.with(context).load(Constant.IMAGE_URI + app.getImgUrl()).error(R.mipmap.top_avatar_1).into(holder.appImageView);
-            holder.appNameText.setTextColor(Color.WHITE);
+            GlideApp.with(context).load(Constant.IMAGE_URI + app.getImgUrl()).error(R.mipmap.ic_launcher).into(holder.appImageView);
         }
         holder.appNameText.setText(app.getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

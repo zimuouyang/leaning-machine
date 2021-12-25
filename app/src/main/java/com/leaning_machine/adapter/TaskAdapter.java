@@ -79,7 +79,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
         if (checkTask.isRecorded()) {
             holder.readButton.setImageDrawable(context.getDrawable(R.mipmap.recorded_task));
         } else {
-            if (checkTask.getRecordDate().getTime() > new Date().getTime()) {
+            if (checkTask.getRecordDate().getTime() < new Date().getTime()) {
                 holder.readButton.setImageDrawable(context.getDrawable(R.mipmap.not_record));
             } else {
                 holder.readButton.setImageDrawable(context.getDrawable(R.mipmap.record_task));
@@ -92,6 +92,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
                     //是当前打卡日期
                     if (simpleDateFormat.format(checkTask.getRecordDate()).equals(simpleDateFormat.format(new Date()))) {
                         addCheckRecord(checkTask, (int)holder.readButton.getTag());
+                    } else if (new Date().after(checkTask.getRecordDate())){
+                        Toast.makeText(context, "已超过打卡时间，无法打卡", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(context, "还未到打卡时间", Toast.LENGTH_SHORT).show();
                     }
@@ -131,6 +133,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
                     checkTask.setRecorded(true);
                     list.set(position, checkTask);
                     notifyDataSetChanged();
+                } else if (baseDto.getBusinessCode() == Constant.INVALID_CODE) {
+                    Utils.goToLogin(context);
                 }
             }
 

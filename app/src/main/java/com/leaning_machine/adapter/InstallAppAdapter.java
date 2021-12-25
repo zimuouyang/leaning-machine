@@ -87,7 +87,7 @@ public class InstallAppAdapter extends RecyclerView.Adapter<InstallAppAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         AppDto app = list.get(position);
-        GlideApp.with(context).load(Constant.IMAGE_URI + app.getApkIconFileId()).error(R.mipmap.top_avatar_1).into(holder.appImageView);
+        GlideApp.with(context).load(Constant.IMAGE_URI + app.getApkIconFileId()).error(R.mipmap.ic_launcher).into(holder.appImageView);
         holder.appNameText.setText(app.getAppName());
         holder.installButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,5 +4,6 @@
         <attr name="title" format="string" />
         <attr name="top_text" format="string" />
         <attr name="top_image" format="reference" />
+        <attr name="type" format="integer" />
     </declare-styleable>
 </resources>

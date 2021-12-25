@@ -19,6 +19,7 @@ import com.leaning_machine.base.dto.PageInfo;
 import com.leaning_machine.base.dto.ResourceDto;
 import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.layout.LoadingAlertDialog;
+import com.leaning_machine.utils.Utils;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
@@ -123,6 +124,8 @@ public class ReadFragment extends Fragment {
                     } else {
                         refreshLayout.finishLoadMore();
                     }
+                } else if (pageInfoBaseDto.getBusinessCode() == Constant.INVALID_CODE) {
+                    Utils.goToLogin(getActivity());
                 } else {
                     refreshLayout.finishLoadMore();
                 }

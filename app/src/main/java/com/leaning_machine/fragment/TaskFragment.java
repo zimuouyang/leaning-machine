@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.activity.AppManagerActivity;
 import com.leaning_machine.adapter.ResourceAdapter;
 import com.leaning_machine.adapter.TaskAdapter;
 import com.leaning_machine.base.dto.BaseDto;
@@ -20,6 +21,7 @@ import com.leaning_machine.base.dto.CheckTask;
 import com.leaning_machine.base.dto.PageInfo;
 import com.leaning_machine.base.dto.ResourceDto;
 import com.leaning_machine.common.service.CommonApiService;
+import com.leaning_machine.utils.Utils;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
@@ -116,6 +118,8 @@ public class TaskFragment extends Fragment {
                     } else {
                         refreshLayout.finishLoadMore();
                     }
+                } else if (checks.getBusinessCode() == Constant.INVALID_CODE) {
+                    Utils.goToLogin(getActivity());
                 } else {
                     refreshLayout.finishLoadMore();
                 }

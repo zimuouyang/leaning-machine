@@ -39,7 +39,6 @@ public class CommonDialog extends Dialog {
         desText = findViewById(R.id.des);
 
         desText.setText(des);
-        findViewById(R.id.close).setOnClickListener(view -> dismiss());
         setContentView(layout);
     }
 

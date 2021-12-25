@@ -10,6 +10,9 @@ public class Constant {
     public static String TOKEN_PREFIX = "Terminal_Bearer ";
     public static String LOGIN = "login.config";
     public static final int SUCCESS = 200;
+    public static final int INVALID_CODE = 401;
+    public static final int CODE_USER_NOT_EXIST = 2002;
+    public static final int CODE_USER_BEYOND_DATE = 2003;
     public static String SYNC_DATE = "SYNC_DATE";
     public static String TOTAL_DAY = "TOTAL_DAY";
     public static String MAX_DAY = "MAX_DAY";
@@ -24,4 +27,5 @@ public class Constant {
     public static int HALF_HOURS = 30 * 60;
     public static int FIFTEEN_MINUTES = 15 * 60 * 1000;
     public static String SP_TODAY_USE_TIME = "SP_TODAY_USE_TIME";
+
 }

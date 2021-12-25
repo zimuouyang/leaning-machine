@@ -1,7 +1,10 @@
 package com.leaning_machine.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +22,7 @@ import com.leaning_machine.domain.DefaultObserver;
 import com.leaning_machine.layout.PasswordDialog;
 import com.leaning_machine.model.VoiceType;
 import com.leaning_machine.utils.SharedPreferencesUtils;
+import com.leaning_machine.utils.Utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -47,7 +51,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -95,6 +98,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                     } else {
                         task.setVisibility(View.GONE);
                     }
+                } else if (announcementBaseDto.getBusinessCode() == Constant.INVALID_CODE) {
+                    Utils.goToLogin(WelcomeActivity.this);
                 }
             }
         });
@@ -107,6 +112,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 super.onNext(terminalSignBaseDto);
                 if (terminalSignBaseDto.getBusinessCode() == 200) {
                     SharedPreferencesUtils.putString(getApplicationContext(), Constant.TERMINAL_PWD, terminalSignBaseDto.getResult().getSign());
+                } else if (terminalSignBaseDto.getBusinessCode() == Constant.INVALID_CODE) {
+                    Utils.goToLogin(getApplicationContext());
                 }
             }
         });

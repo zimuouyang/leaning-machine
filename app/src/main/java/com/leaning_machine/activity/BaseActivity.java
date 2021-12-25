@@ -1,7 +1,9 @@
 package com.leaning_machine.activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,6 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+
     private void saveAppTime(UsingApp usingApp) {
         Observable.create(new Observable.OnSubscribe<List<LearnTime>>() {
             @Override
@@ -78,12 +81,12 @@ public abstract class BaseActivity extends AppCompatActivity {
                 UsedPackageDao usedPackageDao = GlobalDatabase.getInstance(getApplicationContext()).usedPackageDao();
                 UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(Utils.getDateString(), usingApp.getPackageName());
                 if (usedPackageEntity != null) {
-                    usedPackageEntity.setTime(usedPackageEntity.getTime() + (System.currentTimeMillis() - usingApp.getStartTime()) / 1000 );
+                    usedPackageEntity.setTime(usedPackageEntity.getTime() + (System.currentTimeMillis() - usingApp.getStartTime()) / 1000);
                 } else {
                     usedPackageEntity = new UsedPackageEntity();
                     usedPackageEntity.setDate(Utils.getDateString());
                     usedPackageEntity.setPackageName(usingApp.getPackageName());
-                    usedPackageEntity.setTime((System.currentTimeMillis() - usingApp.getStartTime()) / 1000 );
+                    usedPackageEntity.setTime((System.currentTimeMillis() - usingApp.getStartTime()) / 1000);
                     usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
                 }
                 usedPackageDao.insertUsedTime(usedPackageEntity);
@@ -97,7 +100,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }).subscribeOn(Schedulers.newThread()).flatMap(new Func1<List<LearnTime>, Observable<BaseDto>>() {
             @Override
             public Observable<BaseDto> call(List<LearnTime> learnTimes) {
-                SharedPreferencesUtils.putObject(getApplicationContext(), Constant.USING_PACKAGE,null);
+                SharedPreferencesUtils.putObject(getApplicationContext(), Constant.USING_PACKAGE, null);
                 return CommonApiService.instance.addLearnTime(learnTimes);
             }
         }).observeOn(Schedulers.io()).subscribe(new DefaultObserver<BaseDto>() {
@@ -106,6 +109,8 @@ public abstract class BaseActivity extends AppCompatActivity {
                 super.onNext(baseDto);
                 if (baseDto != null && baseDto.getBusinessCode() == 200) {
                     GlobalDatabase.getInstance(BaseActivity.this).usedTimeDao().deleteAll();
+                } else if (baseDto != null && baseDto.getBusinessCode() == Constant.INVALID_CODE) {
+                    Utils.goToLogin(getApplicationContext());
                 }
                 Log.d("BaseActivity", baseDto == null ? "Response is null" : baseDto.getBusinessCode() + " : " + baseDto.getMessage());
             }
@@ -126,7 +131,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         List<LearnTime> learnTimes = new ArrayList<>();
         if (usedTimeEntities != null) {
-            for (UsedTimeEntity timeEntity: usedTimeEntities) {
+            for (UsedTimeEntity timeEntity : usedTimeEntities) {
                 LearnTime learnTime = new LearnTime();
                 learnTime.setCreateDate(timeEntity.getDate());
                 learnTime.setTotal(timeEntity.getTotalLength());
@@ -183,21 +188,13 @@ public abstract class BaseActivity extends AppCompatActivity {
                 if (terminalDetailBaseDto.getBusinessCode() == 200) {
                     saveData(terminalDetailBaseDto.getResult());
                 } else if (terminalDetailBaseDto.getBusinessCode() == 401) {
-                    startLogin();
+                    Utils.goToLogin(BaseActivity.this);
                 }
             }
         });
     }
 
-    private void startLogin() {
-        startActivity(new Intent(this, LoginActivity.class));
-    }
-
     private void saveData(TerminalDetail terminalDetail) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if (terminalDetail.getInvalidationDate().getTime() < new Date().getTime()) {
-            startLogin();
-        }
         SharedPreferencesUtils.putString(this, Constant.SYNC_DATE, Utils.getDateString());
         SharedPreferencesUtils.putString(this, Constant.USER_NAME, terminalDetail.getName());
         SharedPreferencesUtils.putLong(this, Constant.MAX_DAY, terminalDetail.getMaxContinuousDay());
@@ -208,7 +205,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         SharedPreferencesUtils.putString(this, Constant.TERMINAL_PWD, terminalDetail.getTerminalSign());
     }
 
-    private void showProgress() {
+    public void showProgress() {
         if (dialog != null && dialog.isShowing()) {
             return;
         }
@@ -216,7 +213,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         dialog.show(getString(R.string.msg_loading));
     }
 
-    private void dismissWindowDialog() {
+    public void dismissWindowDialog() {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }

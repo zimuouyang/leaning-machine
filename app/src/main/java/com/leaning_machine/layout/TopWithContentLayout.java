@@ -22,6 +22,7 @@ import com.leaning_machine.R;
 import com.leaning_machine.activity.PersonCenterActivity;
 import com.leaning_machine.adapter.ContentAppAdapter;
 import com.leaning_machine.model.App;
+import com.leaning_machine.model.AppType;
 
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class TopWithContentLayout extends LinearLayout implements View.OnClickLi
     private int topImgId;
     private String topContent;
     private FinishClick finishClick;
+    private int appTypeIndex;
 
 
     public TopWithContentLayout(Context context) {
@@ -69,6 +71,7 @@ public class TopWithContentLayout extends LinearLayout implements View.OnClickLi
         topImgId = mTypedArray.getResourceId(R.styleable.TopWithContentLayout_top_image, 0);
         topContent = mTypedArray.getString(R.styleable.TopWithContentLayout_top_text);
         title = mTypedArray.getString(R.styleable.TopWithContentLayout_title);
+        appTypeIndex = mTypedArray.getInt(R.styleable.TopWithContentLayout_type, 0);
         //获取资源后要及时回收
         mTypedArray.recycle();
     }
@@ -91,7 +94,7 @@ public class TopWithContentLayout extends LinearLayout implements View.OnClickLi
     }
 
     private void initAdapter(Context context) {
-        contentAppAdapter = new ContentAppAdapter(context);
+        contentAppAdapter = new ContentAppAdapter(context, appTypeIndex == 0 ? AppType.LOCAL : AppType.EXPAND);
         GridLayoutManager manager = new GridLayoutManager(context, 4);
         contentView.setLayoutManager(manager);
         contentView.setAdapter(contentAppAdapter);

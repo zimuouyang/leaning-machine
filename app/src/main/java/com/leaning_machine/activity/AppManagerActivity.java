@@ -33,6 +33,7 @@ import com.leaning_machine.utils.DownloadUtils;
 import com.leaning_machine.utils.FormatUtils;
 import com.leaning_machine.utils.SdUtils;
 import com.leaning_machine.utils.ToastUtil;
+import com.leaning_machine.utils.Utils;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
@@ -123,8 +124,8 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onDownload(AppDto appDto) {
                 appId = appDto.getId();
-                addDownloadHistory();
-//                showNewVersion(Constant.DOWNLOAD_URI + appDto.getFileId());
+//                addDownloadHistory();
+                showNewVersion(Constant.DOWNLOAD_URI + appDto.getFileId());
             }
         });
     }
@@ -136,6 +137,7 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
 
 
     private void getApp(int page) {
+        showProgress();
         CommonApiService.instance.getApps(page, 5).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BaseDto<PageInfo<AppDto>>>() {
             @Override
             public void onCompleted() {
@@ -144,11 +146,12 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void onError(Throwable e) {
-
+                dismissWindowDialog();
             }
 
             @Override
             public void onNext(BaseDto<PageInfo<AppDto>> pageInfoBaseDto) {
+                dismissWindowDialog();
                 if (pageInfoBaseDto.getBusinessCode() == Constant.SUCCESS) {
 
                     hasData = !pageInfoBaseDto.getResult().isLastPage();
@@ -160,6 +163,8 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
                     } else {
                         refreshLayout.finishLoadMore();
                     }
+                } else if (pageInfoBaseDto.getBusinessCode() == Constant.INVALID_CODE) {
+                    Utils.goToLogin(AppManagerActivity.this);
                 } else {
                     refreshLayout.finishLoadMore();
                 }
@@ -228,6 +233,7 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
                 dialogProgress.dismiss();
                 ToastUtil.showShort("恭喜你下载成功，开始安装！");
                 String successDownloadApkPath = SdUtils.getDownloadPath() + "QQ.apk";
+                addDownloadHistory();
                 installApkO(AppManagerActivity.this, successDownloadApkPath);
             }
             @Override
@@ -276,6 +282,14 @@ public class AppManagerActivity extends BaseActivity implements View.OnClickList
     }
 
     private void addDownloadHistory() {
-        CommonApiService.instance.saveDownloadHistory(appId).subscribeOn(Schedulers.newThread()).subscribe(new DefaultObserver<>());
+        CommonApiService.instance.saveDownloadHistory(appId).subscribeOn(Schedulers.newThread()).subscribe(new DefaultObserver<BaseDto>() {
+            @Override
+            public void onNext(BaseDto baseDto) {
+                super.onNext(baseDto);
+                if (baseDto.getBusinessCode() == Constant.INVALID_CODE) {
+                    Utils.goToLogin(getApplicationContext());
+                }
+            }
+        });
     }
 }

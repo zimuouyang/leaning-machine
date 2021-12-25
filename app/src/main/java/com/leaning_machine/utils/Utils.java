@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -16,6 +17,7 @@ import androidx.annotation.RequiresApi;
 
 import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.activity.LoginActivity;
 import com.leaning_machine.base.dto.LearnTime;
 import com.leaning_machine.db.entity.UsedTimeEntity;
 import com.leaning_machine.model.UsingApp;
@@ -312,6 +314,13 @@ public class Utils {
         SharedPreferencesUtils.putObject(context, Constant.SP_TODAY_USE_TIME, todayUse);
 
         return usedTimeEntity;
+    }
+
+    public static void goToLogin(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+        SharedPreferencesUtils.clear(context);
     }
 
 }

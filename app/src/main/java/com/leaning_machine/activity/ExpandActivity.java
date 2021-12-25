@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.ArrayRes;
 
+import com.leaning_machine.Constant;
 import com.leaning_machine.R;
 import com.leaning_machine.adapter.ContentAppAdapter;
 import com.leaning_machine.base.dto.BaseDto;
@@ -14,6 +15,7 @@ import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.domain.DefaultObserver;
 import com.leaning_machine.layout.TopWithContentLayout;
 import com.leaning_machine.model.App;
+import com.leaning_machine.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,10 +50,12 @@ public class ExpandActivity extends BaseActivity {
 
 
     private void getDownloadHistory() {
+        showProgress();
         CommonApiService.instance.getHistories().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new DefaultObserver<BaseDto<List<DownloadHistory>>>() {
             @Override
             public void onNext(BaseDto<List<DownloadHistory>> listBaseDto) {
                 super.onNext(listBaseDto);
+                dismissWindowDialog();
                 if (listBaseDto.getBusinessCode() == 200) {
                    List<DownloadHistory> downloadHistories = listBaseDto.getResult();
                    if (downloadHistories != null && downloadHistories.size() != 0) {
@@ -59,9 +63,17 @@ public class ExpandActivity extends BaseActivity {
                        detailList();
                        topWithContentLayout.setAppList(appList);
                    }
+                } else if (listBaseDto.getBusinessCode() == Constant.INVALID_CODE) {
+                    Utils.goToLogin(getApplicationContext());
                 }
             }
-        });
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                dismissWindowDialog();
+            }
+        } );
     }
 
     private void detailList() {
