@@ -55,6 +55,7 @@ public class ResourceAdapter extends RecyclerView.Adapter<ResourceAdapter.MyView
         holder.resourceImage.setImageDrawable(context.getResources().getDrawable(drawables[new Random().nextInt(4)]));
         holder.resourceTitle.setText(resourceDto.getResourceName());
         holder.resourceDes.setText(resourceDto.getDes());
+        holder.readButton.setImageResource(R.mipmap.read);
         holder.readButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
