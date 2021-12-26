@@ -8,11 +8,18 @@ import android.util.Log;
 import android.view.View;
 
 import com.leaning_machine.R;
+import com.leaning_machine.domain.DefaultObserver;
+import com.leaning_machine.layout.LoadingAlertDialog;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 
 public class AboutUsActivity extends BaseActivity implements View.OnClickListener {
     private static String TAG = AboutUsActivity.class.getSimpleName();
+    private LoadingAlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,33 +58,56 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void oneClean() {
-        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> infoList = am.getRunningAppProcesses();
-        List<ActivityManager.RunningServiceInfo> serviceInfos = am.getRunningServices(100);
+//        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+//        List<ActivityManager.RunningAppProcessInfo> infoList = am.getRunningAppProcesses();
+//        List<ActivityManager.RunningServiceInfo> serviceInfos = am.getRunningServices(100);
+//
+////        long beforeMem = getAvailMemory(ClearMemoryActivity.this);
+////        Log.d(TAG, "-----------before memory info : " + beforeMem);
+//        int count = 0;
+//        if (infoList != null) {
+//            for (int i = 0; i < infoList.size(); ++i) {
+//                ActivityManager.RunningAppProcessInfo appProcessInfo = infoList.get(i);
+//                Log.d(TAG, "process name : " + appProcessInfo.processName);
+//                //importance 该进程的重要程度  分为几个级别，数值越低就越重要。
+//                Log.d(TAG, "importance : " + appProcessInfo.importance);
+//
+//                // 一般数值大于RunningAppProcessInfo.IMPORTANCE_SERVICE的进程都长时间没用或者空进程了
+//                // 一般数值大于RunningAppProcessInfo.IMPORTANCE_VISIBLE的进程都是非可见进程，也就是在后台运行着
+//                if (appProcessInfo.importance > ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
+//                    String[] pkgList = appProcessInfo.pkgList;
+//                    for (int j = 0; j < pkgList.length; ++j) {//pkgList 得到该进程下运行的包名
+//                        Log.d(TAG, "It will be killed, package name : " + pkgList[j]);
+//                        am.killBackgroundProcesses(pkgList[j]);
+//                        count++;
+//                    }
+//                }
+//
+//            }
+//        }
 
-//        long beforeMem = getAvailMemory(ClearMemoryActivity.this);
-//        Log.d(TAG, "-----------before memory info : " + beforeMem);
-        int count = 0;
-        if (infoList != null) {
-            for (int i = 0; i < infoList.size(); ++i) {
-                ActivityManager.RunningAppProcessInfo appProcessInfo = infoList.get(i);
-                Log.d(TAG, "process name : " + appProcessInfo.processName);
-                //importance 该进程的重要程度  分为几个级别，数值越低就越重要。
-                Log.d(TAG, "importance : " + appProcessInfo.importance);
-
-                // 一般数值大于RunningAppProcessInfo.IMPORTANCE_SERVICE的进程都长时间没用或者空进程了
-                // 一般数值大于RunningAppProcessInfo.IMPORTANCE_VISIBLE的进程都是非可见进程，也就是在后台运行着
-                if (appProcessInfo.importance > ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
-                    String[] pkgList = appProcessInfo.pkgList;
-                    for (int j = 0; j < pkgList.length; ++j) {//pkgList 得到该进程下运行的包名
-                        Log.d(TAG, "It will be killed, package name : " + pkgList[j]);
-                        am.killBackgroundProcesses(pkgList[j]);
-                        count++;
-                    }
-                }
-
+        showProgress();
+        Observable.just(Boolean.TRUE).delay(4, TimeUnit.SECONDS).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new DefaultObserver<Boolean>() {
+            @Override
+            public void onNext(Boolean aBoolean) {
+                super.onNext(aBoolean);
+                dismissWindowDialog();
             }
-        }
+        });
 
+    }
+
+    public void showProgress() {
+        if (dialog != null && dialog.isShowing()) {
+            return;
+        }
+        dialog = new LoadingAlertDialog(this);
+        dialog.show(getString(R.string.msg_clean));
+    }
+
+    public void dismissWindowDialog() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 }

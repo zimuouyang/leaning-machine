@@ -431,5 +431,6 @@
     <string name="study_time">学习时长：%1$d 分钟</string>
 
     <string name="msg_loading">Loading</string>
+    <string name="msg_clean">Cleaning . . .</string>
 
 </resources>
