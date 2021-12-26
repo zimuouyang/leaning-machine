@@ -64,7 +64,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         goTextBook = findViewById(R.id.welcome_textbook);
         task = findViewById(R.id.task);
 
-        goClass.setOnClickListener(this);
         goExtension.setOnClickListener(this);
         goRecord.setOnClickListener(this);
         goEnglish.setOnClickListener(this);
@@ -83,7 +82,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     protected void onResume() {
         super.onResume();
         getAnnouncement();
-        getLatestSign();
     }
 
     private void getAnnouncement() {
@@ -104,21 +102,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             }
         });
     }
-
-    private void getLatestSign() {
-        CommonApiService.instance.getLatestSign().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new DefaultObserver<BaseDto<TerminalSign>>() {
-            @Override
-            public void onNext(BaseDto<TerminalSign> terminalSignBaseDto) {
-                super.onNext(terminalSignBaseDto);
-                if (terminalSignBaseDto.getBusinessCode() == 200) {
-                    SharedPreferencesUtils.putString(getApplicationContext(), Constant.TERMINAL_PWD, terminalSignBaseDto.getResult().getSign());
-                } else if (terminalSignBaseDto.getBusinessCode() == Constant.INVALID_CODE) {
-                    Utils.goToLogin(getApplicationContext());
-                }
-            }
-        });
-    }
-
 
     @Override
     public void onClick(View view) {

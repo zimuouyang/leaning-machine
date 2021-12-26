@@ -1,13 +1,26 @@
 package com.leaning_machine.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.leaning_machine.Constant;
 import com.leaning_machine.R;
+import com.leaning_machine.base.dto.BaseDto;
+import com.leaning_machine.base.dto.TerminalSign;
+import com.leaning_machine.common.service.CommonApiService;
+import com.leaning_machine.domain.DefaultObserver;
+import com.leaning_machine.layout.PasswordDialog;
 import com.leaning_machine.layout.TopWithContentLayout;
 import com.leaning_machine.model.App;
+import com.leaning_machine.model.VoiceType;
+import com.leaning_machine.utils.SharedPreferencesUtils;
+import com.leaning_machine.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class EnglishActivity extends BaseActivity {
     TopWithContentLayout topWithContentLayout;
@@ -35,6 +48,26 @@ public class EnglishActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_english;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getLatestSign();
+    }
+
+    private void getLatestSign() {
+        CommonApiService.instance.getLatestSign().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new DefaultObserver<BaseDto<TerminalSign>>() {
+            @Override
+            public void onNext(BaseDto<TerminalSign> terminalSignBaseDto) {
+                super.onNext(terminalSignBaseDto);
+                if (terminalSignBaseDto.getBusinessCode() == 200) {
+                    SharedPreferencesUtils.putString(getApplicationContext(), Constant.TERMINAL_PWD, terminalSignBaseDto.getResult().getSign());
+                } else if (terminalSignBaseDto.getBusinessCode() == Constant.INVALID_CODE) {
+                    Utils.goToLogin(getApplicationContext());
+                }
+            }
+        });
     }
 
 
@@ -99,13 +132,30 @@ public class EnglishActivity extends BaseActivity {
                         topWithContentLayout.setAppList(beiDanCiList);
                         break;
                     case 5:
-                        topWithContentLayout.setAppList(quYiZhiList);
+                        checkPermission();
                         break;
                 }
             }
         });
 
         topWithContentLayout.setFinishClick(EnglishActivity.this::finish);
+    }
+
+
+
+    private void checkPermission() {
+        if (SharedPreferencesUtils.getInt(this, Constant.ROLE, 0) == 1) {
+            topWithContentLayout.setAppList(quYiZhiList);
+        } else {
+            PasswordDialog passwordDialog = new PasswordDialog.Builder().context(this).type(VoiceType.PASSWORD).build();
+            passwordDialog.setPasswordClick(new PasswordDialog.PasswordClick() {
+                @Override
+                public void onSuccess() {
+                    topWithContentLayout.setAppList(quYiZhiList);
+                }
+            });
+            passwordDialog.show();
+        }
     }
 
     private void initPinDuList() {

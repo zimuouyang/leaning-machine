@@ -40,6 +40,7 @@ public class CommonDialog extends Dialog {
 
         desText.setText(des);
         setContentView(layout);
+        findViewById(R.id.close).setOnClickListener(view -> dismiss());
     }
 
     @Override

@@ -37,192 +37,206 @@
             android:textSize="21sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="20dp"
-        android:background="@mipmap/top_list_bg"
-        android:orientation="vertical"
-        android:paddingStart="60dp"
-        android:paddingTop="70dp"
-        android:paddingEnd="60dp">
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="30dp">
 
-        <RelativeLayout
+        <com.scwang.smart.refresh.header.ClassicsHeader
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="center_horizontal">
+            android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:id="@+id/total_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/total_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="总排行榜"
-                    android:textColor="#FF91C53E"
-                    android:textSize="20sp" />
-
-                <View
-                    android:id="@+id/total_line"
-                    android:layout_width="80dp"
-                    android:layout_height="2dp"
-                    android:background="#FF91C53E" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/month_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="40dp"
-                android:layout_toEndOf="@+id/total_layout"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/month_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="月排行榜"
-                    android:textColor="#FF777777"
-                    android:textSize="14sp" />
-
-                <View
-                    android:id="@+id/month_line"
-                    android:layout_width="80dp"
-                    android:layout_height="2dp"
-                    android:background="#FF91C53E"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/day_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="40dp"
-                android:layout_toEndOf="@+id/month_layout"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/day_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="日排行榜"
-                    android:textColor="#FF777777"
-                    android:textSize="14sp" />
-
-                <View
-                    android:id="@+id/day_line"
-                    android:layout_width="80dp"
-                    android:layout_height="2dp"
-                    android:background="#FF91C53E"
-                    android:visibility="gone" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@mipmap/top_top_bg"
-            android:gravity="center_horizontal"
-            android:paddingEnd="20dp">
-
-            <LinearLayout
-                android:id="@+id/top_first_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/top_avatar_1" />
-
-                <TextView
-                    android:id="@+id/top_first"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:background="@drawable/top_time_bg"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"
-                    android:textColor="#ffffff"
-                    android:textSize="11sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/top_second_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="25dp"
-                android:layout_toStartOf="@+id/top_first_layout"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/top_avatar_2" />
-
-                <TextView
-                    android:id="@+id/top_second"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/top_time_bg"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"
-                    android:textColor="#ffffff"
-                    android:textSize="11sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/top_third_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
-                android:layout_toEndOf="@id/top_first_layout"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/top_avatar_3" />
-
-                <TextView
-                    android:id="@+id/top_third"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:background="@drawable/top_time_bg"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"
-                    android:textColor="#ffffff"
-                    android:textSize="11sp" />
-            </LinearLayout>
-
-        </RelativeLayout>
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/top_list"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="30dp">
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="20dp"
+            android:background="@mipmap/top_list_bg"
+            android:orientation="vertical"
+            android:paddingStart="60dp"
+            android:paddingTop="70dp"
+            android:paddingEnd="60dp">
 
-        </androidx.recyclerview.widget.RecyclerView>
-    </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_horizontal">
+
+                <LinearLayout
+                    android:id="@+id/total_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/total_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="总排行榜"
+                        android:textColor="#FF91C53E"
+                        android:textSize="20sp" />
+
+                    <View
+                        android:id="@+id/total_line"
+                        android:layout_width="80dp"
+                        android:layout_height="2dp"
+                        android:background="#FF91C53E" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/month_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_toEndOf="@+id/total_layout"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/month_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="月排行榜"
+                        android:textColor="#FF777777"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:id="@+id/month_line"
+                        android:layout_width="80dp"
+                        android:layout_height="2dp"
+                        android:background="#FF91C53E"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/day_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_toEndOf="@+id/month_layout"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/day_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="日排行榜"
+                        android:textColor="#FF777777"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:id="@+id/day_line"
+                        android:layout_width="80dp"
+                        android:layout_height="2dp"
+                        android:background="#FF91C53E"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@mipmap/top_top_bg"
+                android:gravity="center_horizontal"
+                android:paddingEnd="20dp">
+
+                <LinearLayout
+                    android:id="@+id/top_first_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/top_avatar_1" />
+
+                    <TextView
+                        android:id="@+id/top_first"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:background="@drawable/top_time_bg"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="#ffffff"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/top_second_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_toStartOf="@+id/top_first_layout"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/top_avatar_2" />
+
+                    <TextView
+                        android:id="@+id/top_second"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/top_time_bg"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="#ffffff"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/top_third_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toEndOf="@id/top_first_layout"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/top_avatar_3" />
+
+                    <TextView
+                        android:id="@+id/top_third"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:background="@drawable/top_time_bg"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:textColor="#ffffff"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/top_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="30dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </LinearLayout>

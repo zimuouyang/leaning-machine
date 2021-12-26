@@ -1,5 +1,6 @@
 package com.leaning_machine.activity;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,9 @@ import com.leaning_machine.base.dto.TopListModel;
 import com.leaning_machine.base.dto.TopListResultModel;
 import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.utils.Utils;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
@@ -38,6 +42,7 @@ public class TopListActivity extends BaseActivity implements View.OnClickListene
     private TextView topSecond;
     private TextView topThird;
     private int currentIndex;
+    private RefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,7 @@ public class TopListActivity extends BaseActivity implements View.OnClickListene
                 subscribe(new Action1<BaseDto<TopListResultModel>>() {
                     @Override
                     public void call(BaseDto<TopListResultModel> topListResultModelBaseDto) {
+                        refreshLayout.finishRefresh();
                         if (topListResultModelBaseDto.getBusinessCode() == 200) {
                             dayList = topListResultModelBaseDto.getResult().getDayList();
                             monthList = topListResultModelBaseDto.getResult().getMonthList();
@@ -71,6 +77,7 @@ public class TopListActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void initView() {
+        refreshLayout = findViewById(R.id.refreshLayout);
         totalTitle = findViewById(R.id.total_title);
         totalLine = findViewById(R.id.total_line);
         monthTitle = findViewById(R.id.month_title);
@@ -90,6 +97,14 @@ public class TopListActivity extends BaseActivity implements View.OnClickListene
         findViewById(R.id.play).setOnClickListener(this);
 
         initAdapter();
+
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                getTotalList();
+                refreshLayout.finishRefresh(10000);
+            }
+        });
     }
 
     private void initAdapter() {
