@@ -9,8 +9,8 @@ android {
         applicationId "com.leaning_machine"
         minSdk 22
         targetSdk 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -34,6 +34,15 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            variant.getPackageApplicationProvider().get().outputDirectory = new File(buildDir, "outputs/apk")
+            if (outputFileName.endsWith('.apk') && 'release' == variant.buildType.name) {
+                outputFileName = "一川-${variant.versionName}-${variant.name}.apk"
+            }
+        }
     }
 }
 
