@@ -143,7 +143,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         if (leftDay > 0 && leftDay <= 7) {
             datas.add("账户有效期还有：" + leftDay + "天");
         }
-        Log.d("zzz", leftDay + "---");
         if (datas.size() == 0) {
             marqueeView.setVisibility(View.GONE);
         } else {
