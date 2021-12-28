@@ -1,9 +1,6 @@
 package com.leaning_machine.activity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +13,6 @@ import com.leaning_machine.Constant;
 import com.leaning_machine.R;
 import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.base.dto.LearnTime;
-import com.leaning_machine.base.dto.TerminalDetail;
 import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.db.GlobalDatabase;
 import com.leaning_machine.db.dao.UsedPackageDao;
@@ -28,17 +24,11 @@ import com.leaning_machine.model.UsingApp;
 import com.leaning_machine.utils.SharedPreferencesUtils;
 import com.leaning_machine.utils.Utils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -50,7 +40,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         initView();
-        getTerminalDetail();
     }
 
     @Override
@@ -165,44 +154,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (intent != null) {
             startActivity(intent);
         }
-    }
-
-    public void getTerminalDetail() {
-        //今天没有同步过
-        if (SharedPreferencesUtils.getString(this, Constant.SYNC_DATE, "").equals(Utils.getDateString())) {
-            return;
-        }
-        CommonApiService.instance.getTerminalDetail().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<BaseDto<TerminalDetail>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(BaseDto<TerminalDetail> terminalDetailBaseDto) {
-                if (terminalDetailBaseDto.getBusinessCode() == 200) {
-                    saveData(terminalDetailBaseDto.getResult());
-                } else if (terminalDetailBaseDto.getBusinessCode() == 401) {
-                    Utils.goToLogin(BaseActivity.this);
-                }
-            }
-        });
-    }
-
-    private void saveData(TerminalDetail terminalDetail) {
-        SharedPreferencesUtils.putString(this, Constant.SYNC_DATE, Utils.getDateString());
-        SharedPreferencesUtils.putString(this, Constant.USER_NAME, terminalDetail.getName());
-        SharedPreferencesUtils.putLong(this, Constant.MAX_DAY, terminalDetail.getMaxContinuousDay());
-        SharedPreferencesUtils.putLong(this, Constant.CURRENT_DAY, terminalDetail.getCurrentContinuousDay());
-        SharedPreferencesUtils.putLong(this, Constant.TOTAL_DAY, Utils.daysBetween(terminalDetail.getFirstLoginDate(), new Date()) + 1);
-        SharedPreferencesUtils.putLong(this, Constant.TERMINAL_ID, terminalDetail.getId());
-        SharedPreferencesUtils.putInt(this, Constant.ROLE, terminalDetail.getRole());
-        SharedPreferencesUtils.putString(this, Constant.TERMINAL_PWD, terminalDetail.getTerminalSign());
     }
 
     public void showProgress() {

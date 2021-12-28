@@ -19,6 +19,7 @@ public class Constant {
     public static String USER_NAME = "USER_NAME";
     public static String CURRENT_DAY = "CURRENT_DAY";
     public static String TERMINAL_ID = "TERMINAL_ID";
+    public static String LEFT_DATE = "LEFT_DATE";
     public static String ROLE = "ROLE";
     public static String TERMINAL_PWD = "TERMINAL_PWD";
     public static String USING_PACKAGE = "USING_PACKAGE";

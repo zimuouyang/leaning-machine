@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         if (SharedPreferencesUtils.getBoolean(this, Constant.LOGIN, false)) {
             startActivity(new Intent(this, WelcomeActivity.class));
+            finish();
         }
         initView();
     }

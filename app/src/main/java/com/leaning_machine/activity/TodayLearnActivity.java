@@ -1,6 +1,7 @@
 package com.leaning_machine.activity;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,8 +60,8 @@ public class TodayLearnActivity extends BaseActivity {
         lianXi = new TodayUse(getString(R.string.qin_lian_xi));
         danCi = new TodayUse(getString(R.string.bei_dan_ci));
         quYiZhi = new TodayUse(getString(R.string.qi_yi_zhi));
-        language = new TodayUse(getString(R.string.language));
-        math = new TodayUse(getString(R.string.math));
+        language = new TodayUse("大语文素养");
+        math = new TodayUse("数学逻辑");
         total = new TodayUse(getString(R.string.today_total_length));
         others = new TodayUse(getString(R.string.others));
         LearnTime todayUse = SharedPreferencesUtils.getObject(this, Constant.SP_TODAY_USE_TIME, LearnTime.class, null);

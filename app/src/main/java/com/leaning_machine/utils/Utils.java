@@ -22,6 +22,7 @@ import com.leaning_machine.base.dto.LearnTime;
 import com.leaning_machine.db.entity.UsedTimeEntity;
 import com.leaning_machine.model.UsingApp;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -224,14 +225,22 @@ public class Utils {
         }
     }
 
-    public static int daysBetween(Date date1, Date date2) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date1);
-        long time1 = cal.getTimeInMillis();
-        cal.setTime(date2);
-        long time2 = cal.getTimeInMillis();
-        long between_days = (time2 - time1) / (1000 * 3600 * 24);
-        return Integer.parseInt(String.valueOf(between_days));
+    public static long daysBetween(Date beginDate, Date endDate) {
+        long between_days = -1;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            beginDate = sdf.parse(sdf.format(beginDate));
+            endDate = sdf.parse(sdf.format(endDate));
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(beginDate);
+            long beginTime = cal.getTimeInMillis();
+            cal.setTime(endDate);
+            long endTime = cal.getTimeInMillis();
+            between_days = (endTime - beginTime) / (1000 * 3600 * 24);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return between_days;
     }
 
     public static void transparencyBar(Activity activity) {

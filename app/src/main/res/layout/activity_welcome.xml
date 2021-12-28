@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@mipmap/welocme_bg">
 
     <ImageView
@@ -23,17 +24,24 @@
         android:layout_marginBottom="50dp"
         android:src="@mipmap/welcome_top" />
 
-    <TextView
+    <com.gongwen.marqueen.SimpleMarqueeView
         android:id="@+id/task"
-        android:textSize="16sp"
-        android:textColor="@color/top_select_text_color"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:layout_marginEnd="50dp"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:flipInterval="5000"
         android:gravity="center"
+        android:inAnimation="@anim/in_right"
+        android:outAnimation="@anim/out_left"
+        app:marqueeAnimDuration="2000"
         android:background="@mipmap/note_cloud"
-        android:layout_marginEnd="50dp" />
+        app:smvTextColor="@color/top_select_text_color"
+        app:smvTextEllipsize="end"
+        app:smvTextGravity="center_vertical"
+        app:smvTextSingleLine="true"
+        app:smvTextSize="16sp" />
 
     <ImageView
         android:id="@+id/welcome_textbook"
