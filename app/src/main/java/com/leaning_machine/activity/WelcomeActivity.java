@@ -84,7 +84,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
 
         datas = new ArrayList<>();
         marqueeView.setVisibility(View.GONE);
-        startFling();
     }
 
     private void startFling() {
@@ -144,10 +143,12 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         if (leftDay > 0 && leftDay <= 7) {
             datas.add("账户有效期还有：" + leftDay + "天");
         }
+        Log.d("zzz", leftDay + "---");
         if (datas.size() == 0) {
             marqueeView.setVisibility(View.GONE);
         } else {
             marqueeView.setVisibility(View.VISIBLE);
+            startFling();
         }
         SharedPreferencesUtils.putLong(this, Constant.LEFT_DATE, leftDay);
 
@@ -167,10 +168,18 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                         marqueeView.setVisibility(View.GONE);
                     } else {
                         marqueeView.setVisibility(View.VISIBLE);
+                        startFling();
                     }
                 } else if (announcementBaseDto.getBusinessCode() == Constant.INVALID_CODE) {
                     Utils.goToLogin(WelcomeActivity.this);
                 }
+            }
+
+
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+//                Utils.goToLogin(getApplicationContext());
             }
         });
     }
