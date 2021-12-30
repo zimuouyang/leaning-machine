@@ -156,8 +156,8 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
                 UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(Utils.getDateString(), packageName);
                 if (usedPackageEntity != null && usedPackageEntity.getTime() > Constant.HALF_HOURS) {
                     //如果未超过15分钟，不可以打开
-                    if ((System.currentTimeMillis() - usedPackageEntity.getLastUseTime()) <  Constant.FIFTEEN_MINUTES) {
-                        return Observable.just(UsedMax.DAY_MAX);
+                    if ((System.currentTimeMillis() / 1000 - usedPackageEntity.getLastUseTime()) <  Constant.FIFTEEN_MINUTES) {
+                        return Observable.just(UsedMax.SINGLE_APP_MAX);
                     }
                 }
                 return Observable.just(UsedMax.NORMAL);
