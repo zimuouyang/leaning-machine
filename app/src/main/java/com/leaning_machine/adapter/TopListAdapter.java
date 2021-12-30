@@ -51,7 +51,7 @@ public class TopListAdapter extends RecyclerView.Adapter<TopListAdapter.MyViewHo
         TopListModel topListDto = list.get(position);
         holder.nameText.setText(topListDto.getUserName());
         holder.timeText.setText(context.getString(R.string.study_time, topListDto.getTime() / 60));
-        holder.rankingText.setText(String.valueOf(topListDto.getIndex()));
+        holder.rankingText.setText(String.valueOf(topListDto.getIndex() + 1));
 
     }
 

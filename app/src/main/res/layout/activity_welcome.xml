@@ -26,22 +26,23 @@
 
     <com.gongwen.marqueen.SimpleMarqueeView
         android:id="@+id/task"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="50dp"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:background="@mipmap/note_cloud"
         android:flipInterval="5000"
         android:gravity="center"
         android:inAnimation="@anim/in_right"
         android:outAnimation="@anim/out_left"
         app:marqueeAnimDuration="2000"
-        android:background="@mipmap/note_cloud"
         app:smvTextColor="@color/top_select_text_color"
         app:smvTextEllipsize="end"
         app:smvTextGravity="center_vertical"
-        app:smvTextSingleLine="true"
+        app:smvTextSingleLine="false"
         app:smvTextSize="16sp" />
+
 
     <ImageView
         android:id="@+id/welcome_textbook"

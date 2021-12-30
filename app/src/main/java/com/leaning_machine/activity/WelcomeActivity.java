@@ -93,6 +93,17 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         marqueeView.startFlipping();
 
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        marqueeView.startFlipping();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        marqueeView.stopFlipping();
+    }
 
     @Override
     public int getLayoutId() {
@@ -141,8 +152,9 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         SharedPreferencesUtils.putString(this, Constant.TERMINAL_PWD, terminalDetail.getTerminalSign());
         leftDay = Utils.daysBetween( new Date(), terminalDetail.getInvalidationDate()) + 1;
         if (leftDay > 0 && leftDay <= 7) {
-            datas.add("账户有效期还有：" + leftDay + "天");
+            datas.add("账户有效期还有：" + leftDay + "天天卡积分卡拉就开了房间阿奎罗放假啊看了九分裤垃圾客服了解阿奎罗放假啊看积分卡接口将阿里积分卡积分卡拉九分裤垃圾了将阿奎罗放假啊六块腹肌");
         }
+        Log.d("zzzz", datas.toString() + "saveData" + datas.size());
         if (datas.size() == 0) {
             marqueeView.setVisibility(View.GONE);
         } else {
@@ -157,12 +169,12 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         CommonApiService.instance.getAnnouncement().subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<BaseDto<Announcement>>() {
             @Override
             public void call(BaseDto<Announcement> announcementBaseDto) {
-                marqueeFactory.setData(datas);
                 if (announcementBaseDto.getBusinessCode() == 200) {
                     Announcement announcement = announcementBaseDto.getResult();
                     if (announcement != null) {
                         datas.add(announcement.getContent());
                     }
+                    Log.d("zzzz", datas.toString() + "getAnnouncement" + datas.size());
                     if (datas.size() == 0) {
                         marqueeView.setVisibility(View.GONE);
                     } else {

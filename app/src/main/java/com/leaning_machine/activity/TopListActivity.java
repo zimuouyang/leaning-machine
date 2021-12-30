@@ -124,29 +124,27 @@ public class TopListActivity extends BaseActivity implements View.OnClickListene
         } else {
             list = dayList;
         }
-        if (list.size() > 3) {
-            topListAdapter.setData(list);
-        }
+        topListAdapter.setData(list);
         setTitle(list);
     }
 
-    private void setTitle(List<TopListModel> totalList) {
+    private void setTitle(List<TopListModel> currentList) {
         topFirst.setText("");
         topSecond.setText("");
         topThird.setText("");
         topFirst.setVisibility(View.GONE);
         topSecond.setVisibility(View.GONE);
         topThird.setVisibility(View.GONE);
-        if (totalList.size() > 0) {
-            topFirst.setText(detailTitle(totalList.get(0)));
+        if (currentList.size() > 0) {
+            topFirst.setText(detailTitle(currentList.get(0)));
             topFirst.setVisibility(View.VISIBLE);
         }
-        if (totalList.size() > 1) {
-            topSecond.setText(detailTitle(totalList.get(1)));
+        if (currentList.size() > 1) {
+            topSecond.setText(detailTitle(currentList.get(1)));
             topSecond.setVisibility(View.VISIBLE);
         }
-        if (totalList.size() > 2) {
-            topThird.setText(detailTitle(totalList.get(2)));
+        if (currentList.size() > 2) {
+            topThird.setText(detailTitle(currentList.get(2)));
             topThird.setVisibility(View.VISIBLE);
         }
     }
