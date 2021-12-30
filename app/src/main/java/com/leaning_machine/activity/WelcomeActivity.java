@@ -176,7 +176,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 if (announcementBaseDto.getBusinessCode() == 200) {
                     Announcement announcement = announcementBaseDto.getResult();
                     if (announcement != null) {
-                        announcement.setContent("说好的额哈哈放假卡号放假啊好风景啊好风景啊恢复健康哈放假哈接口就啊好积分哈积分哈就会");
                         datas.add(announcement);
                     }
                     Log.d("zzzz", datas.toString() + "getAnnouncement" + datas.size());
