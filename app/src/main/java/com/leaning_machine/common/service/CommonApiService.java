@@ -156,6 +156,10 @@ public class CommonApiService {
         return getService().addLearnTime(learnTimes);
     }
 
+    public Observable<BaseDto<LearnTime>> getLearnTime(String time) {
+        return getService().getLearnTime(time);
+    }
+
     public Observable<BaseDto<TerminalSign>> getLatestSign() {
         return getService().getLatestSign();
     }

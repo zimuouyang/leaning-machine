@@ -1,7 +1,6 @@
 package com.leaning_machine.activity;
 
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,13 +9,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.leaning_machine.Constant;
 import com.leaning_machine.R;
 import com.leaning_machine.adapter.TodayAdapter;
-import com.leaning_machine.adapter.TopListAdapter;
+import com.leaning_machine.base.dto.BaseDto;
 import com.leaning_machine.base.dto.LearnTime;
+import com.leaning_machine.common.service.CommonApiService;
+import com.leaning_machine.domain.DefaultObserver;
 import com.leaning_machine.model.TodayUse;
 import com.leaning_machine.utils.SharedPreferencesUtils;
+import com.leaning_machine.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class TodayLearnActivity extends BaseActivity {
     private  List<TodayUse> todayUseList;
@@ -51,6 +56,7 @@ public class TodayLearnActivity extends BaseActivity {
                 finish();
             }
         });
+        getLearnTime();
     }
 
     private void initDate() {
@@ -64,6 +70,11 @@ public class TodayLearnActivity extends BaseActivity {
         math = new TodayUse("数学逻辑");
         total = new TodayUse(getString(R.string.today_total_length));
         others = new TodayUse(getString(R.string.others));
+        showDate();
+    }
+
+    private void showDate() {
+        todayUseList = new ArrayList<>();
         LearnTime todayUse = SharedPreferencesUtils.getObject(this, Constant.SP_TODAY_USE_TIME, LearnTime.class, null);
         if (todayUse != null) {
             pinDu.setUseTime(todayUse.getSpelling());
@@ -92,6 +103,7 @@ public class TodayLearnActivity extends BaseActivity {
         todayAdapter.setData(todayUseList);
     }
 
+
     private void initAdapter() {
         todayAdapter = new TodayAdapter(this);
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -99,6 +111,30 @@ public class TodayLearnActivity extends BaseActivity {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(todayAdapter);
     }
+
+    private void getLearnTime() {
+        showProgress();
+        CommonApiService.instance.getLearnTime(Utils.getDateString()).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new DefaultObserver<BaseDto<LearnTime>>() {
+            @Override
+            public void onNext(BaseDto<LearnTime> learnTimeBaseDto) {
+                if (learnTimeBaseDto.getBusinessCode() == 200) {
+                    SharedPreferencesUtils.putObject(getApplicationContext(), Constant.SP_TODAY_USE_TIME, learnTimeBaseDto.getResult());
+                    showDate();
+                } else if (learnTimeBaseDto.getBusinessCode() == Constant.INVALID_CODE) {
+                    Utils.goToLogin(getApplicationContext());
+                }
+                dismissWindowDialog();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                dismissWindowDialog();
+            }
+        });
+    }
+
 
     @Override
     public int getLayoutId() {

@@ -80,6 +80,9 @@ public interface CommonApi {
     @POST("learn/time")
     Observable<BaseDto> addLearnTime(@Body List<LearnTime> learnTimes);
 
+    @GET("learn/time")
+    Observable<BaseDto<LearnTime>> getLearnTime(@Query(value = CommonApiConstants.PARAM_TIME) String learnTime);
+
 
     @GET("terminal/sign/latest")
     Observable<BaseDto<TerminalSign>> getLatestSign();
