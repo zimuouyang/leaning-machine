@@ -284,7 +284,7 @@ public class Utils {
         long time = (System.currentTimeMillis() - usingApp.getStartTime()) / 1000;
 
         LearnTime todayUse = SharedPreferencesUtils.getObject(context, Constant.SP_TODAY_USE_TIME, LearnTime.class, null);
-        if (todayUse == null) {
+        if (todayUse == null || !todayUse.getCreateDate().equals(getDateString())) {
             todayUse = new LearnTime();
             todayUse.setCreateDate(getDateString());
         }

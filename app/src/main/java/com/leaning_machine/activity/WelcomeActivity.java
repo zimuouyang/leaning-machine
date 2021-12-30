@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gongwen.marqueen.MarqueeView;
 import com.gongwen.marqueen.SimpleMF;
 import com.gongwen.marqueen.SimpleMarqueeView;
 import com.leaning_machine.Constant;
@@ -22,6 +23,7 @@ import com.leaning_machine.base.dto.TerminalDetail;
 import com.leaning_machine.base.dto.TerminalSign;
 import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.domain.DefaultObserver;
+import com.leaning_machine.layout.ComplexViewMF;
 import com.leaning_machine.layout.PasswordDialog;
 import com.leaning_machine.model.VoiceType;
 import com.leaning_machine.utils.SharedPreferencesUtils;
@@ -53,9 +55,9 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     ImageView goLanguage;
     ImageView goTextBook;
     TextView task;
-    SimpleMarqueeView<String> marqueeView;
-    List<String> datas;
-    SimpleMF<String> marqueeFactory;
+    MarqueeView marqueeView;
+    List<Announcement> datas;
+    ComplexViewMF marqueeFactory;
     private long leftDay;
 
     @Override
@@ -87,7 +89,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void startFling() {
-        marqueeFactory = new SimpleMF(this);
+        marqueeFactory = new ComplexViewMF(this);
         marqueeFactory.setData(datas);
         marqueeView.setMarqueeFactory(marqueeFactory);
         marqueeView.startFlipping();
@@ -152,7 +154,9 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         SharedPreferencesUtils.putString(this, Constant.TERMINAL_PWD, terminalDetail.getTerminalSign());
         leftDay = Utils.daysBetween( new Date(), terminalDetail.getInvalidationDate()) + 1;
         if (leftDay > 0 && leftDay <= 7) {
-            datas.add("账户有效期还有：" + leftDay + "天天卡积分卡拉就开了房间阿奎罗放假啊看了九分裤垃圾客服了解阿奎罗放假啊看积分卡接口将阿里积分卡积分卡拉九分裤垃圾了将阿奎罗放假啊六块腹肌");
+            Announcement announcement = new Announcement();
+            announcement.setContent("账户有效期还有：" + leftDay + "天");
+            datas.add(announcement);
         }
         Log.d("zzzz", datas.toString() + "saveData" + datas.size());
         if (datas.size() == 0) {
@@ -172,7 +176,8 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                 if (announcementBaseDto.getBusinessCode() == 200) {
                     Announcement announcement = announcementBaseDto.getResult();
                     if (announcement != null) {
-                        datas.add(announcement.getContent());
+                        announcement.setContent("说好的额哈哈放假卡号放假啊好风景啊好风景啊恢复健康哈放假哈接口就啊好积分哈积分哈就会");
+                        datas.add(announcement);
                     }
                     Log.d("zzzz", datas.toString() + "getAnnouncement" + datas.size());
                     if (datas.size() == 0) {
