@@ -71,11 +71,15 @@ public abstract class BaseActivity extends AppCompatActivity {
                 UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(Utils.getDateString(), usingApp.getPackageName());
                 if (usedPackageEntity != null) {
                     usedPackageEntity.setTime(usedPackageEntity.getTime() + (System.currentTimeMillis() - usingApp.getStartTime()) / 1000);
+                    usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
                 } else {
                     usedPackageEntity = new UsedPackageEntity();
                     usedPackageEntity.setDate(Utils.getDateString());
+                    //单个应用使用的保存
                     usedPackageEntity.setPackageName(usingApp.getPackageName());
+                    //记录使用时长
                     usedPackageEntity.setTime((System.currentTimeMillis() - usingApp.getStartTime()) / 1000);
+                    //记录上次使用时长
                     usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
                 }
                 usedPackageDao.insertUsedTime(usedPackageEntity);
@@ -107,6 +111,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private List<LearnTime> updateLearnTime(UsingApp usingApp) {
+        //查询当天的
         UsedTimeEntity usedTimeEntity = GlobalDatabase.getInstance(this).usedTimeDao().getUsedTimeEntity(Utils.getDateString());
         if (usedTimeEntity == null) {
             usedTimeEntity = new UsedTimeEntity();
