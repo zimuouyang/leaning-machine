@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.leaning_machine.R;
 import com.leaning_machine.base.dto.TopListModel;
+import com.leaning_machine.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class TopListAdapter extends RecyclerView.Adapter<TopListAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         TopListModel topListDto = list.get(position);
         holder.nameText.setText(topListDto.getUserName());
-        holder.timeText.setText(context.getString(R.string.study_time, topListDto.getTime() / 60));
+        holder.timeText.setText(context.getString(R.string.study_time) + Utils.parseSecondTime(topListDto.getTime()));
         holder.rankingText.setText(String.valueOf(topListDto.getIndex() + 1));
 
     }
