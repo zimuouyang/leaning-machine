@@ -70,7 +70,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 UsedPackageDao usedPackageDao = GlobalDatabase.getInstance(getApplicationContext()).usedPackageDao();
                 UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(Utils.getDateString(), usingApp.getPackageName());
                 if (usedPackageEntity != null) {
-                    usedPackageEntity.setTime(usedPackageEntity.getTime() + (System.currentTimeMillis() - usingApp.getStartTime()) / 1000);
+                    usedPackageEntity.setTime((System.currentTimeMillis() - usingApp.getStartTime()) / 1000);
                     usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
                 } else {
                     usedPackageEntity = new UsedPackageEntity();
