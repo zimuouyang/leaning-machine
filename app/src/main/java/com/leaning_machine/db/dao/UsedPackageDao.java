@@ -24,7 +24,7 @@ public interface UsedPackageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUsedTime(UsedPackageEntity usedPackageEntity);
 
-    @Query("SELECT * FROM used_package_time WHERE USED_DATE =:date AND PACKAGE_NAME =:packageName")
-    UsedPackageEntity getUsedTimeEntity(String date, String packageName);
+    @Query("SELECT * FROM used_package_time WHERE USED_DATE =:date")
+    UsedPackageEntity getUsedTimeEntity(String date);
 
 }

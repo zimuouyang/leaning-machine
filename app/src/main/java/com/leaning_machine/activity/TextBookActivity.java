@@ -145,7 +145,7 @@ public class TextBookActivity extends BaseActivity {
 
     private void initKaoShenJunList() {
         kaoShenJunList = new ArrayList<>();
-        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_quan_ce));
+        kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_quan_ce, "", getString(R.string.package_name_gao_zhong_quan_ce)));
         kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_english, "", getString(R.string.package_name_gao_zhong_english)));
         kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_language, "", getString(R.string.package_name_gao_zhong_chinese)));
         kaoShenJunList.add(new App(R.mipmap.kao_shen_jun_math, "", getString(R.string.package_name_gao_zhong_math)));

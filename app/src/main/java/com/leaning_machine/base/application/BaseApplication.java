@@ -144,13 +144,12 @@ public class BaseApplication extends Application {
             public void call(Subscriber<? super List<LearnTime>> subscriber) {
                 //插入当天应用使用的数据库
                 UsedPackageDao usedPackageDao = GlobalDatabase.getInstance(getApplicationContext()).usedPackageDao();
-                UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(Utils.getDateString(), usingApp.getPackageName());
+                UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(Utils.getDateString());
                 if (usedPackageEntity != null) {
                     usedPackageEntity.setTime(usedPackageEntity.getTime() + (System.currentTimeMillis() - usingApp.getStartTime()) / 1000 );
                 } else {
                     usedPackageEntity = new UsedPackageEntity();
                     usedPackageEntity.setDate(Utils.getDateString());
-                    usedPackageEntity.setPackageName(usingApp.getPackageName());
                     usedPackageEntity.setTime((System.currentTimeMillis() - usingApp.getStartTime()) / 1000 );
                     usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
                 }

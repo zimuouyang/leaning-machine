@@ -145,6 +145,10 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
         Observable.just(Boolean.TRUE).flatMap(new Func1<Boolean, Observable<UsedMax>>() {
             @Override
             public Observable<UsedMax> call(Boolean aBoolean) {
+                boolean isTeacher = SharedPreferencesUtils.getInt(context, Constant.ROLE, 0) == 1;
+                if (isTeacher) {
+                    return Observable.just(UsedMax.NORMAL);
+                }
                 //今日已使用超过时间
                 LearnTime todayUse = SharedPreferencesUtils.getObject(context, Constant.SP_TODAY_USE_TIME, LearnTime.class, null);
                 if (todayUse != null) {
@@ -153,10 +157,10 @@ public class ContentAppAdapter extends RecyclerView.Adapter<ContentAppAdapter.My
                     }
                 }
                 UsedPackageDao usedPackageDao = GlobalDatabase.getInstance(context.getApplicationContext()).usedPackageDao();
-                UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(Utils.getDateString(), packageName);
+                UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(Utils.getDateString());
                 if (usedPackageEntity != null && usedPackageEntity.getTime() > Constant.HALF_HOURS) {
                     //如果未超过15分钟，不可以打开
-                    if ((System.currentTimeMillis() / 1000 - usedPackageEntity.getLastUseTime()) <  Constant.FIFTEEN_MINUTES) {
+                    if ((System.currentTimeMillis() / 1000 - usedPackageEntity.getLastUseTime()) <  Constant.TEN_MINUTES) {
                         return Observable.just(UsedMax.SINGLE_APP_MAX);
                     }
                 }

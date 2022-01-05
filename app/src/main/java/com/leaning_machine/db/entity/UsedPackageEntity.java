@@ -17,10 +17,6 @@ public class UsedPackageEntity {
     private String date;
 
     @NonNull
-    @ColumnInfo(name = "PACKAGE_NAME")
-    private String packageName;
-
-    @NonNull
     @ColumnInfo(name = "LAST_TIME")
     private long lastUseTime;
 
@@ -45,14 +41,6 @@ public class UsedPackageEntity {
         this.date = date;
     }
 
-    @NonNull
-    public String getPackageName() {
-        return packageName;
-    }
-
-    public void setPackageName(@NonNull String packageName) {
-        this.packageName = packageName;
-    }
 
     public long getTime() {
         return time;
@@ -75,7 +63,6 @@ public class UsedPackageEntity {
         return "UsedPackageEntity{" +
                 "id=" + id +
                 ", date='" + date + '\'' +
-                ", packageName='" + packageName + '\'' +
                 ", lastUseTime=" + lastUseTime +
                 ", time=" + time +
                 '}';
