@@ -94,13 +94,13 @@
                     android:id="@+id/record"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="今日打卡"
+                    android:text="每日打卡"
                     android:textColor="#FF777777"
                     android:textSize="14sp" />
 
                 <View
                     android:id="@+id/record_line"
-                    android:layout_width="60dp"
+                    android:layout_width="80dp"
                     android:layout_height="2dp"
                     android:background="#FF91C53E"
                     android:visibility="visible" />
