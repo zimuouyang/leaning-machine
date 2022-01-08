@@ -269,6 +269,11 @@ public class Utils {
         return simpleDateFormat.format(new Date());
     }
 
+    public static String getDateString(Date date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(date);
+    }
+
     public static boolean isMobile(final String str) {
         Pattern p = null;
         Matcher m = null;
@@ -280,48 +285,71 @@ public class Utils {
     }
 
     //将数据保存在数据库中，保存为当天
-    public static UsedTimeEntity addTime(UsedTimeEntity usedTimeEntity, UsingApp usingApp, Context context) {
-        String packageName = usingApp.getPackageName();
-        long time = (System.currentTimeMillis() - usingApp.getStartTime()) / 1000;
+    public static UsedTimeEntity addTime(UsedTimeEntity usedTimeEntity, String packageName, long time, long startTime, Context context) {
 
-        LearnTime todayUse = SharedPreferencesUtils.getObject(context, Constant.SP_TODAY_USE_TIME, LearnTime.class, null);
-        if (todayUse == null || !todayUse.getCreateDate().equals(getDateString())) {
-            todayUse = new LearnTime();
-            todayUse.setCreateDate(getDateString());
-        }
+        if (startTime >= Utils.getTodayZero().getTime()) {
+            LearnTime todayUse = SharedPreferencesUtils.getObject(context, Constant.SP_TODAY_USE_TIME, LearnTime.class, null);
+            if (todayUse == null || !todayUse.getCreateDate().equals(getDateString())) {
+                todayUse = new LearnTime();
+                todayUse.setCreateDate(getDateString());
+            }
 
-        usedTimeEntity.setTotalLength(usedTimeEntity.getTotalLength() + time);
-        todayUse.setTotal(todayUse.getTotal() + time);
+            usedTimeEntity.setTotalLength(usedTimeEntity.getTotalLength() + time);
+            todayUse.setTotal(todayUse.getTotal() + time);
 
-        if (isExistPackageName(packageName, R.array.xue_pin_du_group, context)) {
-            usedTimeEntity.setPinDuLength(usedTimeEntity.getPinDuLength() + time);
-            todayUse.setSpelling(todayUse.getSpelling() + time);
-        } else if (isExistPackageName(packageName, R.array.mo_er_duo_group, context)) {
-            usedTimeEntity.setErDuoLength(usedTimeEntity.getErDuoLength() + time);
-            todayUse.setGrindEars(todayUse.getGrindEars() + time);
-        } else if (isExistPackageName(packageName, R.array.ai_yue_du_group, context)) {
-            usedTimeEntity.setYueDuLength(usedTimeEntity.getYueDuLength() + time);
-            todayUse.setLoveRead(todayUse.getLoveRead() + time);
-        } else if (isExistPackageName(packageName, R.array.qin_lian_xi_group, context)) {
-            usedTimeEntity.setLianXiLength(usedTimeEntity.getLianXiLength() + time);
-            todayUse.setPracticeFrequently(todayUse.getPracticeFrequently() + time);
-        } else if (isExistPackageName(packageName, R.array.bei_dan_ci_group, context)) {
-            usedTimeEntity.setDanCiLength(usedTimeEntity.getDanCiLength() + time);
-            todayUse.setReciteWords(todayUse.getReciteWords() + time);
-        } else if (isExistPackageName(packageName, R.array.qu_yi_zhi_group, context)) {
-            usedTimeEntity.setQuLeZhiLength(usedTimeEntity.getQuLeZhiLength() + time);
-            todayUse.setFluent(todayUse.getFluent() + time);
-        } else if (isExistPackageName(packageName, R.array.math_group, context)) {
-            usedTimeEntity.setMathLength(usedTimeEntity.getMathLength() + time);
-            todayUse.setMath(todayUse.getMath() + time);
-        } else if (isExistPackageName(packageName, R.array.yu_wen_group, context)) {
-            usedTimeEntity.setLanguageLength(usedTimeEntity.getLanguageLength() + time);
-            todayUse.setLanguage(todayUse.getLanguage() + time);
+            if (isExistPackageName(packageName, R.array.xue_pin_du_group, context)) {
+                usedTimeEntity.setPinDuLength(usedTimeEntity.getPinDuLength() + time);
+                todayUse.setSpelling(todayUse.getSpelling() + time);
+            } else if (isExistPackageName(packageName, R.array.mo_er_duo_group, context)) {
+                usedTimeEntity.setErDuoLength(usedTimeEntity.getErDuoLength() + time);
+                todayUse.setGrindEars(todayUse.getGrindEars() + time);
+            } else if (isExistPackageName(packageName, R.array.ai_yue_du_group, context)) {
+                usedTimeEntity.setYueDuLength(usedTimeEntity.getYueDuLength() + time);
+                todayUse.setLoveRead(todayUse.getLoveRead() + time);
+            } else if (isExistPackageName(packageName, R.array.qin_lian_xi_group, context)) {
+                usedTimeEntity.setLianXiLength(usedTimeEntity.getLianXiLength() + time);
+                todayUse.setPracticeFrequently(todayUse.getPracticeFrequently() + time);
+            } else if (isExistPackageName(packageName, R.array.bei_dan_ci_group, context)) {
+                usedTimeEntity.setDanCiLength(usedTimeEntity.getDanCiLength() + time);
+                todayUse.setReciteWords(todayUse.getReciteWords() + time);
+            } else if (isExistPackageName(packageName, R.array.qu_yi_zhi_group, context)) {
+                usedTimeEntity.setQuLeZhiLength(usedTimeEntity.getQuLeZhiLength() + time);
+                todayUse.setFluent(todayUse.getFluent() + time);
+            } else if (isExistPackageName(packageName, R.array.math_group, context)) {
+                usedTimeEntity.setMathLength(usedTimeEntity.getMathLength() + time);
+                todayUse.setMath(todayUse.getMath() + time);
+            } else if (isExistPackageName(packageName, R.array.yu_wen_group, context)) {
+                usedTimeEntity.setLanguageLength(usedTimeEntity.getLanguageLength() + time);
+                todayUse.setLanguage(todayUse.getLanguage() + time);
+            } else {
+                usedTimeEntity.setOtherLength(usedTimeEntity.getOtherLength() + time);
+                todayUse.setOthers(todayUse.getOthers() + time);
+            }
+            SharedPreferencesUtils.putObject(context, Constant.SP_TODAY_USE_TIME, todayUse);
+
         } else {
-            usedTimeEntity.setOtherLength(usedTimeEntity.getOtherLength() + time);
-            todayUse.setOthers(todayUse.getOthers() + time);
+            usedTimeEntity.setTotalLength(usedTimeEntity.getTotalLength() + time);
+
+            if (isExistPackageName(packageName, R.array.xue_pin_du_group, context)) {
+                usedTimeEntity.setPinDuLength(usedTimeEntity.getPinDuLength() + time);
+            } else if (isExistPackageName(packageName, R.array.mo_er_duo_group, context)) {
+                usedTimeEntity.setErDuoLength(usedTimeEntity.getErDuoLength() + time);
+            } else if (isExistPackageName(packageName, R.array.ai_yue_du_group, context)) {
+                usedTimeEntity.setYueDuLength(usedTimeEntity.getYueDuLength() + time);
+            } else if (isExistPackageName(packageName, R.array.qin_lian_xi_group, context)) {
+                usedTimeEntity.setLianXiLength(usedTimeEntity.getLianXiLength() + time);
+            } else if (isExistPackageName(packageName, R.array.bei_dan_ci_group, context)) {
+                usedTimeEntity.setDanCiLength(usedTimeEntity.getDanCiLength() + time);
+            } else if (isExistPackageName(packageName, R.array.qu_yi_zhi_group, context)) {
+                usedTimeEntity.setQuLeZhiLength(usedTimeEntity.getQuLeZhiLength() + time);
+            } else if (isExistPackageName(packageName, R.array.math_group, context)) {
+                usedTimeEntity.setMathLength(usedTimeEntity.getMathLength() + time);
+            } else if (isExistPackageName(packageName, R.array.yu_wen_group, context)) {
+                usedTimeEntity.setLanguageLength(usedTimeEntity.getLanguageLength() + time);
+            } else {
+                usedTimeEntity.setOtherLength(usedTimeEntity.getOtherLength() + time);
+            }
         }
-        SharedPreferencesUtils.putObject(context, Constant.SP_TODAY_USE_TIME, todayUse);
 
         return usedTimeEntity;
     }
@@ -333,7 +361,7 @@ public class Utils {
         SharedPreferencesUtils.clear(context);
     }
 
-    private Date getTodayZero() {
+    public static Date getTodayZero() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -343,7 +371,7 @@ public class Utils {
         return calendar.getTime();
     }
 
-    private Date getDateZero(Date date) {
+    public static Date getDateZero(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -353,7 +381,7 @@ public class Utils {
         return calendar.getTime();
     }
 
-    private Date getDateEnd(Date date) {
+    public static Date getDateEnd(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
@@ -366,6 +394,13 @@ public class Utils {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE, -1);
+        return calendar.getTime();
+    }
+
+    public static Date getAfterDate(Date date, int diff) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, diff);
         return calendar.getTime();
     }
 

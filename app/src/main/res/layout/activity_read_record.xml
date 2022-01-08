@@ -103,7 +103,7 @@
                     android:layout_width="80dp"
                     android:layout_height="2dp"
                     android:background="#FF91C53E"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </LinearLayout>
         </RelativeLayout>
 

@@ -154,4 +154,23 @@ public class LearnTime implements Serializable {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+
+    @Override
+    public String toString() {
+        return "LearnTime{" +
+                "total=" + total +
+                ", spelling=" + spelling +
+                ", grindEars=" + grindEars +
+                ", fluent=" + fluent +
+                ", loveRead=" + loveRead +
+                ", practiceFrequently=" + practiceFrequently +
+                ", reciteWords=" + reciteWords +
+                ", language=" + language +
+                ", math=" + math +
+                ", others=" + others +
+                ", createDate='" + createDate + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
 }

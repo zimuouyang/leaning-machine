@@ -27,6 +27,7 @@ public class Constant {
     public static int TWO_HOURS = 2 * 60 * 60;
     public static int HALF_HOURS = 30 * 60;
     public static int TEN_MINUTES = 10 * 60;
+    public static long ONE_DAY = 1000 * 60 * 60 * 24;
     public static String SP_TODAY_USE_TIME = "SP_TODAY_USE_TIME";
 
 }

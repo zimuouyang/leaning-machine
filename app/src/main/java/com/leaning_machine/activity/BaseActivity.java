@@ -25,6 +25,7 @@ import com.leaning_machine.utils.SharedPreferencesUtils;
 import com.leaning_machine.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import rx.Observable;
@@ -60,38 +61,51 @@ public abstract class BaseActivity extends AppCompatActivity {
             saveAppTime(usingApp);
         }
     }
-
-
     private void saveAppTime(UsingApp usingApp) {
+        SharedPreferencesUtils.putObject(getApplicationContext(), Constant.USING_PACKAGE, null);
         Observable.create(new Observable.OnSubscribe<List<LearnTime>>() {
             @Override
             public void call(Subscriber<? super List<LearnTime>> subscriber) {
                 //插入当天应用使用的数据库
                 UsedPackageDao usedPackageDao = GlobalDatabase.getInstance(getApplicationContext()).usedPackageDao();
                 UsedPackageEntity usedPackageEntity = usedPackageDao.getUsedTimeEntity(Utils.getDateString());
-                if (usedPackageEntity != null) {
-                    usedPackageEntity.setTime((System.currentTimeMillis() - usingApp.getStartTime()) / 1000);
-                    usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
+
+                //如果是跨天,就记录今天开始到当前时间
+                if (usingApp.getStartTime() < Utils.getTodayZero().getTime()) {
+                    if (usedPackageEntity != null) {
+                        usedPackageEntity.setTime((System.currentTimeMillis() - Utils.getTodayZero().getTime()) / 1000);
+                        usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
+                    } else {
+                        usedPackageEntity = new UsedPackageEntity();
+                        usedPackageEntity.setDate(Utils.getDateString());
+                        //记录使用时长
+                        usedPackageEntity.setTime((System.currentTimeMillis() - Utils.getTodayZero().getTime()) / 1000);
+                        //记录上次使用时长
+                        usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
+                    }
                 } else {
-                    usedPackageEntity = new UsedPackageEntity();
-                    usedPackageEntity.setDate(Utils.getDateString());
-                    //记录使用时长
-                    usedPackageEntity.setTime((System.currentTimeMillis() - usingApp.getStartTime()) / 1000);
-                    //记录上次使用时长
-                    usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
+                    if (usedPackageEntity != null) {
+                        usedPackageEntity.setTime((System.currentTimeMillis() - usingApp.getStartTime()) / 1000);
+                        usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
+                    } else {
+                        usedPackageEntity = new UsedPackageEntity();
+                        usedPackageEntity.setDate(Utils.getDateString());
+                        //记录使用时长
+                        usedPackageEntity.setTime((System.currentTimeMillis() - usingApp.getStartTime()) / 1000);
+                        //记录上次使用时长
+                        usedPackageEntity.setLastUseTime(System.currentTimeMillis() / 1000);
+                    }
                 }
+
                 usedPackageDao.insertUsedTime(usedPackageEntity);
 
-
                 //插入总的数据库并上传
-
                 subscriber.onNext(updateLearnTime(usingApp));
                 subscriber.onCompleted();
             }
         }).subscribeOn(Schedulers.newThread()).flatMap(new Func1<List<LearnTime>, Observable<BaseDto>>() {
             @Override
             public Observable<BaseDto> call(List<LearnTime> learnTimes) {
-                SharedPreferencesUtils.putObject(getApplicationContext(), Constant.USING_PACKAGE, null);
                 return CommonApiService.instance.addLearnTime(learnTimes);
             }
         }).observeOn(Schedulers.io()).subscribe(new DefaultObserver<BaseDto>() {
@@ -99,7 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             public void onNext(BaseDto baseDto) {
                 super.onNext(baseDto);
                 if (baseDto != null && baseDto.getBusinessCode() == 200) {
-                    GlobalDatabase.getInstance(BaseActivity.this).usedTimeDao().deleteAll();
+                    GlobalDatabase.getInstance(getApplicationContext()).usedTimeDao().deleteAll();
                 } else if (baseDto != null && baseDto.getBusinessCode() == Constant.INVALID_CODE) {
                     Utils.goToLogin(getApplicationContext());
                 }
@@ -109,14 +123,34 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private List<LearnTime> updateLearnTime(UsingApp usingApp) {
-        //查询当天的
-        UsedTimeEntity usedTimeEntity = GlobalDatabase.getInstance(this).usedTimeDao().getUsedTimeEntity(Utils.getDateString());
-        if (usedTimeEntity == null) {
-            usedTimeEntity = new UsedTimeEntity();
-            usedTimeEntity.setDate(Utils.getDateString());
+        Log.d("zzz", usingApp.getPackageName() + " --- " + usingApp.getStartTime());
+        //假如说没有跨天
+        if (usingApp.getStartTime() >= Utils.getTodayZero().getTime()) {
+            UsedTimeEntity usedTimeEntity = GlobalDatabase.getInstance(this).usedTimeDao().getUsedTimeEntity(Utils.getDateString());
+            if (usedTimeEntity == null) {
+                usedTimeEntity = new UsedTimeEntity();
+                usedTimeEntity.setDate(Utils.getDateString());
+            }
+            Utils.addTime(usedTimeEntity, usingApp.getPackageName(), (System.currentTimeMillis() - usingApp.getStartTime()) / 1000, usingApp.getStartTime(), this);
+            GlobalDatabase.getInstance(this).usedTimeDao().insertUsedTime(usedTimeEntity);
+        } else {
+            //跨天逻辑
+            Log.d("zzz", "跨天");
+            //第一天的数据
+            Date startDate = new Date(usingApp.getStartTime());
+            long firstDayEndTime =  Utils.getDateEnd(startDate).getTime();
+            collectTime(startDate, usingApp.getPackageName(),  (Utils.getDateEnd(startDate).getTime() - usingApp.getStartTime()) / 1000, usingApp.getStartTime());
+
+            //跨天全部设置为24小时
+            long crossDay = (System.currentTimeMillis() - firstDayEndTime) / Constant.ONE_DAY;
+            for (int i = 0; i < crossDay; i++) {
+                collectTime(Utils.getAfterDate(startDate, i + 1), usingApp.getPackageName(), Constant.ONE_DAY / 1000, Utils.getDateZero(Utils.getAfterDate(startDate, i + 1)).getTime());
+            }
+
+            //处理今天的
+            collectTime(new Date(), usingApp.getPackageName(), (System.currentTimeMillis() - Utils.getTodayZero().getTime()) / 1000, Utils.getTodayZero().getTime());
+
         }
-        Utils.addTime(usedTimeEntity, usingApp, this);
-        GlobalDatabase.getInstance(this).usedTimeDao().insertUsedTime(usedTimeEntity);
 
 
         List<UsedTimeEntity> usedTimeEntities = GlobalDatabase.getInstance(this).usedTimeDao().getAll();
@@ -140,7 +174,18 @@ public abstract class BaseActivity extends AppCompatActivity {
                 learnTimes.add(learnTime);
             }
         }
+        Log.d("zzz", learnTimes.toString());
         return learnTimes;
+    }
+
+    private void collectTime(Date startDate, String packageName, long time, long startTime) {
+        UsedTimeEntity usedTimeEntity = GlobalDatabase.getInstance(this).usedTimeDao().getUsedTimeEntity(Utils.getDateString(startDate));
+        if (usedTimeEntity == null) {
+            usedTimeEntity = new UsedTimeEntity();
+            usedTimeEntity.setDate(Utils.getDateString(startDate));
+        }
+        Utils.addTime(usedTimeEntity, packageName, time, startTime, this);
+        GlobalDatabase.getInstance(this).usedTimeDao().insertUsedTime(usedTimeEntity);
     }
 
     public abstract void initView();
