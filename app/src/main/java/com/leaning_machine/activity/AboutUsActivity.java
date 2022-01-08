@@ -52,9 +52,6 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
             case R.id.about_app_manage:
                 startActivity(new Intent(this, AppManagerActivity.class));
                 break;
-            case R.id.about_one_clean:
-                oneClean();
-                break;
             case R.id.play:
                 finish();
                 break;
@@ -76,52 +73,6 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
             //把数组置为空并重写初始化，为下一次三击（双击或多击）做准备
             mHits = null;
             mHits = new long[3];
-        }
-    }
-
-    private void oneClean() {
-        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> infoList = am.getRunningAppProcesses();
-
-        int count = 0;
-        if (infoList != null) {
-            for (int i = 0; i < infoList.size(); ++i) {
-                ActivityManager.RunningAppProcessInfo appProcessInfo = infoList.get(i);
-
-                if (appProcessInfo.importance > ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
-                    String[] pkgList = appProcessInfo.pkgList;
-                    for (int j = 0; j < pkgList.length; ++j) {//pkgList 得到该进程下运行的包名
-                        Log.d(TAG, "It will be killed, package name : " + pkgList[j]);
-                        am.killBackgroundProcesses(pkgList[j]);
-                        count++;
-                    }
-                }
-
-            }
-        }
-
-        showProgress();
-        Observable.just(Boolean.TRUE).delay(4, TimeUnit.SECONDS).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new DefaultObserver<Boolean>() {
-            @Override
-            public void onNext(Boolean aBoolean) {
-                super.onNext(aBoolean);
-                dismissWindowDialog();
-            }
-        });
-
-    }
-
-    public void showProgress() {
-        if (dialog != null && dialog.isShowing()) {
-            return;
-        }
-        dialog = new LoadingAlertDialog(this);
-        dialog.show(getString(R.string.msg_clean));
-    }
-
-    public void dismissWindowDialog() {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
         }
     }
 }

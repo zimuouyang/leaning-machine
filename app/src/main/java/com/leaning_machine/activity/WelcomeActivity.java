@@ -1,5 +1,6 @@
 package com.leaning_machine.activity;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import com.leaning_machine.base.dto.TerminalSign;
 import com.leaning_machine.common.service.CommonApiService;
 import com.leaning_machine.domain.DefaultObserver;
 import com.leaning_machine.layout.ComplexViewMF;
+import com.leaning_machine.layout.LoadingAlertDialog;
 import com.leaning_machine.layout.PasswordDialog;
 import com.leaning_machine.model.VoiceType;
 import com.leaning_machine.utils.SharedPreferencesUtils;
@@ -59,6 +61,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
     List<Announcement> datas;
     ComplexViewMF marqueeFactory;
     private long leftDay;
+    private LoadingAlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         goMath.setOnClickListener(this);
         goLanguage.setOnClickListener(this);
         goTextBook.setOnClickListener(this);
+        findViewById(R.id.one_clean).setOnClickListener(this);
 
         datas = new ArrayList<>();
         marqueeView.setVisibility(View.GONE);
@@ -158,7 +162,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             announcement.setContent("账户有效期还有：" + leftDay + "天");
             datas.add(announcement);
         }
-        Log.d("zzzz", datas.toString() + "saveData" + datas.size());
         if (datas.size() == 0) {
             marqueeView.setVisibility(View.GONE);
         } else {
@@ -178,7 +181,6 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
                     if (announcement != null) {
                         datas.add(announcement);
                     }
-                    Log.d("zzzz", datas.toString() + "getAnnouncement" + datas.size());
                     if (datas.size() == 0) {
                         marqueeView.setVisibility(View.GONE);
                     } else {
@@ -234,9 +236,55 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
             case R.id.welcome_textbook:
                 startActivity(new Intent(this, TextBookActivity.class));
                 break;
-            case R.id.task:
-
+            case R.id.one_clean:
+                oneClean();
                 break;
+        }
+    }
+
+    private void oneClean() {
+        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> infoList = am.getRunningAppProcesses();
+
+        int count = 0;
+        if (infoList != null) {
+            for (int i = 0; i < infoList.size(); ++i) {
+                ActivityManager.RunningAppProcessInfo appProcessInfo = infoList.get(i);
+
+                if (appProcessInfo.importance > ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE) {
+                    String[] pkgList = appProcessInfo.pkgList;
+                    for (int j = 0; j < pkgList.length; ++j) {//pkgList 得到该进程下运行的包名
+                        Log.d("WelcomeActivity", "It will be killed, package name : " + pkgList[j]);
+                        am.killBackgroundProcesses(pkgList[j]);
+                        count++;
+                    }
+                }
+
+            }
+        }
+
+        showProgress();
+        Observable.just(Boolean.TRUE).delay(4, TimeUnit.SECONDS).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new DefaultObserver<Boolean>() {
+            @Override
+            public void onNext(Boolean aBoolean) {
+                super.onNext(aBoolean);
+                dismissWindowDialog();
+            }
+        });
+
+    }
+
+    public void showProgress() {
+        if (dialog != null && dialog.isShowing()) {
+            return;
+        }
+        dialog = new LoadingAlertDialog(this);
+        dialog.show(getString(R.string.msg_clean));
+    }
+
+    public void dismissWindowDialog() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
         }
     }
 }

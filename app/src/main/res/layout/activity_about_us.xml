@@ -79,6 +79,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:visibility="gone"
             android:text="一键清理"
             android:textColor="#FF161616"
             android:textSize="14sp"
