@@ -148,7 +148,7 @@ public class WelcomeActivity extends BaseActivity implements View.OnClickListene
         SharedPreferencesUtils.putString(this, Constant.USER_NAME, terminalDetail.getName());
         SharedPreferencesUtils.putLong(this, Constant.MAX_DAY, terminalDetail.getMaxContinuousDay());
         SharedPreferencesUtils.putLong(this, Constant.CURRENT_DAY, terminalDetail.getCurrentContinuousDay());
-        SharedPreferencesUtils.putLong(this, Constant.TOTAL_DAY, Utils.daysBetween(terminalDetail.getFirstLoginDate(), new Date()) + 1);
+        SharedPreferencesUtils.putLong(this, Constant.TOTAL_DAY, terminalDetail.getTotalDay() > 0 ? terminalDetail.getTotalDay() : 1);
         SharedPreferencesUtils.putLong(this, Constant.TERMINAL_ID, terminalDetail.getId());
         SharedPreferencesUtils.putInt(this, Constant.ROLE, terminalDetail.getRole());
         SharedPreferencesUtils.putString(this, Constant.TERMINAL_PWD, terminalDetail.getTerminalSign());

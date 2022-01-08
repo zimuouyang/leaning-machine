@@ -35,6 +35,9 @@ public class TerminalDetail implements Serializable {
     @SerializedName("currentContinuousDay")
     private int currentContinuousDay;
     @Expose
+    @SerializedName("totalDay")
+    private int totalDay;
+    @Expose
     @SerializedName("role")
     private int role;
     @Expose
@@ -127,6 +130,14 @@ public class TerminalDetail implements Serializable {
 
     public void setTerminalSign(String terminalSign) {
         this.terminalSign = terminalSign;
+    }
+
+    public int getTotalDay() {
+        return totalDay;
+    }
+
+    public void setTotalDay(int totalDay) {
+        this.totalDay = totalDay;
     }
 
     @Override

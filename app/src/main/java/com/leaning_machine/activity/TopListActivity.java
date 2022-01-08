@@ -64,10 +64,12 @@ public class TopListActivity extends BaseActivity implements View.OnClickListene
                     public void call(BaseDto<TopListResultModel> topListResultModelBaseDto) {
                         refreshLayout.finishRefresh();
                         if (topListResultModelBaseDto.getBusinessCode() == 200) {
-                            dayList = topListResultModelBaseDto.getResult().getDayList();
-                            monthList = topListResultModelBaseDto.getResult().getMonthList();
-                            totalList = topListResultModelBaseDto.getResult().getTotalList();
-                            setTopList();
+                            if (topListResultModelBaseDto.getResult() != null) {
+                                dayList = topListResultModelBaseDto.getResult().getDayList();
+                                monthList = topListResultModelBaseDto.getResult().getMonthList();
+                                totalList = topListResultModelBaseDto.getResult().getTotalList();
+                                setTopList();
+                            }
                         } else if (topListResultModelBaseDto.getBusinessCode() == Constant.INVALID_CODE){
                             Utils.goToLogin(TopListActivity.this);
                         }
@@ -124,8 +126,10 @@ public class TopListActivity extends BaseActivity implements View.OnClickListene
         } else {
             list = dayList;
         }
-        topListAdapter.setData(list);
-        setTitle(list);
+        if (list != null && list.size() > 0) {
+            topListAdapter.setData(list);
+            setTitle(list);
+        }
     }
 
     private void setTitle(List<TopListModel> currentList) {
