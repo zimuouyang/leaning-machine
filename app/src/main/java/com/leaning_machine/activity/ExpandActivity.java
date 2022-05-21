@@ -82,7 +82,7 @@ public class ExpandActivity extends BaseActivity {
         }
         appList = new ArrayList<>();
         for (DownloadHistory downloadHistory: downloadList) {
-            if (!isExistPackageName(downloadHistory.getPackageName(),R.array.total_array, this) && Utils.checkAppInstalled(this, downloadHistory.getPackageName())) {
+            if (!isExistPackageName(downloadHistory.getPackageName(),R.array.total_array, this)) {
               App app = new App();
               app.setName(downloadHistory.getAppName());
               app.setPackageName(downloadHistory.getPackageName());

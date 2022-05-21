@@ -114,7 +114,6 @@ public class EnglishActivity extends BaseActivity {
         topWithContentLayout.addTitle(titles, new TopWithContentLayout.TitleClick() {
             @Override
             public void onClick(int index, String title) {
-                topWithContentLayout.setTopContent(topContents.get(index), getDrawable(topImgIds.get(index)));
                 switch (index) {
                     case 0:
                         topWithContentLayout.setAppList(pinDuList);
@@ -135,6 +134,9 @@ public class EnglishActivity extends BaseActivity {
                         checkPermission();
                         break;
                 }
+                if (index != 5) {
+                    topWithContentLayout.setTopContent(topContents.get(index), getDrawable(topImgIds.get(index)));
+                }
             }
         });
 
@@ -146,12 +148,14 @@ public class EnglishActivity extends BaseActivity {
     private void checkPermission() {
         if (SharedPreferencesUtils.getInt(this, Constant.ROLE, 0) == 1) {
             topWithContentLayout.setAppList(quYiZhiList);
+            topWithContentLayout.setTopContent(topContents.get(5), getDrawable(topImgIds.get(5)));
         } else {
             PasswordDialog passwordDialog = new PasswordDialog.Builder().context(this).type(VoiceType.PASSWORD).build();
             passwordDialog.setPasswordClick(new PasswordDialog.PasswordClick() {
                 @Override
                 public void onSuccess() {
                     topWithContentLayout.setAppList(quYiZhiList);
+                    topWithContentLayout.setTopContent(topContents.get(5), getDrawable(topImgIds.get(5)));
                 }
             });
             passwordDialog.show();

@@ -191,11 +191,6 @@
 
 
     <string-array name="total_array">
-        <item>@string/package_name_qq</item>
-        <item>@string/package_name_ding_ding</item>
-        <item>@string/package_name_we_chat</item>
-
-
         <item>@string/package_name_du_du_math</item>
         <item>@string/package_name_moose_math</item>
         <item>@string/package_name_pythagorea</item>
